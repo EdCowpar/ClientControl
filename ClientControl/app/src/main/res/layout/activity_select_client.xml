@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.edcowpar.clientcontrol.SelectClientActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/etSerialNo"
+        android:layout_marginTop="10dp"
+        android:id="@+id/tvSerialNo"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/etSerialNo"
+        android:ems="5"
+        android:inputType="number"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/tvSerialNo" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Modify"
+        android:id="@+id/btnModify"
+        android:layout_alignBottom="@+id/etSerialNo"
+        android:layout_toRightOf="@+id/etSerialNo"
+        android:layout_toEndOf="@+id/etSerialNo" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search by Serial Number"
+        android:id="@+id/btnSearchNo"
+        android:layout_below="@+id/etSerialNo"
+        android:layout_marginTop="4dp"
+        android:ems="13"
+        android:layout_toRightOf="@+id/tvSerialNo"
+        android:layout_toEndOf="@+id/tvSerialNo" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search by Name"
+        android:id="@+id/btnSearchName"
+        android:layout_below="@+id/btnSearchNo"
+        android:layout_marginTop="4dp"
+        android:ems="13"
+        android:layout_toRightOf="@+id/tvSerialNo"
+        android:layout_toEndOf="@+id/tvSerialNo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="System Type"
+        android:id="@+id/textView"
+        android:layout_below="@+id/btnSearchName"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="134dp"
+        android:layout_marginEnd="134dp" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:entries="@array/system_types"
+        android:prompt="@string/system_prompt"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnBack"
+        android:id="@+id/btnBack"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="16dp" />
+
+</RelativeLayout>

@@ -1,0 +1,60 @@
+<resources>
+    <string name="app_name">ClientControl Rel-704.0</string>
+    <string name="addClient">Add a New Client</string>
+    <string name="ModifyClient">Modify Client</string>
+    <string name="SelectClient">Select Client</string>
+
+    <string name="system_prompt">Select System Type</string>
+    <string-array name="system_types">
+        <item></item>
+        <item>PayLite</item>
+        //1
+        <item>PayMini</item>
+        //2
+        <item>PaySlip</item>
+        //3
+        <item>AgriPay</item>
+        //4
+        <item>SBLITE</item>
+        //5
+        <item>SBPAY</item>
+        //6
+        <item>SBASE</item>
+        //7
+        <item>SBPOS</item>
+        //8
+        <item>SBOFFICE</item>
+        //9
+    </string-array>
+
+    <string name="btnBack">Back</string>
+    <string name="btnCancel">Cancel</string>
+    <string name="btnSearch">Search</string>
+    <string name="btnModify">Update</string>
+    <string name="btnAdd">Add</string>
+
+    <string name="etSerialNo">SerialNo</string>
+    <string name="etClientName">Client Name</string>
+    <string name="etAddress">Postal Address</string>
+    <string name="etContactNumber">Contact Number</string>
+    <string name="etContactName">Contact Name</string>
+    <string name="etEmailAddress">Email Address</string>
+    <string name="etPayeNo">Paye Number</string>
+    <string name="etSdlNo">Sdl Number</string>
+    <string name="etUifNo">Uif Number</string>
+    <string name="etExpiryDate">Expiry Date</string>
+    <string name="etAnnualLicence">Annual Licence</string>
+    <string name="etVolume">Volume</string>
+    <string name="etInstallPin">Install Pin</string>
+
+    <string name="tvConsultant">Consultant</string>
+    <string name="tvSystemType">System Type</string>
+
+    <string name="ckPaid">Paid</string>
+    <string name="ckInCloud">In Cloud</string>
+    <string name="ckPdfModule">Pdf Module</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
