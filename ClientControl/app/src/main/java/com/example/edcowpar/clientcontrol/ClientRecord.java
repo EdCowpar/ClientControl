@@ -26,5 +26,4 @@ public class ClientRecord {
     String PDFModule;
     String Consultant;
     String InCloud;
-    String errMessage;
 }

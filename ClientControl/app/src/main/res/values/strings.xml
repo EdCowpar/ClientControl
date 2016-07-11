@@ -25,7 +25,10 @@
         //8
         <item>SBOFFICE</item>
         //9
+        <item>Not Set</item>
+
     </string-array>
+    <string name="title_item_detail">Item Detail</string>
 
     <string name="btnBack">Back</string>
     <string name="btnCancel">Cancel</string>

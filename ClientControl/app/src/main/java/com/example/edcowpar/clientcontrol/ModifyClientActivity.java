@@ -21,6 +21,7 @@ public class ModifyClientActivity extends AppCompatActivity {
     private Spinner spSystemType, spConsultant;
     private Integer i;
     private Button btnBack, btnDate;
+    private ComboItems ci;
 
 
     @Override
@@ -61,11 +62,10 @@ public class ModifyClientActivity extends AppCompatActivity {
         ClientRecord c = sq.getClient(strClientNo);   //Read Record
         // Populate Consultants
         // Spinner Drop down elements
-        List<String> lables = sq.getAllConsultants();
-
+        ci = sq.getAllConsultants();
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, lables);
+                android.R.layout.simple_spinner_item, ci.Description);
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // attaching data adapter to spinner
