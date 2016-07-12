@@ -11,70 +11,73 @@
 
 
     <ImageButton
+        android:id="@+id/newClient"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:id="@+id/newClient"
-        android:onClick="AddClient"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_margin="10dp"
-        android:src="@drawable/manwoman"
-        android:scaleType="fitCenter"
         android:clickable="true"
+        android:contentDescription="@string/addClient"
+        android:onClick="AddClient"
+        android:scaleType="fitCenter"
+        android:src="@drawable/manwoman"
         />
 
     <TextView
+        android:id="@+id/label1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Client"
-        android:id="@+id/label1"
-        android:textSize="20sp"
-        android:layout_below="@+id/newClient"
         android:layout_alignLeft="@+id/newClient"
-        android:layout_alignStart="@+id/newClient" />
+        android:layout_alignStart="@+id/newClient"
+        android:layout_below="@+id/newClient"
+        android:text="New Client"
+        android:textSize="20sp" />
 
     <ImageButton
+        android:id="@+id/modifyClient"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:id="@+id/modifyClient"
-        android:onClick="SelectClient"
-        android:src="@drawable/manwoman"
-        android:scaleType="fitCenter"
-        android:clickable="true"
         android:layout_alignTop="@+id/newClient"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:clickable="true"
+        android:contentDescription="@string/ModifyClient"
+        android:onClick="SelectClient"
+        android:scaleType="fitCenter"
+        android:src="@drawable/manwoman" />
 
     <TextView
+        android:id="@+id/label2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Modify Client"
-        android:id="@+id/label2"
-        android:layout_margin="10dp"
-        android:layout_below="@+id/modifyClient"
         android:layout_alignLeft="@+id/modifyClient"
+        android:layout_below="@+id/modifyClient"
+        android:layout_margin="10dp"
+        android:text="Modify Client"
         android:textSize="20sp"
          />
 
     <ImageButton
+        android:id="@+id/btnReport"
         android:layout_width="100dp"
         android:layout_height="100dp"
-         android:id="@+id/btnReport"
-        android:src="@drawable/reports1"
-        android:scaleType="fitCenter"
-        android:clickable="true"
-        android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/label1"
-        android:layout_alignStart="@+id/label1" />
+        android:layout_alignStart="@+id/label1"
+        android:layout_centerVertical="true"
+        android:clickable="true"
+        android:contentDescription="@string/reports"
+        android:scaleType="fitCenter"
+        android:src="@drawable/reports1" />
 
     <TextView
+        android:id="@+id/label3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Expiry Dates"
-        android:id="@+id/label3"
-        android:textSize="20sp"
-        android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/label2"
-        android:layout_alignStart="@+id/label2" />
+        android:layout_alignStart="@+id/label2"
+        android:layout_centerVertical="true"
+        android:text="Expiry Dates"
+        android:textSize="20sp" />
 
 </RelativeLayout>

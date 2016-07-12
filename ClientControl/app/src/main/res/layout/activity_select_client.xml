@@ -10,84 +10,155 @@
     tools:context="com.example.edcowpar.clientcontrol.SelectClientActivity">
 
     <TextView
+        android:id="@+id/tvSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/etSerialNo"
-        android:layout_marginTop="10dp"
-        android:id="@+id/tvSerialNo"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/tvSearch" />
 
     <EditText
+        android:id="@+id/etSearchText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/etSerialNo"
-        android:ems="5"
-        android:inputType="number"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/tvSerialNo" />
+        android:layout_toRightOf="@+id/tvSystemType"
+        android:ems="8"
+        android:inputType="number" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Modify"
         android:id="@+id/btnModify"
-        android:layout_alignBottom="@+id/etSerialNo"
-        android:layout_toRightOf="@+id/etSerialNo"
-        android:layout_toEndOf="@+id/etSerialNo" />
-
-    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search by Serial Number"
+        android:layout_alignBottom="@+id/etSearchText"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/etSearchText"
+        android:text="Modify" />
+
+    <Button
         android:id="@+id/btnSearchNo"
-        android:layout_below="@+id/etSerialNo"
-        android:layout_marginTop="4dp"
-        android:ems="13"
-        android:layout_toRightOf="@+id/tvSerialNo"
-        android:layout_toEndOf="@+id/tvSerialNo" />
-
-    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search by Name"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/etSearchText"
+        android:layout_marginTop="4dp"
+        android:layout_toRightOf="@+id/tvSystemType"
+        android:ems="13"
+        android:text="Search by Serial Number" />
+
+    <Button
         android:id="@+id/btnSearchName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/btnSearchNo"
         android:layout_marginTop="4dp"
+        android:layout_toRightOf="@+id/tvSystemType"
         android:ems="13"
-        android:layout_toRightOf="@+id/tvSerialNo"
-        android:layout_toEndOf="@+id/tvSerialNo" />
+        android:text="Search by Name" />
+
+    <View
+        android:id="@+id/input_layout_h1"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/btnSearchName"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:background="@android:color/darker_gray" />
 
     <TextView
+        android:id="@+id/tvSystemType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="System Type"
-        android:id="@+id/textView"
-        android:layout_below="@+id/btnSearchName"
         android:layout_alignParentLeft="true"
+        android:layout_below="@+id/input_layout_h1"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="134dp"
-        android:layout_marginEnd="134dp" />
+        android:text="System Type" />
 
     <Spinner
+        android:id="@+id/spSystemType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/input_layout_h1"
+        android:layout_margin="7dp"
+        android:layout_toRightOf="@+id/tvSystemType"
+        android:entries="@array/system_types"
+        android:prompt="@string/system_prompt" />
+
+    <View
+        android:id="@+id/input_layout_h2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/tvSystemType"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/tvConsultant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner"
-        android:entries="@array/system_types"
-        android:prompt="@string/system_prompt"
-        android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/input_layout_h2"
+        android:layout_marginTop="10dp"
+        android:text="@string/tvConsultant" />
+
+    <Spinner
+        android:id="@+id/spConsultant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/input_layout_h2"
+        android:layout_margin="7dp"
+        android:layout_toRightOf="@+id/tvSystemType"
+        android:entries="@array/system_types"
+        android:prompt="@string/tvConsultant" />
+
+    <View
+        android:id="@+id/input_layout_h3"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/spConsultant"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/tvExpiryDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/input_layout_h3"
+        android:layout_marginTop="12dp"
+        android:text="@string/tvExpiryDate" />
+
+    <EditText
+        android:id="@+id/etExpiryDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/input_layout_h3"
+        android:layout_toRightOf="@+id/tvSystemType"
+        android:ems="8"
+        android:focusable="false"
+        android:inputType="none" />
 
     <Button
+        android:id="@+id/btnDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btnBack"
+        android:layout_alignBottom="@+id/etExpiryDate"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/etSearchText"
+        android:onClick="showDatePickerDialog"
+        android:text="..." />
+
+    <Button
         android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:text="@string/btnBack" />
+
 
 </RelativeLayout>

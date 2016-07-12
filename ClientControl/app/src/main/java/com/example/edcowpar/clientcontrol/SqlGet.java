@@ -42,7 +42,7 @@ public class SqlGet {
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
         cn = null;
-        String ConnURL = null;
+        String ConnURL;
         try {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
             ConnURL = "jdbc:jtds:sqlserver://winsqls01.cpt.wa.co.za;databaseName=sbLic;user=sbUser;password=User2013;";
@@ -64,13 +64,13 @@ public class SqlGet {
      * Getting all labels
      * returns list of labels
      */
-    public ComboItems getAllConsultants() {
+    public ComboItems getAllConsultants(String BlankDescription) {
         ComboItems ci = new ComboItems();
         ci.Code = new ArrayList<String>();
         ci.Description = new ArrayList<String>();
 
         ci.Code.add(" ");
-        ci.Description.add("Not Set");
+        ci.Description.add(BlankDescription);
         ci.Count = 1;
 
         String sql = "select * from sbUsers ";
@@ -193,7 +193,7 @@ public class SqlGet {
             rs = statement.executeQuery(sql);
 
             while (rs.next()) {
-                c.RecNo = rs.getString("RecNo").toString();
+                c.RecNo = rs.getString("RecNo");
                 c.ClientNo = rs.getString("ClientNo");
                 c.ClientName = rs.getString("ClientName");
                 c.ContactName = rs.getString("ContactName");
@@ -223,11 +223,25 @@ public class SqlGet {
 
     }
 
-    public List<ClientRecord> getAllClients() {
+    public List<ClientRecord> getAllClients(String Search, String Sequence) {
         List<ClientRecord> Clients = new ArrayList<ClientRecord>();
-        String str;
+        String sql, order, where;
 
-        String sql = "select * from sbClients ORDER BY ClientName";
+        switch (Sequence) {
+            case "ClientName":
+                order = "ORDER BY ClientName";
+                where = "WHERE ClientName LIKE '" + Search + "%' ";
+                break;
+            case "ClientNo":
+                order = "ORDER BY ClientNo";
+                where = "WHERE ClientNo LIKE '" + Search + "%' ";
+                break;
+            default:
+                order = "ORDER BY ClientNo";
+                where = "";
+        }
+
+        sql = "select * from sbClients " + where + order;
         ResultSet rs;
 
         try {
@@ -264,7 +278,7 @@ public class SqlGet {
 
             }
         } catch (SQLException e) {
-            eMes = e.getMessage().toString();
+            eMes = e.getMessage();
         }
 
         return Clients;

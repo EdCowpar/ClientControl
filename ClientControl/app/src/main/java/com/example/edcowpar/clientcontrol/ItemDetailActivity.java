@@ -38,6 +38,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         //get parameter in extra
         Bundle b = getIntent().getExtras();
         strClientNo = b.getString("ClientNo");
+        assert toolbar != null;
         toolbar.setTitle("ClientNo " + strClientNo);
         setSupportActionBar(toolbar);
         // Setup Fields
@@ -60,7 +61,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         ckPdfModule = (CheckBox) findViewById(R.id.ckPdfModule);
         ckInCloud = (CheckBox) findViewById(R.id.ckInCloud);
         btnBack = (Button) findViewById(R.id.btnBack);
-        btnDate = (Button) findViewById(R.id.btnBack);
+        btnDate = (Button) findViewById(R.id.btnDate);
         btnModify = (Button) findViewById(R.id.btnModify);
         //set Filters
         etClientName.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
@@ -71,9 +72,9 @@ public class ItemDetailActivity extends AppCompatActivity {
         c = sq.getClient(strClientNo);   //Read Record
         // Populate Consultants
         // Spinner Drop down elements
-        ci = sq.getAllConsultants();
+        ci = sq.getAllConsultants("Not Set");
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, ci.Description);
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

@@ -41,15 +41,20 @@ public class ItemListActivity extends AppCompatActivity {
      */
     private boolean mTwoPane;
     private SqlGet sq;
-    private String eMes;
+    private String eMes, strSearchText, strSequence;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
+        //get parameter in extra
+        Bundle b = getIntent().getExtras();
+        strSearchText = b.getString("SearchText");  //get any Search text
+        strSequence = b.getString("Sequence");  //get any Search text
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        assert toolbar != null;
         toolbar.setTitle(getTitle());
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -79,7 +84,7 @@ public class ItemListActivity extends AppCompatActivity {
         sq = new SqlGet();
         eMes = sq.get_eMes();
         if (eMes.equals("")) {
-            List<ClientRecord> CLIENTS = sq.getAllClients();
+            List<ClientRecord> CLIENTS = sq.getAllClients(strSequence, strSearchText);
             eMes = sq.get_eMes();
             if (eMes.equals(""))
                 recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(CLIENTS));
@@ -88,7 +93,6 @@ public class ItemListActivity extends AppCompatActivity {
             Intent i = new Intent(this, ErrorActivity.class);
             i.putExtra("errMessage", eMes);
             startActivity(i);
-            return;
         }
     }
 

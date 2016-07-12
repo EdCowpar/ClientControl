@@ -86,7 +86,7 @@ public class ItemDetailFragment extends Fragment {
         SqlGet sq = new SqlGet();
         ClientRecord c = sq.getClient(strClientNo);   //Read Record
         // Populate Consultants
-        ComboItems ci = sq.getAllConsultants();
+        ComboItems ci = sq.getAllConsultants("Not Set");
         Spinner spConsultant = (Spinner) rootView.findViewById(R.id.spConsultant);
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, ci.Description);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

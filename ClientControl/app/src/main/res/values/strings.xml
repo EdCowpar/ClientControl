@@ -3,30 +3,20 @@
     <string name="addClient">Add a New Client</string>
     <string name="ModifyClient">Modify Client</string>
     <string name="SelectClient">Select Client</string>
-
+    <string name="reports">Reports"</string>
     <string name="system_prompt">Select System Type</string>
     <string-array name="system_types">
-        <item></item>
         <item>PayLite</item>
-        //1
         <item>PayMini</item>
-        //2
         <item>PaySlip</item>
-        //3
         <item>AgriPay</item>
-        //4
         <item>SBLITE</item>
-        //5
         <item>SBPAY</item>
-        //6
         <item>SBASE</item>
-        //7
         <item>SBPOS</item>
-        //8
         <item>SBOFFICE</item>
-        //9
         <item>Not Set</item>
-
+        <item>All Systems</item>
     </string-array>
     <string name="title_item_detail">Item Detail</string>
 
@@ -52,11 +42,11 @@
 
     <string name="tvConsultant">Consultant</string>
     <string name="tvSystemType">System Type</string>
-
+    <string name="tvSearch">Search</string>
     <string name="ckPaid">Paid</string>
     <string name="ckInCloud">In Cloud</string>
     <string name="ckPdfModule">Pdf Module</string>
-
+    <string name="tvExpiryDate">Expiry Date</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

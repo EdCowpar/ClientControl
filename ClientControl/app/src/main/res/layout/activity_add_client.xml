@@ -11,19 +11,19 @@
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/input_layout_SerialNo"
-        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_alignParentTop="true">
 
         <EditText
+            android:id="@+id/SerialNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="number"
             android:ems="10"
-            android:hint="SerialNo"
-            android:id="@+id/SerialNo"
+            android:hint="@string/etSerialNo"
+            android:inputType="number"
             android:text="@string/etSerialNo" />
 
     </android.support.design.widget.TextInputLayout>
@@ -31,100 +31,100 @@
     <android.support.design.widget.TextInputLayout
         android:id="@+id/input_layout_ClientName"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/input_layout_SerialNo"
-        android:layout_height="wrap_content">
+        android:layout_below="@+id/input_layout_SerialNo">
 
     <EditText
+        android:id="@+id/ClientName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:hint="Client Name"
         android:ems="10"
-        android:id="@+id/ClientName"
+        android:hint="Client Name"
+        android:inputType="textPersonName"
         android:text="@string/etClientName" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/input_layout_Address"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/input_layout_ClientName"
-        android:layout_height="wrap_content">
+        android:layout_below="@+id/input_layout_ClientName">
 
     <EditText
+        android:id="@+id/Address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
         android:ems="10"
         android:hint="Postal Address"
-        android:id="@+id/Address"
+        android:inputType="textMultiLine"
         android:text="@string/etAddress" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/input_layout_Phone"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/input_layout_Address"
-        android:layout_height="wrap_content">
+        android:layout_below="@+id/input_layout_Address">
 
     <EditText
+        android:id="@+id/ContactNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="phone"
         android:ems="10"
         android:hint="Contact Number"
-        android:id="@+id/ContactNo"
+        android:inputType="phone"
         android:text="@string/etContactNumber" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/input_layout_ContactName"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/input_layout_Phone"
-        android:layout_height="wrap_content">
+        android:layout_below="@+id/input_layout_Phone">
 
     <EditText
+        android:id="@+id/ContactName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:hint="Contact Name"
         android:ems="10"
-        android:id="@+id/ContactName"
+        android:hint="Contact Name"
+        android:inputType="textPersonName"
         android:text="@string/etContactName" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/input_layout_Email"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/input_layout_ContactName"
-        android:layout_height="wrap_content">
+        android:layout_below="@+id/input_layout_ContactName">
 
         <EditText
+            android:id="@+id/Email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:hint="Email Address"
             android:ems="10"
-            android:id="@+id/Email"
+            android:hint="Email Address"
+            android:inputType="textEmailAddress"
             android:text="@string/etEmailAddress" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
+        android:id="@+id/btnAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add"
-        android:id="@+id/btnAdd"
-        android:layout_below="@+id/input_layout_Email"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/input_layout_Email"
+        android:text="Add" />
 
 </RelativeLayout>

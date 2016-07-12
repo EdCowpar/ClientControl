@@ -52,7 +52,7 @@ public class ModifyClientActivity extends AppCompatActivity {
         ckPdfModule = (CheckBox) findViewById(R.id.ckPdfModule);
         ckInCloud = (CheckBox) findViewById(R.id.ckInCloud);
         btnBack=(Button) findViewById(R.id.btnBack);
-        btnDate=(Button) findViewById(R.id.btnBack);
+        btnDate = (Button) findViewById(R.id.btnDate);
         //set Filters
         etClientName.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
         etContactName.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
@@ -62,9 +62,9 @@ public class ModifyClientActivity extends AppCompatActivity {
         ClientRecord c = sq.getClient(strClientNo);   //Read Record
         // Populate Consultants
         // Spinner Drop down elements
-        ci = sq.getAllConsultants();
+        ci = sq.getAllConsultants("Not Set");
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, ci.Description);
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -122,11 +122,7 @@ public class ModifyClientActivity extends AppCompatActivity {
         return index;
     }
     private Boolean setCheckBox(String myString) {
-        if (myString.equals("Y")) {
-            return true;
-        } else {
-            return false;
-        }
+        return myString.equals("Y");
     }
 
 

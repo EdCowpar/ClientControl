@@ -55,47 +55,46 @@ public class AddClientActivity extends AppCompatActivity {
     }
 
     private boolean isValidData() {
-        boolean err=false;
 
         if(TextUtils.isEmpty(strSerialNo)) {
             etSerialNo.requestFocus();
             etSerialNo.setError("Please enter SerialNo");
-            return err;
+            return false;
         }
         if (!SubRoutines.isValidSerialNo(strSerialNo)) {
             etSerialNo.requestFocus();
             etSerialNo.setError("Invalid SerialNo");
-            return err;
+            return false;
         }
         if(TextUtils.isEmpty(strClientName)) {
             etClientName.requestFocus();
             etClientName.setError("Please enter Client Name");
-            return err;
+            return false;
         }
         if(TextUtils.isEmpty(strAddress)) {
             etAddress.requestFocus();
             etAddress.setError("Please enter Address");
-            return err;
+            return false;
         }
         if(TextUtils.isEmpty(strContactNo)) {
             etContactNo.requestFocus();
             etContactNo.setError("Please enter Contact No");
-            return err;
+            return false;
         }
         if(TextUtils.isEmpty(strContactName)) {
             etContactName.requestFocus();
             etContactName.setError("Please enter Contact Name");
-            return err;
+            return false;
         }
         if(TextUtils.isEmpty(strEmail)) {
             etEmail.requestFocus();
             etEmail.setError("Please enter Email Address");
-            return err;
+            return false;
         }
         if (!SubRoutines.isValidEmail(strEmail)) {
             etEmail.requestFocus();
             etEmail.setError("Invalid Email Address");
-            return err;
+            return false;
         }
 
         return true;

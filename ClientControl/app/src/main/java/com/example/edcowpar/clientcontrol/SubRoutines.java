@@ -30,10 +30,7 @@ public class SubRoutines {
 
     public static boolean isValidSerialNo(String SerialNo) {
         // validating password with retype password
-        if (SerialNo != null && SerialNo.length() > 6) {
-            return true;
-        }
-        return false;
+        return SerialNo != null && SerialNo.length() > 6;
     }
     public static String formatDate(int year, int month, int day, String fmt) {
 
@@ -68,11 +65,7 @@ public class SubRoutines {
 
     public static Boolean setCheckBox(String myString) {
         if (myString != null) {
-            if (myString.equals("Y")) {
-                return true;
-            } else {
-                return false;
-            }
+            return myString.equals("Y");
         } else {
             return false;
         }

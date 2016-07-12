@@ -13,6 +13,7 @@ public class ErrorActivity extends AppCompatActivity {
         //get parameter in extra
         Bundle b = getIntent().getExtras();
         TextView errMessage = (TextView) findViewById(R.id.textView);
+        assert errMessage != null;
         errMessage.setText(b.getString("errMessage"));
 
     }
