@@ -52,7 +52,6 @@ public class ModifyClientActivity extends AppCompatActivity {
         ckPdfModule = (CheckBox) findViewById(R.id.ckPdfModule);
         ckInCloud = (CheckBox) findViewById(R.id.ckInCloud);
         btnBack=(Button) findViewById(R.id.btnBack);
-        btnDate = (Button) findViewById(R.id.btnDate);
         //set Filters
         etClientName.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
         etContactName.setFilters(new InputFilter[] {new InputFilter.AllCaps()});

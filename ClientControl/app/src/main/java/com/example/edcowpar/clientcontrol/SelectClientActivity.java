@@ -2,6 +2,7 @@ package com.example.edcowpar.clientcontrol;
 
 import android.app.DialogFragment;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,9 +13,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 public class SelectClientActivity extends AppCompatActivity {
-    Button btnModify, btnBack, btnSearchName, btnSearchNo;
+    Button btnGo;
+    FloatingActionButton fabBack;
     EditText etSearchText;
-    String strSearchtext;
     Spinner spSystemType, spConsultant;
     SqlGet sq;
     ComboItems ci;
@@ -23,11 +24,9 @@ public class SelectClientActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_client);
-        btnModify = (Button) findViewById(R.id.btnModify);
+        btnGo = (Button) findViewById(R.id.btnGo);
         etSearchText = (EditText) findViewById(R.id.etSearchText);
-        btnBack = (Button) findViewById(R.id.btnBack);
-        btnSearchName = (Button) findViewById(R.id.btnSearchName);
-        btnSearchNo = (Button) findViewById(R.id.btnSearchNo);
+        fabBack = (FloatingActionButton) findViewById(R.id.fabBack);
         spSystemType = (Spinner) findViewById(R.id.spSystemType);
         spConsultant = (Spinner) findViewById(R.id.spConsultant);
         //Set System Type to All
@@ -45,23 +44,23 @@ public class SelectClientActivity extends AppCompatActivity {
         // attaching data adapter to spinner
         spConsultant.setAdapter(dataAdapter);
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        fabBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
 
-        btnModify.setOnClickListener(
+        btnGo.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View view) {
-                        strSearchtext = etSearchText.getText().toString();
+                        String strSearchtext = etSearchText.getText().toString();
                         Intent i = new Intent(SelectClientActivity.this, ModifyClientActivity.class);
                         i.putExtra("ClientNo", strSearchtext);
                         startActivity(i);
                     }
                 });
-
+        /*
         btnSearchName.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View view) {
@@ -83,6 +82,7 @@ public class SelectClientActivity extends AppCompatActivity {
                         startActivity(i);
                     }
                 });
+        */
 
     }
 

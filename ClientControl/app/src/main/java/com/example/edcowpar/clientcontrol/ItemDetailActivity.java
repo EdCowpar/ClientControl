@@ -61,7 +61,6 @@ public class ItemDetailActivity extends AppCompatActivity {
         ckPdfModule = (CheckBox) findViewById(R.id.ckPdfModule);
         ckInCloud = (CheckBox) findViewById(R.id.ckInCloud);
         btnBack = (Button) findViewById(R.id.btnBack);
-        btnDate = (Button) findViewById(R.id.btnDate);
         btnModify = (Button) findViewById(R.id.btnModify);
         //set Filters
         etClientName.setFilters(new InputFilter[]{new InputFilter.AllCaps()});

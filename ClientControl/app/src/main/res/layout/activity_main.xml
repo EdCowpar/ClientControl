@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:contentDescription="@string/addClient"
-                    android:onClick="AddClient"
+                    android:onClick="SelectClient"
                     android:src="@drawable/manwoman" />
 
             </RelativeLayout>
