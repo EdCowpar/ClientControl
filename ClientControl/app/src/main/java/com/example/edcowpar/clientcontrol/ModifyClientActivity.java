@@ -88,8 +88,8 @@ public class ModifyClientActivity extends AppCompatActivity {
         i = Integer.parseInt(c.System);
         spSystemType.setSelection(i);
         //Set Consultant
-        String con = sq.getConsultant(c.Consultant);
-        spConsultant.setSelection(getIndex(spConsultant, con));
+        ConsultantRecord con = sq.getConsultant(c.Consultant);
+        spConsultant.setSelection(getIndex(spConsultant, con.UserName));
         //Set CheckBoxes
         ckInCloud.setChecked(setCheckBox(c.InCloud));
         ckPaid.setChecked(setCheckBox(c.Paid));

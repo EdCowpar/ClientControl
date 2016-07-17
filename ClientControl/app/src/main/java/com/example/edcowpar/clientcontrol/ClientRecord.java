@@ -26,4 +26,12 @@ public class ClientRecord {
     String PDFModule;
     String Consultant;
     String InCloud;
+
+    public String getClientNo() {
+        return ClientNo;
+    }
+
+    public void setClientNo(String clientNo) {
+        ClientNo = clientNo;
+    }
 }

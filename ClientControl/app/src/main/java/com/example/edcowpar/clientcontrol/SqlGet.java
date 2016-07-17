@@ -91,22 +91,29 @@ public class SqlGet {
         return ci;
     }
 
-    public String getConsultant(String strConsultant) {
-        String sql = "select UserName from sbUsers WHERE UserCode = '" + strConsultant + "'";
+    public ConsultantRecord getConsultant(String strConsultant) {
+        String sql = "select * from sbUsers WHERE UserCode = '" + strConsultant + "'";
         ResultSet rs;
-        String con = "";
+        ConsultantRecord c = new ConsultantRecord();
         try {
 
             Statement statement = cn.createStatement();
             rs = statement.executeQuery(sql);
 
             while (rs.next()) {
-                con = rs.getString("UserName");
+                c.RecNo = rs.getString("RecNo");
+                c.Password = rs.getString("Password").trim();
+                c.UserCode = rs.getString("UserCode").trim();
+                c.UserName = rs.getString("UserName").trim();
+                c.Email = rs.getString("Email").trim();
+                c.Supervisor = rs.getString("Supervisor");
+                c.Controller = rs.getString("Controller");
+                c.Telephone = rs.getString("Telephone").trim();
             }
         } catch (SQLException e) {
             eMes = e.getMessage();
         }
-        return con;
+        return c;
     }
 
     public String getSerialNo(String strSerialNo) {
