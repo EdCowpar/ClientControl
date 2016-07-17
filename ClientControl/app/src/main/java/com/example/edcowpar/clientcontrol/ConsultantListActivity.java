@@ -2,38 +2,20 @@ package com.example.edcowpar.clientcontrol;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 import java.util.List;
 
-/**
- * An activity representing a list of Items. This activity
- * has different presentations for handset and tablet-size devices. On
- * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link ItemDetailActivity} representing
- * item details. On tablets, the activity presents the list of items and
- * item details side-by-side using two vertical panes.
- */
-public class ItemListActivity extends AppCompatActivity {
+public class ConsultantListActivity extends AppCompatActivity {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -41,7 +23,7 @@ public class ItemListActivity extends AppCompatActivity {
      */
     private boolean mTwoPane;
     private SqlGet sq;
-    private String eMes, strSearchText, strSequence;
+    private String eMes, strSearchText, strSequence, strTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +32,8 @@ public class ItemListActivity extends AppCompatActivity {
         //get parameter in extra
         Bundle b = getIntent().getExtras();
         strSearchText = b.getString("SearchText");  //get any Search text
-        strSequence = b.getString("Sequence");  //get any Search text
+        strSequence = b.getString("Sequence");      //get Sequence
+        strTable = b.getString("Table");            //get Database Table
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -61,8 +44,8 @@ public class ItemListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(view.getContext(), AddClientActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -84,10 +67,10 @@ public class ItemListActivity extends AppCompatActivity {
         sq = new SqlGet();
         eMes = sq.get_eMes();
         if (eMes.equals("")) {
-            List<ClientRecord> CLIENTS = sq.getAllClients(strSequence, strSearchText);
+            List<ConsultantRecord> CONSULTANTS = sq.getListConsultants();
             eMes = sq.get_eMes();
             if (eMes.equals(""))
-                recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(CLIENTS));
+                recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(CONSULTANTS));
         }
         if (!eMes.equals("")) {
             Intent i = new Intent(this, ErrorActivity.class);
@@ -99,9 +82,9 @@ public class ItemListActivity extends AppCompatActivity {
     public class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
-        private final List<ClientRecord> mValues;
+        private final List<ConsultantRecord> mValues;
 
-        public SimpleItemRecyclerViewAdapter(List<ClientRecord> items) {
+        public SimpleItemRecyclerViewAdapter(List<ConsultantRecord> items) {
             mValues = items;
         }
 
@@ -116,8 +99,8 @@ public class ItemListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mItem = mValues.get(position);
-            holder.mIdView.setText(mValues.get(position).ClientNo);
-            holder.mContentView.setText(mValues.get(position).ClientName);
+            holder.mIdView.setText(mValues.get(position).UserCode);
+            holder.mContentView.setText(mValues.get(position).UserName);
 
             // Set the color to red if row is even, or to green if row is odd.
             if (position % 2 == 0) {
@@ -131,7 +114,7 @@ public class ItemListActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
-                        arguments.putString("ClientNo", holder.mItem.ClientNo);
+                        arguments.putString("ClientNo", holder.mItem.UserCode);
                         ItemDetailFragment fragment = new ItemDetailFragment();
                         fragment.setArguments(arguments);
                         getSupportFragmentManager().beginTransaction()
@@ -140,7 +123,7 @@ public class ItemListActivity extends AppCompatActivity {
                     } else {
                         Context context = v.getContext();
                         Intent intent = new Intent(context, ItemDetailActivity.class);
-                        intent.putExtra("ClientNo", holder.mItem.ClientNo);
+                        intent.putExtra("ClientNo", holder.mItem.UserCode);
 
                         context.startActivity(intent);
                     }
@@ -157,7 +140,7 @@ public class ItemListActivity extends AppCompatActivity {
             public final View mView;
             public final TextView mIdView;
             public final TextView mContentView;
-            public ClientRecord mItem;
+            public ConsultantRecord mItem;
 
             public ViewHolder(View view) {
                 super(view);

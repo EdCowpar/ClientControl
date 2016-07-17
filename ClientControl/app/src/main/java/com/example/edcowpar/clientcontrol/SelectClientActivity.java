@@ -55,8 +55,10 @@ public class SelectClientActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     public void onClick(View view) {
                         String strSearchtext = etSearchText.getText().toString();
-                        Intent i = new Intent(SelectClientActivity.this, ModifyClientActivity.class);
-                        i.putExtra("ClientNo", strSearchtext);
+                        Intent i = new Intent(SelectClientActivity.this, ClientListActivity.class);
+                        i.putExtra("SearchText", strSearchtext);
+                        i.putExtra("Sequence", "ClientName");
+                        i.putExtra("Table", "Clients");
                         startActivity(i);
                     }
                 });

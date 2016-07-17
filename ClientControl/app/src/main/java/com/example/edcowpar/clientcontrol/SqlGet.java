@@ -328,4 +328,38 @@ public class SqlGet {
         return sql;
     }
 
+    public List<ConsultantRecord> getListConsultants() {
+        List<ConsultantRecord> Consultants = new ArrayList<ConsultantRecord>();
+        String sql, order, where;
+
+
+        sql = "select * from sbUsers ";
+        ResultSet rs;
+
+        try {
+
+            Statement statement = cn.createStatement();
+            rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                ConsultantRecord c = new ConsultantRecord();
+                c.RecNo = rs.getString("RecNo");
+                c.Password = rs.getString("Password").trim();
+                c.UserCode = rs.getString("UserCode").trim();
+                c.UserName = rs.getString("UserName").trim();
+                c.Email = rs.getString("Email");
+                c.Supervisor = rs.getString("Supervisor");
+                c.Controller = rs.getString("Controller");
+                c.Telephone = rs.getString("Telephone");
+
+                Consultants.add(c);
+
+            }
+        } catch (SQLException e) {
+            eMes = e.getMessage();
+        }
+
+        return Consultants;
+    }
+
 }

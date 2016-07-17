@@ -13,13 +13,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void AddClient(View view) {
-        Intent intent = new Intent(this,AddClientActivity.class);
+    public void SelectClient(View view) {
+        Intent intent = new Intent(this,SelectClientActivity.class);
         startActivity(intent);
     }
 
-    public void SelectClient(View view) {
-        Intent intent = new Intent(this,SelectClientActivity.class);
+    public void SelectConsultants(View view) {
+        Intent i = new Intent(this, ConsultantListActivity.class);
+        i.putExtra("SearchText", "");
+        i.putExtra("Sequence", "");
+        i.putExtra("Table", "Consultants");
+        startActivity(i);
+    }
+
+    public void SelectReports(View view) {
+        Intent intent = new Intent(this, SelectClientActivity.class);
+        startActivity(intent);
+    }
+
+    public void SelectSettings(View view) {
+        Intent intent = new Intent(this, SelectClientActivity.class);
         startActivity(intent);
     }
 

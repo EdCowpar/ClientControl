@@ -59,8 +59,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:contentDescription="@string/addClient"
-                    android:onClick="SelectClient"
+                    android:contentDescription="Consultants"
+                    android:onClick="SelectConsultants"
                     android:src="@drawable/head" />
 
             </RelativeLayout>
@@ -90,8 +90,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:contentDescription="@string/addClient"
-                    android:onClick="SelectClient"
+                    android:contentDescription="Reports"
+                    android:onClick="SelectReports"
                     android:src="@drawable/reports1" />
 
             </RelativeLayout>
@@ -113,8 +113,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:contentDescription="@string/addClient"
-                    android:onClick="SelectClient"
+                    android:contentDescription="Settings"
+                    android:onClick="SelectSettings"
                     android:src="@drawable/control9" />
 
 
