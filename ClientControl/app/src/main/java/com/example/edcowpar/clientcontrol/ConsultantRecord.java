@@ -5,7 +5,7 @@ package com.example.edcowpar.clientcontrol;
  */
 public class ConsultantRecord {
     // FROM [dbo].[sbUsers]
-    String RecNo;
+    Integer RecNo;
     String Password;
     String UserCode;
     String UserName;

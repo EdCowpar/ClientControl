@@ -70,9 +70,10 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/BlueTheme.NoActionBar" />
         <activity
             android:name=".ConsultantListActivity"
+            android:label="@string/title_ConsultantListActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>

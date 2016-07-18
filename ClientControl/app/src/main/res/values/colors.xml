@@ -6,4 +6,5 @@
     <color name="colorOdd">#e2f9ff40</color>
     <color name="colorEven">#ffbc40</color>
     <color name="colorBackground">#00faf9f9</color>
+    <color name="colorWhite">#ffffff</color>
 </resources>

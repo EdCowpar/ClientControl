@@ -143,7 +143,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         newFragment.show(getFragmentManager(), "datePicker");
     }
 
-    private String UpdateDatabase(String RecNo) {
+    private String UpdateDatabase(Integer RecNo) {
         String emes;
         ClientRecord c = new ClientRecord();
 

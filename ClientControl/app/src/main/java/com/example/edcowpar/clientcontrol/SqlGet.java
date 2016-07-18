@@ -101,7 +101,7 @@ public class SqlGet {
             rs = statement.executeQuery(sql);
 
             while (rs.next()) {
-                c.RecNo = rs.getString("RecNo");
+                c.RecNo = Integer.parseInt(rs.getString("RecNo"));
                 c.Password = rs.getString("Password").trim();
                 c.UserCode = rs.getString("UserCode").trim();
                 c.UserName = rs.getString("UserName").trim();
@@ -200,7 +200,7 @@ public class SqlGet {
             rs = statement.executeQuery(sql);
 
             while (rs.next()) {
-                c.RecNo = rs.getString("RecNo");
+                c.RecNo = Integer.parseInt(rs.getString("RecNo"));
                 c.ClientNo = rs.getString("ClientNo");
                 c.ClientName = rs.getString("ClientName");
                 c.ContactName = rs.getString("ContactName");
@@ -258,7 +258,7 @@ public class SqlGet {
 
             while (rs.next()) {
                 ClientRecord c = new ClientRecord();
-                c.RecNo = rs.getString("RecNo").toString();
+                c.RecNo = Integer.parseInt(rs.getString("RecNo"));
                 c.ClientNo = rs.getString("ClientNo");
                 c.ClientName = rs.getString("ClientName");
                 c.ContactName = rs.getString("ContactName");
@@ -343,10 +343,11 @@ public class SqlGet {
 
             while (rs.next()) {
                 ConsultantRecord c = new ConsultantRecord();
-                c.RecNo = rs.getString("RecNo");
-                c.Password = rs.getString("Password").trim();
-                c.UserCode = rs.getString("UserCode").trim();
-                c.UserName = rs.getString("UserName").trim();
+                c.RecNo = Integer.parseInt(rs.getString("RecNo"));
+                c.Password = rs.getString("Password");
+                c.UserCode = rs.getString("UserCode");
+                c.UserCode = SubRoutines.rightpad(c.UserCode, 4);
+                c.UserName = rs.getString("UserName");
                 c.Email = rs.getString("Email");
                 c.Supervisor = rs.getString("Supervisor");
                 c.Controller = rs.getString("Controller");

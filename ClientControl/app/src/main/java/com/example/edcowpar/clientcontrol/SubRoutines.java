@@ -63,6 +63,14 @@ public class SubRoutines {
         return str;
     }
 
+    public static String leftpad(String text, int length) {
+        return String.format("%" + length + "." + length + "s", text);
+    }
+
+    public static String rightpad(String text, int length) {
+        return String.format("%-" + length + "." + length + "s", text);
+    }
+
     public static Boolean setCheckBox(String myString) {
         if (myString != null) {
             return myString.equals("Y");

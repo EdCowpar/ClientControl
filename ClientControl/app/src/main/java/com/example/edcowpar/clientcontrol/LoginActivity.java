@@ -15,6 +15,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
     EditText etUserCode, etPassword;
     String strUserCode, strPassword;
+    AppSettings a;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +26,17 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = (EditText) findViewById(R.id.etPassword);
         btnLogin = (Button) findViewById(R.id.btnLogin);
 
-        //  GetData.Write(this.getApplicationContext()); //Create File
-        //  AppSettings a = GetData.Read(this.getApplicationContext());
+        a = GetData.Read(this.getApplicationContext());
+        if (a.getRecNo() > 0) {
+            if (a.getSaveUser().equals("Yes")) {
+                etUserCode.setText(a.UserCode);
+                etPassword.setText(a.Password);
+            }
+            if (a.AutoLoad.equals("Yes")) {
+                btnLogin.performClick();
+            }
+        }
+
     }
 
     public void Login(View view) {
@@ -53,17 +63,22 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         }
         SqlGet sq = new SqlGet();
-        ConsultantRecord con = sq.getConsultant(strUserCode);
-        if (con != null && !con.UserCode.equals(strUserCode)) {
+        ConsultantRecord c = sq.getConsultant(strUserCode);
+        if (c != null && !c.UserCode.equals(strUserCode.trim())) {
             etUserCode.requestFocus();
             etUserCode.setError("Invalid User Code");
             return false;
         }
-        if (con != null && !con.Password.equals(strPassword)) {
+        if (c != null && !c.Password.equals(strPassword.trim())) {
             etPassword.requestFocus();
             etPassword.setError("Invalid Password");
             return false;
         }
+        //Save Settings
+        a.setUserCode(c.UserCode);
+        a.setPassword(c.Password);
+        a.setRecNo(c.RecNo);
+        GetData.Write(this.getApplicationContext(), a); //Create File
 
         return true;
     }

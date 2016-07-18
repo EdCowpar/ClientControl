@@ -18,11 +18,7 @@ import java.io.Serializable;
 public class GetData {
     static String eMes = "";
 
-    public static void Write(Context ctx) {
-        AppSettings a = new AppSettings();
-        a.setAutoLoad("Joe");
-        a.setUserCode("x");
-        a.setUserLevel("a");
+    public static void Write(Context ctx, AppSettings a) {
         String filename = "settings.txt";
         try {
             FileOutputStream fileOut = ctx.openFileOutput(filename, Activity.MODE_PRIVATE);
@@ -39,6 +35,10 @@ public class GetData {
         AppSettings a = new AppSettings();
         String filename = "settings.txt";
         File f = new File(ctx.getFilesDir(), filename);
+        a.RecNo = 0;
+        a.SaveUser = "No";
+        a.AutoLoad = "No";
+        a.UserLevel = 0;
 
         if (f.isFile()) {
             try {
@@ -49,8 +49,13 @@ public class GetData {
                 fileIn.close();
             } catch (Exception ex) {
                 eMes = ex.getMessage();
+                a = new AppSettings();
+                a.RecNo = 0;
             }
         }
+        if (a.AutoLoad == null) a.AutoLoad = "No";
+        if (a.SaveUser == null) a.SaveUser = "No";
+
         return a;
     }
 }

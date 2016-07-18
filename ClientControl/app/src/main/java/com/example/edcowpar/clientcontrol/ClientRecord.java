@@ -4,7 +4,7 @@ package com.example.edcowpar.clientcontrol;
  * Created by EdCowpar on 2016/06/23.
  */
 public class ClientRecord {
-    String RecNo;
+    Integer RecNo;
     String ClientNo;
     String ClientName;
     String ContactName;

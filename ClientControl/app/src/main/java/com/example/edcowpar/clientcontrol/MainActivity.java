@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void SelectSettings(View view) {
-        Intent intent = new Intent(this, SelectClientActivity.class);
+        Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
     }
 
