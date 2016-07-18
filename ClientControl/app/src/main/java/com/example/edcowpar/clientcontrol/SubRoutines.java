@@ -5,6 +5,9 @@ import android.widget.Spinner;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -110,4 +113,37 @@ public class SubRoutines {
         }
         return index;
     }
+
+    public static List<ReportNames> getReportNames() {
+        List<ReportNames> ReportNames = new ArrayList<ReportNames>();
+
+        ReportNames c = new ReportNames();
+        c.Name = "Rep-001";
+        c.Description = "Clients by Consultant";
+        ReportNames.add(c);
+
+        c = new ReportNames();
+        c.Name = "Rep-002";
+        c.Description = "Clients by Expiry Date";
+        ReportNames.add(c);
+
+        c = new ReportNames();
+        c.Name = "Rep-003";
+        c.Description = "Clients by System Type";
+        ReportNames.add(c);
+
+        c = new ReportNames();
+        c.Name = "Rep-004";
+        c.Description = "Clients by Value";
+        ReportNames.add(c);
+
+        c = new ReportNames();
+        c.Name = "Rep-005";
+        c.Description = "Clients by Volume";
+        ReportNames.add(c);
+
+
+        return ReportNames;
+    }
+
 }

@@ -38,16 +38,6 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ErrorActivity" />
         <activity
-            android:name=".ItemDetailActivity"
-            android:label="@string/title_item_detail"
-            android:parentActivityName=".ClientListActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.edcowpar.clientcontrol.ClientListActivity" />
-        </activity>
-        <activity
             android:name=".ClientListActivity"
             android:label="@string/title_item_detail"
             android:parentActivityName=".SelectClientActivity"
@@ -74,9 +64,12 @@
         <activity
             android:name=".ConsultantListActivity"
             android:label="@string/title_ConsultantListActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".ClientDetailActivity"></activity>
+        <activity
+            android:name=".ReportsActivity"
+            android:label="@string/title_activity_reports"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
-public class ItemDetailActivity extends AppCompatActivity {
+public class ClientDetailActivity extends AppCompatActivity {
     private String strClientNo;
     private EditText etSerialNo, etClientName, etAddress, etContactNo, etContactName, etEmail;
     private EditText etPayeNo, etExpirydate, etVolume, etUifNo, etSdlNo, etInstallPin, etAnnualLicence;
@@ -33,7 +33,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_detail);
+        setContentView(R.layout.activity_client_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //get parameter in extra
         Bundle b = getIntent().getExtras();

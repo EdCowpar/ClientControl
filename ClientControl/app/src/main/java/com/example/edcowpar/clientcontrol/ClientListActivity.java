@@ -122,7 +122,7 @@ public class ClientListActivity extends AppCompatActivity {
                                 .commit();
                     } else {
                         Context context = v.getContext();
-                        Intent intent = new Intent(context, ItemDetailActivity.class);
+                        Intent intent = new Intent(context, ClientDetailActivity.class);
                         intent.putExtra("ClientNo", holder.mItem.ClientNo);
 
                         context.startActivity(intent);

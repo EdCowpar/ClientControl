@@ -19,12 +19,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-/**
- * A fragment representing a single Item detail screen.
- * This fragment is either contained in a {@link ItemListActivity}
- * in two-pane mode (on tablets) or a {@link ItemDetailActivity}
- * on handsets.
- */
+
 public class ItemDetailFragment extends Fragment {
     private String strClientNo;
     private EditText etSerialNo, etClientName, etAddress, etContactNo, etContactName, etEmail;
@@ -52,7 +47,7 @@ public class ItemDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.client_detail, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_client_detail, container, false);
 
 
         //get parameters
