@@ -15,16 +15,15 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class ReportsActivity extends AppCompatActivity {
+public class ReportMenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_list);
+        setContentView(R.layout.activity_report_menu);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        assert toolbar != null;
         toolbar.setTitle(getTitle());
 
 
@@ -72,8 +71,9 @@ public class ReportsActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Context context = v.getContext();
-                    Intent intent = new Intent(context, ClientDetailActivity.class);
-                    intent.putExtra("ClientNo", holder.mItem.Name);
+                    Intent intent = new Intent(context, ReportViewActivity.class);
+                    intent.putExtra("RepName", holder.mItem.Name);
+                    intent.putExtra("RepTitle", holder.mItem.Description);
                     context.startActivity(intent);
                 }
             });

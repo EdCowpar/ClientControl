@@ -56,6 +56,10 @@ public class SqlGet {
         }
     }
 
+    public Connection getConnection() {
+        return cn;
+    }
+
     public String get_eMes() {
         return eMes;
     }
@@ -363,4 +367,35 @@ public class SqlGet {
         return Consultants;
     }
 
+    public ClientRecord populateClientRecord(ResultSet rs) {
+        ClientRecord c = new ClientRecord();
+
+        try {
+            c.RecNo = Integer.parseInt(rs.getString("RecNo"));
+            c.ClientNo = rs.getString("ClientNo");
+            c.ClientName = rs.getString("ClientName");
+            c.ContactName = rs.getString("ContactName");
+            c.Telephone = rs.getString("Telephone");
+            c.EmailAddress = rs.getString("EmailAddress");
+            c.PayeNo = rs.getString("PayeNo");
+            c.ExpiryDate = rs.getString("ExpiryDate");
+            c.Volumn = rs.getString("Volumn");
+            c.UIFNo = rs.getString("UIFNo");
+            c.SDLNo = rs.getString("SDLNo");
+            c.System = rs.getString("System");
+            c.Annual_Licence = rs.getString("Annual_Licence");
+            c.Paid = rs.getString("Paid");
+            c.Postal_01 = rs.getString("Postal_01");
+            c.Postal_02 = rs.getString("Postal_02");
+            c.Postal_03 = rs.getString("Postal_03");
+            c.PostCode = rs.getString("PostCode");
+            c.InstallPin = rs.getString("InstallPin");
+            c.PDFModule = rs.getString("PDFModule");
+            c.Consultant = rs.getString("Consultant");
+            c.InCloud = rs.getString("InCloud");
+        } catch (SQLException e) {
+            eMes = e.getMessage();
+        }
+        return c;
+    }
 }

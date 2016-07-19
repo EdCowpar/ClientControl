@@ -64,12 +64,17 @@
         <activity
             android:name=".ConsultantListActivity"
             android:label="@string/title_ConsultantListActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".ClientDetailActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ReportsActivity"
-            android:label="@string/title_activity_reports"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".ClientDetailActivity"
+            android:label="@string/title_ClientDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ReportMenuActivity"
+            android:label="@string/title_ReportMenuActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ReportViewActivity"></activity>
+
     </application>
 
 </manifest>

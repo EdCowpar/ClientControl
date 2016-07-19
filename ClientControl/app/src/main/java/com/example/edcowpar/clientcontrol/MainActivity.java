@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void SelectReports(View view) {
-        Intent intent = new Intent(this, ReportsActivity.class);
+        Intent intent = new Intent(this, ReportMenuActivity.class);
         startActivity(intent);
     }
 

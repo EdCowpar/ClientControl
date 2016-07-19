@@ -2,6 +2,7 @@ package com.example.edcowpar.clientcontrol;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.StrictMode;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,6 +12,9 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  * Created by EdCowpar on 2016/07/17.
@@ -58,4 +62,5 @@ public class GetData {
 
         return a;
     }
+
 }
