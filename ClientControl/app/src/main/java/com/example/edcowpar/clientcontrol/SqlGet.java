@@ -238,6 +238,13 @@ public class SqlGet {
         List<ClientRecord> Clients = new ArrayList<ClientRecord>();
         String sql, order, where;
 
+        if (Search != null) {
+            Search = Search.replace("'", "");  //remove quotes
+        }
+        if (Sequence == null) {
+            Sequence = "";
+        }
+
         switch (Sequence) {
             case "ClientName":
                 order = "ORDER BY ClientName";
@@ -248,11 +255,11 @@ public class SqlGet {
                 where = "WHERE ClientNo LIKE '" + Search + "%' ";
                 break;
             default:
-                order = "ORDER BY ClientNo";
+                order = "ORDER BY ClientName";
                 where = "";
         }
 
-        sql = "select * from sbClients " + where + order;
+        sql = "select * from sbClients " + where + order + " COLLATE SQL_Latin1_General_CP1_CI_AS";  //Ignore case
         ResultSet rs;
 
         try {
@@ -289,7 +296,7 @@ public class SqlGet {
 
             }
         } catch (SQLException e) {
-            eMes = e.getMessage();
+            eMes = sql + "\n" + e.getMessage();
         }
 
         return Clients;

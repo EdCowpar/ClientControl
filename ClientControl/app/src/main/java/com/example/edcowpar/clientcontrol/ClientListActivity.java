@@ -1,5 +1,6 @@
 package com.example.edcowpar.clientcontrol;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,6 +30,8 @@ public class ClientListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_list);
+        handleIntent(getIntent());
+
         //get parameter in extra
         Bundle b = getIntent().getExtras();
         strSearchText = b.getString("SearchText");  //get any Search text
@@ -59,12 +62,29 @@ public class ClientListActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+
+    protected void onNewIntent(Intent intent) {
+        handleIntent(intent);
+    }
+
+    private void handleIntent(Intent intent) {
+
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            //use the query to search your data somehow
+            intent.putExtra("SearchText", query);
+            intent.putExtra("Sequence", "ClientName");
+            intent.putExtra("Table", "Clients");
+        }
+    }
+
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         //Open sql
         sq = new SqlGet();
         eMes = sq.get_eMes();
         if (eMes.equals("")) {
-            List<ClientRecord> CLIENTS = sq.getAllClients(strSequence, strSearchText);
+            List<ClientRecord> CLIENTS = sq.getAllClients(strSearchText, strSequence);
             eMes = sq.get_eMes();
             if (eMes.equals(""))
                 recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(CLIENTS));
