@@ -24,24 +24,43 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.edcowpar.clientcontrol.LoginActivity" />
+        </activity>
         <activity
             android:name=".AddClientActivity"
-            android:label="@string/addClient" />
+            android:label="@string/addClient">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.edcowpar.clientcontrol.LoginActivity" />
+        </activity>
         <activity
             android:name=".ModifyClientActivity"
             android:label="@string/ModifyClient"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.edcowpar.clientcontrol.SelectClientActivity" />
+        </activity>
         <activity
             android:name=".SelectClientActivity"
             android:label="@string/SelectClient"
-            android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".ErrorActivity" />
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.edcowpar.clientcontrol.MainActivity" />
+        </activity>
+        <activity android:name=".ErrorActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.edcowpar.clientcontrol.MainActivity" />
+        </activity>
         <activity
             android:name=".ClientListActivity"
-            android:label="@string/title_item_detail"
+            android:label="@string/title_ClientListActivity"
             android:parentActivityName=".SelectClientActivity"
-            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -59,21 +78,38 @@
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:theme="@style/BlueTheme.NoActionBar" />
+            android:label="@string/title_activity_settings">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.edcowpar.clientcontrol.MainActivity" />
+        </activity>
         <activity
             android:name=".ConsultantListActivity"
-            android:label="@string/title_ConsultantListActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_ConsultantListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.edcowpar.clientcontrol.MainActivity" />
+        </activity>
         <activity
             android:name=".ClientDetailActivity"
             android:label="@string/title_ClientDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.edcowpar.clientcontrol.SelectClientActivity" />
+        </activity>
         <activity
             android:name=".ReportMenuActivity"
-            android:label="@string/title_ReportMenuActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ReportViewActivity"></activity>
+            android:label="@string/title_ReportMenuActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.edcowpar.clientcontrol.MainActivity" />
+        </activity>
+        <activity android:name=".ReportViewActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.edcowpar.clientcontrol.ReportMenuActivity" />
+        </activity>
 
     </application>
 

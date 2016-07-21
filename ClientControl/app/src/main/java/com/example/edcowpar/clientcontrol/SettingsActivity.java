@@ -21,6 +21,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         swAutoLogin = (Switch) findViewById(R.id.swAutoLogin);
         swSaveUser = (Switch) findViewById(R.id.swSaveUser);

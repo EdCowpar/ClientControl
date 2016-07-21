@@ -25,22 +25,21 @@ public class ClientDetailActivity extends AppCompatActivity {
     private CheckBox ckPaid, ckPdfModule, ckInCloud;
     private Spinner spSystemType, spConsultant;
     private Integer i;
-    private Button btnBack, btnDate, btnModify;
     private SqlGet sq;
     private ClientRecord c;
     private ComboItems ci;
+    private FloatingActionButton fabSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_detail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //get parameter in extra
         Bundle b = getIntent().getExtras();
         strClientNo = b.getString("ClientNo");
-        assert toolbar != null;
-        toolbar.setTitle("ClientNo " + strClientNo);
-        setSupportActionBar(toolbar);
+        //set ActionBar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("ClientNo " + strClientNo);
         // Setup Fields
         etSerialNo = (EditText) findViewById(R.id.etSerialNo);
         etClientName = (EditText) findViewById(R.id.etClientName);
@@ -60,8 +59,8 @@ public class ClientDetailActivity extends AppCompatActivity {
         ckPaid = (CheckBox) findViewById(R.id.ckPaid);
         ckPdfModule = (CheckBox) findViewById(R.id.ckPdfModule);
         ckInCloud = (CheckBox) findViewById(R.id.ckInCloud);
-        btnBack = (Button) findViewById(R.id.btnBack);
-        btnModify = (Button) findViewById(R.id.btnModify);
+        fabSave = (FloatingActionButton) findViewById(R.id.fabSave);
+
         //set Filters
         etClientName.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
         etContactName.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
@@ -119,22 +118,16 @@ public class ClientDetailActivity extends AppCompatActivity {
         ckInCloud.setChecked(SubRoutines.setCheckBox(c.InCloud));
         ckPaid.setChecked(SubRoutines.setCheckBox(c.Paid));
         ckPdfModule.setChecked(SubRoutines.setCheckBox(c.PDFModule));
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
+        //Set Listeners
+        fabSave.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        btnModify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 String emes = UpdateDatabase(c.RecNo);
                 Toast.makeText(getApplicationContext(), emes, Toast.LENGTH_LONG).show();
                 finish();
             }
         });
+
 
     }
 

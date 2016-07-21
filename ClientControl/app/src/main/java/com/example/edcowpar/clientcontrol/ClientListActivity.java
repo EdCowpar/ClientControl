@@ -28,17 +28,14 @@ public class ClientListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_item_list);
+        setContentView(R.layout.activity_client_list);
         //get parameter in extra
         Bundle b = getIntent().getExtras();
         strSearchText = b.getString("SearchText");  //get any Search text
         strSequence = b.getString("Sequence");      //get Sequence
         strTable = b.getString("Table");            //get Database Table
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        assert toolbar != null;
-        toolbar.setTitle(getTitle());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

@@ -22,10 +22,7 @@ public class ReportMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_menu);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle(getTitle());
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         View recyclerView = findViewById(R.id.item_list);
         assert recyclerView != null;

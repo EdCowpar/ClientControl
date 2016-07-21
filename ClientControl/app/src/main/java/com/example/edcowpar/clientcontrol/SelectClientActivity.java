@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 public class SelectClientActivity extends AppCompatActivity {
     Button btnGo;
-    FloatingActionButton fabBack;
     EditText etSearchText;
     Spinner spSystemType, spConsultant;
     SqlGet sq;
@@ -26,7 +25,6 @@ public class SelectClientActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select_client);
         btnGo = (Button) findViewById(R.id.btnGo);
         etSearchText = (EditText) findViewById(R.id.etSearchText);
-        fabBack = (FloatingActionButton) findViewById(R.id.fabBack);
         spSystemType = (Spinner) findViewById(R.id.spSystemType);
         spConsultant = (Spinner) findViewById(R.id.spConsultant);
         //Set System Type to All
@@ -44,12 +42,6 @@ public class SelectClientActivity extends AppCompatActivity {
         // attaching data adapter to spinner
         spConsultant.setAdapter(dataAdapter);
 
-        fabBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
         btnGo.setOnClickListener(
                 new View.OnClickListener() {

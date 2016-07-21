@@ -61,6 +61,8 @@ public class ReportViewActivity extends AppCompatActivity {
             row = addTableCell(row, "ClientName");
             row = addTableCell(row, "ContactName");
             row = addTableCell(row, "EmailAddress");
+            row = addTableCell(row, "ExpiryDate");
+            row = addTableCell(row, "Volume");
             table_layout.addView(row);
 
             while (rs.next()) {
@@ -70,6 +72,8 @@ public class ReportViewActivity extends AppCompatActivity {
                 row = addTableCell(row, c.ClientName);
                 row = addTableCell(row, c.ContactName);
                 row = addTableCell(row, c.EmailAddress);
+                row = addTableCell(row, c.ExpiryDate);
+                row = addTableCell(row, c.Volumn);
                 table_layout.addView(row);
 
             }
