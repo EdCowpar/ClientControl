@@ -1,10 +1,12 @@
 package com.example.edcowpar.clientcontrol;
 
+import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -180,4 +183,13 @@ public class ClientDetailActivity extends AppCompatActivity {
         emes = sq.UpdClient(c);
         return emes;
     }
+
+    public class setDateActivity extends FragmentActivity implements DatePickerDialog.OnDateSetListener {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            String date = SubRoutines.formatDate(year, month, day, "yyyyMMdd");
+            ((EditText) findViewById(R.id.etExpiryDate)).setText(date);
+        }
+    }
+
 }

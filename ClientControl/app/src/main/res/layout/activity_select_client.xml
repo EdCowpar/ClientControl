@@ -46,7 +46,7 @@
         android:layout_toRightOf="@+id/tvSystemType">
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/rbClientNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -54,7 +54,7 @@
             android:text="by ClientNo" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/rbClientName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -62,7 +62,7 @@
             android:text="by Client Name" />
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/rbExpiryDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -182,7 +182,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/etFromDate"
         android:layout_toRightOf="@+id/etSearchText"
-        android:onClick="showDatePickerDialog"
+        android:onClick="setFromDate"
         android:text="..." />
 
     <Button
@@ -191,7 +191,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/etToDate"
         android:layout_toRightOf="@+id/etSearchText"
-        android:onClick="showDatePickerDialog"
+        android:onClick="setToDate"
         android:text="..." />
 
 

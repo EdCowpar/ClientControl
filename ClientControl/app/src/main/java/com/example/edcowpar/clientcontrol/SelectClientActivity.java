@@ -1,23 +1,51 @@
 package com.example.edcowpar.clientcontrol;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
+
 public class SelectClientActivity extends AppCompatActivity {
     Button btnGo;
-    EditText etSearchText;
+    EditText etSearchText, etFromDate, etToDate;
     Spinner spSystemType, spConsultant;
     SqlGet sq;
     ComboItems ci;
+    RadioButton rbClientNo, rbClientName, rbExpiryDate;
+    String strSearchText, strFromDate, strToDate;
+    String strSequence = "";
+    String strWhere = "";
+    private int year, month, day;
+    private DatePickerDialog.OnDateSetListener FromDateListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker arg0, int year, int month, int day) {
+            String date = SubRoutines.formatDate(year, month, day, "yyyyMMdd");
+            etFromDate.setText(date);
+        }
+    };
+    private DatePickerDialog.OnDateSetListener ToDateListener = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker arg0, int year, int month, int day) {
+            String date = SubRoutines.formatDate(year, month, day, "yyyyMMdd");
+            etToDate.setText(date);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,64 +53,133 @@ public class SelectClientActivity extends AppCompatActivity {
         setContentView(R.layout.activity_select_client);
         btnGo = (Button) findViewById(R.id.btnGo);
         etSearchText = (EditText) findViewById(R.id.etSearchText);
+        etFromDate = (EditText) findViewById(R.id.etFromDate);
+        etToDate = (EditText) findViewById(R.id.etToDate);
         spSystemType = (Spinner) findViewById(R.id.spSystemType);
         spConsultant = (Spinner) findViewById(R.id.spConsultant);
+        rbClientNo = (RadioButton) findViewById(R.id.rbClientNo);
+        rbClientName = (RadioButton) findViewById(R.id.rbClientName);
+        rbExpiryDate = (RadioButton) findViewById(R.id.rbExpiryDate);
         //Set System Type to All
         spSystemType.setSelection(10);
         // Load Consultants
-        sq = new SqlGet();
-        // Populate Consultants
-        // Spinner Drop down elements
-        ci = sq.getAllConsultants("All Consultants");
-        // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, ci.Description);
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // attaching data adapter to spinner
-        spConsultant.setAdapter(dataAdapter);
-
+        populateConsultants();
 
         btnGo.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View view) {
-                        String strSearchtext = etSearchText.getText().toString();
+                        strSearchText = etSearchText.getText().toString();
+                        if (isClientNo(strSearchText)) {
+                            //Use ClientNo and byPass any other selection
+                            strWhere = "WHERE ClientNo = '" + strSearchText + "'";
+                            strSearchText = "";
+                        } else {
+                            strFromDate = etFromDate.getText().toString();
+                            strToDate = etToDate.getText().toString();
+
+                            if (rbClientNo.isChecked()) {
+                                strSequence = "ORDER BY ClientNo";
+                            } else if (rbClientNo.isChecked()) {
+                                strSequence = "ORDER BY ClientName";
+                            } else if (rbExpiryDate.isChecked()) {
+                                strSequence = "ORDER BY ExpiryDate";
+                            }
+                            // Test Consultants
+                            String strConsultant = ci.Code.get(spConsultant.getSelectedItemPosition());
+                            if (!strConsultant.equals("All")) {
+                                strWhere = "WHERE Consultant = '" + strConsultant + "' ";
+                            }
+                            //Test System Types
+                            Integer sTyp = spSystemType.getSelectedItemPosition();
+                            if (sTyp < 10) {
+                                if (strWhere.equals("")) {
+                                    strWhere = "WHERE SystemType = '" + Integer.toString(sTyp) + "' ";
+                                } else {
+                                    strWhere = strWhere + "AND SystemType = '" + Integer.toString(sTyp) + "' ";
+                                }
+                            }
+                            //test From and To Dates - FromDate Only
+                            if (!strFromDate.equals("") & strToDate.equals("")) {
+                                if (strWhere.equals("")) {
+                                    strWhere = "WHERE ExpiryDate => '" + strFromDate + "' ";
+                                } else {
+                                    strWhere = strWhere + "AND ExpiryDate => '" + strFromDate + "' ";
+                                }
+                            }
+                            //test From and To Dates - ToDate Only
+                            if (!strToDate.equals("") & strFromDate.equals("")) {
+                                if (strWhere.equals("")) {
+                                    strWhere = "WHERE ExpiryDate =< '" + strToDate + "' ";
+                                } else {
+                                    strWhere = strWhere + "AND ExpiryDate =< '" + strToDate + "' ";
+                                }
+                            }
+                            //test From and To Dates - Both
+                            if (!strToDate.equals("") & !strFromDate.equals("")) {
+                                if (strWhere.equals("")) {
+                                    strWhere = "WHERE ExpiryDate => '" + strFromDate + "' AND ExpiryDate =< '" + strToDate + "' ";
+                                } else {
+                                    strWhere = strWhere + "AND ExpiryDate => '" + strFromDate + "' AND ExpiryDate =< '" + strToDate + "' ";
+                                }
+                            }
+                        }
                         Intent i = new Intent(SelectClientActivity.this, ClientListActivity.class);
-                        i.putExtra("SearchText", strSearchtext);
-                        i.putExtra("Sequence", "ClientName");
+                        i.putExtra("Where", strWhere);
+                        i.putExtra("SearchText", strSearchText);
+                        i.putExtra("Sequence", strSequence);
                         i.putExtra("Table", "Clients");
                         startActivity(i);
                     }
                 });
-        /*
-        btnSearchName.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        strSearchtext = etSearchText.getText().toString();
-                        Intent i = new Intent(SelectClientActivity.this, ItemListActivity.class);
-                        i.putExtra("SearchText", strSearchtext);
-                        i.putExtra("Sequence", "ClientName");
-                        startActivity(i);
-                    }
-                });
 
-        btnSearchNo.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        strSearchtext = etSearchText.getText().toString();
-                        Intent i = new Intent(SelectClientActivity.this, ItemListActivity.class);
-                        i.putExtra("SearchText", strSearchtext);
-                        i.putExtra("Sequence", "ClientNo");
-                        startActivity(i);
-                    }
-                });
-        */
 
     }
 
-    public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getFragmentManager(), "datePicker");
+    public void setFromDate(View view) {
+        createdFromDialog(0).show();
     }
+
+    public void setToDate(View view) {
+        createdToDialog(0).show();
+    }
+
+    protected Dialog createdFromDialog(int id) {
+        // Use the current date as the default date in the picker
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        return new DatePickerDialog(this, FromDateListener, year, month, day);
+    }
+
+    protected Dialog createdToDialog(int id) {
+        // Use the current date as the default date in the picker
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        return new DatePickerDialog(this, ToDateListener, year, month, day);
+    }
+
+    private boolean isClientNo(String txt) {
+        String regex = "\\d+";
+        if (txt.matches(regex)) {
+            return txt.length() == 7;
+        } else {
+            return true;
+        }
+    }
+
+    private void populateConsultants() {
+        sq = new SqlGet();
+        ci = sq.getAllConsultants("All Consultants");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, ci.Description);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spConsultant.setAdapter(dataAdapter);
+    }
+
+
+
 
 }

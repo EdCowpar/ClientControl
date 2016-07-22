@@ -24,7 +24,7 @@ public class ClientListActivity extends AppCompatActivity {
      */
     private boolean mTwoPane;
     private SqlGet sq;
-    private String eMes, strSearchText, strSequence, strTable;
+    private String eMes, strSearchText, strSequence, strTable, strWhere;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,7 @@ public class ClientListActivity extends AppCompatActivity {
 
         //get parameter in extra
         Bundle b = getIntent().getExtras();
+        strWhere = b.getString("Where");  //get any Search text
         strSearchText = b.getString("SearchText");  //get any Search text
         strSequence = b.getString("Sequence");      //get Sequence
         strTable = b.getString("Table");            //get Database Table
@@ -73,6 +74,7 @@ public class ClientListActivity extends AppCompatActivity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             //use the query to search your data somehow
+            intent.putExtra("Where", "");
             intent.putExtra("SearchText", query);
             intent.putExtra("Sequence", "ClientName");
             intent.putExtra("Table", "Clients");
@@ -84,7 +86,7 @@ public class ClientListActivity extends AppCompatActivity {
         sq = new SqlGet();
         eMes = sq.get_eMes();
         if (eMes.equals("")) {
-            List<ClientRecord> CLIENTS = sq.getAllClients(strSearchText, strSequence);
+            List<ClientRecord> CLIENTS = sq.getAllClients(strWhere, strSearchText, strSequence);
             eMes = sq.get_eMes();
             if (eMes.equals(""))
                 recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(CLIENTS));

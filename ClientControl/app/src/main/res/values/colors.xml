@@ -7,4 +7,5 @@
     <color name="colorEven">#ffbc40</color>
     <color name="colorBackground">#00faf9f9</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#000000</color>
 </resources>

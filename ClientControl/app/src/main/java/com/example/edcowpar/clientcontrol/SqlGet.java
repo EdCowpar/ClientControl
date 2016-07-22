@@ -73,7 +73,7 @@ public class SqlGet {
         ci.Code = new ArrayList<String>();
         ci.Description = new ArrayList<String>();
 
-        ci.Code.add(" ");
+        ci.Code.add("All");
         ci.Description.add(BlankDescription);
         ci.Count = 1;
 
@@ -234,9 +234,9 @@ public class SqlGet {
 
     }
 
-    public List<ClientRecord> getAllClients(String Search, String Sequence) {
+    public List<ClientRecord> getAllClients(String Where, String Search, String Sequence) {
         List<ClientRecord> Clients = new ArrayList<ClientRecord>();
-        String sql, order, where;
+        String sql, order;
 
         if (Search != null) {
             Search = Search.replace("'", "");  //remove quotes
@@ -248,19 +248,27 @@ public class SqlGet {
         switch (Sequence) {
             case "ClientName":
                 order = "ORDER BY ClientName";
-                where = "WHERE ClientName LIKE '" + Search + "%' ";
+                if (Where.equals("")) {
+                    Where = "WHERE ClientName LIKE '" + Search + "%' ";
+                } else {
+                    Where = "AND ClientName LIKE '" + Search + "%' ";
+                }
                 break;
             case "ClientNo":
                 order = "ORDER BY ClientNo";
-                where = "WHERE ClientNo LIKE '" + Search + "%' ";
+                if (Where.equals("")) {
+                    Where = "WHERE ClientNo LIKE '" + Search + "%' ";
+                } else {
+                    Where = "AND ClientNo LIKE '" + Search + "%' ";
+                }
                 break;
             default:
                 order = "ORDER BY ClientName";
-                where = "";
         }
 
-        sql = "select * from sbClients " + where + order + " COLLATE SQL_Latin1_General_CP1_CI_AS";  //Ignore case
+        sql = "select * from sbClients " + Where + order + " COLLATE SQL_Latin1_General_CP1_CI_AS";  //Ignore case
         ResultSet rs;
+        Integer count = 0;
 
         try {
 
@@ -268,6 +276,7 @@ public class SqlGet {
             rs = statement.executeQuery(sql);
 
             while (rs.next()) {
+                count++;
                 ClientRecord c = new ClientRecord();
                 c.RecNo = Integer.parseInt(rs.getString("RecNo"));
                 c.ClientNo = rs.getString("ClientNo");
@@ -298,7 +307,9 @@ public class SqlGet {
         } catch (SQLException e) {
             eMes = sql + "\n" + e.getMessage();
         }
-
+        if (count.equals(0)) {
+            eMes = "No records found containing " + Where;
+        }
         return Clients;
     }
 
