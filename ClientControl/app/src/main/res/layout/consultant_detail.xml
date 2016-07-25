@@ -3,10 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.edcowpar.clientcontrol.AddConsultantActivity">
 
     <android.support.design.widget.TextInputLayout
@@ -18,7 +14,7 @@
         android:layout_alignParentTop="true">
 
         <EditText
-            android:id="@+id/UserCode"
+            android:id="@+id/etUserCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -36,7 +32,7 @@
         android:layout_below="@+id/input_layout_UserCode">
 
         <EditText
-            android:id="@+id/UserName"
+            android:id="@+id/etUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -53,7 +49,7 @@
         android:layout_below="@+id/input_layout_UserName">
 
         <EditText
-            android:id="@+id/Password"
+            android:id="@+id/etPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -70,7 +66,7 @@
         android:layout_below="@+id/input_layout_Password">
 
         <EditText
-            android:id="@+id/Telephone"
+            android:id="@+id/etTelephone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -87,7 +83,7 @@
         android:layout_below="@+id/input_layout_Telephone">
 
         <EditText
-            android:id="@+id/Email"
+            android:id="@+id/etEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -104,7 +100,7 @@
         android:layout_below="@+id/input_layout_Email">
 
         <CheckBox
-            android:id="@+id/Supervisor"
+            android:id="@+id/ckSupervisor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -121,7 +117,7 @@
         android:layout_below="@+id/input_layout_Supervisor">
 
         <CheckBox
-            android:id="@+id/Controller"
+            android:id="@+id/ckController"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"

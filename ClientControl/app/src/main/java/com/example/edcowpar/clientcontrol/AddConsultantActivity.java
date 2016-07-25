@@ -8,6 +8,6 @@ public class AddConsultantActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_consultant);
+        setContentView(R.layout.consultant_detail);
     }
 }

@@ -2,6 +2,7 @@ package com.example.edcowpar.clientcontrol;
 
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,8 +21,8 @@ import android.widget.TextView;
 import java.util.List;
 
 
-public class ItemDetailFragment extends Fragment {
-    private String strClientNo;
+public class ClientDetailFragment extends Fragment {
+    private String strClientNo, eMes;
     private EditText etSerialNo, etClientName, etAddress, etContactNo, etContactName, etEmail;
     private EditText etPayeNo, etExpirydate, etVolume, etUifNo, etSdlNo, etInstallPin, etAnnualLicence;
     private CheckBox ckPaid, ckPdfModule, ckInCloud;
@@ -33,7 +34,7 @@ public class ItemDetailFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ItemDetailFragment() {
+    public ClientDetailFragment() {
     }
 
     @Override
@@ -47,7 +48,7 @@ public class ItemDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_client_detail, container, false);
+        View rootView = inflater.inflate(R.layout.client_detail_fragment, container, false);
 
 
         //get parameters
@@ -79,6 +80,13 @@ public class ItemDetailFragment extends Fragment {
 
         // read Sql
         SqlGet sq = new SqlGet();
+        eMes = sq.OpenConnection();
+        if (!eMes.equals("ok")) {
+            // Intent i = new Intent(this, ErrorActivity.class);
+            //  i.putExtra("eMes", eMes);
+            //  startActivity(i);
+            //  finish();
+        }
         ClientRecord c = sq.getClient(strClientNo);   //Read Record
         // Populate Consultants
         ComboItems ci = sq.getAllConsultants("Not Set");

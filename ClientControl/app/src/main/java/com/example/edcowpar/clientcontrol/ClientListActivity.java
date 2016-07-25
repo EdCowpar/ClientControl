@@ -53,11 +53,11 @@ public class ClientListActivity extends AppCompatActivity {
             }
         });
 
-        View recyclerView = findViewById(R.id.item_list);
+        View recyclerView = findViewById(R.id.client_list);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
 
-        if (findViewById(R.id.item_detail_container) != null) {
+        if (findViewById(R.id.client_detail_container) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).
             // If this view is present, then the
@@ -141,10 +141,10 @@ public class ClientListActivity extends AppCompatActivity {
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
                         arguments.putString("ClientNo", holder.mItem.ClientNo);
-                        ItemDetailFragment fragment = new ItemDetailFragment();
+                        ClientDetailFragment fragment = new ClientDetailFragment();
                         fragment.setArguments(arguments);
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.item_detail_container, fragment)
+                                .replace(R.id.client_detail_container, fragment)
                                 .commit();
                     } else {
                         Context context = v.getContext();

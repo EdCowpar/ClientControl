@@ -108,13 +108,13 @@ public class SqlGet {
 
             while (rs.next()) {
                 c.RecNo = Integer.parseInt(rs.getString("RecNo"));
-                c.Password = rs.getString("Password").trim();
-                c.UserCode = rs.getString("UserCode").trim();
-                c.UserName = rs.getString("UserName").trim();
-                c.Email = rs.getString("Email").trim();
+                c.Password = rs.getString("Password");
+                c.UserCode = rs.getString("UserCode");
+                c.UserName = rs.getString("UserName");
+                c.Email = rs.getString("Email");
                 c.Supervisor = rs.getString("Supervisor");
                 c.Controller = rs.getString("Controller");
-                c.Telephone = rs.getString("Telephone").trim();
+                c.Telephone = rs.getString("Telephone");
             }
         } catch (SQLException e) {
             eMes = e.getMessage();

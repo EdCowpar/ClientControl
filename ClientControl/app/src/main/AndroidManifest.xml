@@ -130,6 +130,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.edcowpar.clientcontrol.MainActivity" />
         </activity>
+        <activity
+            android:name=".ModifyConsultantActivity"
+            android:label="@string/title_ModifyConsultantActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.edcowpar.clientcontrol.ConsultantListActivity" />
+
+        </activity>
     </application>
 
 </manifest>

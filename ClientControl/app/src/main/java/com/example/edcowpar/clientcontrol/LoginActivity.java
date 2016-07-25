@@ -75,19 +75,19 @@ public class LoginActivity extends AppCompatActivity {
             etUserCode.setError(eMes);
             return false;
         }
-        if (c != null && !c.UserCode.equals(strUserCode.trim())) {
+        if (c != null && !c.UserCode.trim().equals(strUserCode.trim())) {
             etUserCode.requestFocus();
             etUserCode.setError("Invalid User Code");
             return false;
         }
-        if (c != null && !c.Password.equals(strPassword.trim())) {
+        if (c != null && !c.Password.trim().equals(strPassword.trim())) {
             etPassword.requestFocus();
             etPassword.setError("Invalid Password");
             return false;
         }
         //Save Settings
-        a.setUserCode(c.UserCode);
-        a.setPassword(c.Password);
+        a.setUserCode(c.UserCode.trim());
+        a.setPassword(c.Password.trim());
         a.setRecNo(c.RecNo);
         GetData.Write(this.getApplicationContext(), a); //Create File
 

@@ -24,7 +24,7 @@ public class ReportMenuActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        View recyclerView = findViewById(R.id.item_list);
+        View recyclerView = findViewById(R.id.menu_list);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
     }
@@ -46,7 +46,7 @@ public class ReportMenuActivity extends AppCompatActivity {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_list_content, parent, false);
+                    .inflate(R.layout.menu_list_content, parent, false);
 
             return new ViewHolder(view);
         }

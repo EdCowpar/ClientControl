@@ -45,7 +45,7 @@ public class ConsultantListActivity extends AppCompatActivity {
             }
         });
 
-        View recyclerView = findViewById(R.id.item_list);
+        View recyclerView = findViewById(R.id.consultant_list);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
 
@@ -87,7 +87,7 @@ public class ConsultantListActivity extends AppCompatActivity {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_list_content, parent, false);
+                    .inflate(R.layout.consultant_list_content, parent, false);
 
             return new ViewHolder(view);
         }
@@ -108,21 +108,11 @@ public class ConsultantListActivity extends AppCompatActivity {
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mTwoPane) {
-                        Bundle arguments = new Bundle();
-                        arguments.putString("ClientNo", holder.mItem.UserCode);
-                        ItemDetailFragment fragment = new ItemDetailFragment();
-                        fragment.setArguments(arguments);
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.item_detail_container, fragment)
-                                .commit();
-                    } else {
-                        Context context = v.getContext();
-                        Intent intent = new Intent(context, ClientDetailActivity.class);
-                        intent.putExtra("ClientNo", holder.mItem.UserCode);
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, ModifyConsultantActivity.class);
+                    intent.putExtra("Consultant", holder.mItem.UserCode);
 
-                        context.startActivity(intent);
-                    }
+                    context.startActivity(intent);
                 }
             });
         }
