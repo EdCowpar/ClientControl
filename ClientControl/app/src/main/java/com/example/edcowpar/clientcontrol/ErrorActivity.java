@@ -19,9 +19,8 @@ public class ErrorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_error);
         //get parameter in extra
         Bundle b = getIntent().getExtras();
-        TextView errMessage = (TextView) findViewById(R.id.textView);
-        assert errMessage != null;
-        errMessage.setText(b.getString("errMessage"));
+        TextView eMes = (TextView) findViewById(R.id.textView);
+        eMes.setText(b.getString("eMes"));
 
         // Make sure we're running on LOLLIPOP or higher to use ActionBar APIs
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -34,7 +33,7 @@ public class ErrorActivity extends AppCompatActivity {
                     }
                 }
             });
-            toSpeak = b.getString("errMessage");
+            toSpeak = b.getString("eMes");
             t1.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null, null);
         }
     }

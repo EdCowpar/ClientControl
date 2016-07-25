@@ -22,7 +22,7 @@ import android.widget.Toast;
 import java.util.List;
 
 public class ClientDetailActivity extends AppCompatActivity {
-    private String strClientNo;
+    private String strClientNo, eMes;
     private EditText etSerialNo, etClientName, etAddress, etContactNo, etContactName, etEmail;
     private EditText etPayeNo, etExpirydate, etVolume, etUifNo, etSdlNo, etInstallPin, etAnnualLicence;
     private CheckBox ckPaid, ckPdfModule, ckInCloud;
@@ -70,6 +70,13 @@ public class ClientDetailActivity extends AppCompatActivity {
 
         // read Sql
         sq = new SqlGet();
+        eMes = sq.OpenConnection();
+        if (!eMes.equals("ok")) {
+            Intent i = new Intent(this, ErrorActivity.class);
+            i.putExtra("eMes", eMes);
+            startActivity(i);
+            finish();
+        }
         c = sq.getClient(strClientNo);   //Read Record
         // Populate Consultants
         // Spinner Drop down elements

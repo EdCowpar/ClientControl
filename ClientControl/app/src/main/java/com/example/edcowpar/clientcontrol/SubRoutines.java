@@ -35,6 +35,25 @@ public class SubRoutines {
         // validating password with retype password
         return SerialNo != null && SerialNo.length() > 6;
     }
+
+    public static String FmtString(String strText, String Fmt) {
+        String txt;
+
+        switch (Fmt) {
+            case "[a]":
+            case "a":
+                // ccyymmdd to dd-mm-ccyy  (start,End) from 0
+                if (strText != null) {
+                    txt = strText.substring(6, 8) + "-" + strText.substring(4, 6) + "-" + strText.substring(0, 4);
+                } else {
+                    txt = "        ";
+                }
+                return txt;
+            default:
+                return strText;
+        }
+
+    }
     public static String formatDate(int year, int month, int day, String fmt) {
 
         Calendar cal = Calendar.getInstance();

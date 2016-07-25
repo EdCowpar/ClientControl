@@ -34,13 +34,14 @@ import java.util.List;
  * in AndroidManifest.xml
  */
 public class SqlGet {
-    static String eMes = "";
-    static Connection cn;
+    String eMes;
+    Connection cn;
 
-    static {
+    public String OpenConnection() {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
+        eMes = "ok";
         cn = null;
         String ConnURL;
         try {
@@ -54,6 +55,7 @@ public class SqlGet {
         } catch (Exception e) {
             eMes = e.getMessage();
         }
+        return eMes;
     }
 
     public Connection getConnection() {
@@ -237,36 +239,38 @@ public class SqlGet {
     public List<ClientRecord> getAllClients(String Where, String Search, String Sequence) {
         List<ClientRecord> Clients = new ArrayList<ClientRecord>();
         String sql, order;
+        eMes = "ok";
 
         if (Search != null) {
             Search = Search.replace("'", "");  //remove quotes
         }
-        if (Sequence == null) {
-            Sequence = "";
-        }
 
         switch (Sequence) {
-            case "ClientName":
+            case "ORDER BY ClientName":
                 order = "ORDER BY ClientName";
-                if (Where.equals("")) {
-                    Where = "WHERE ClientName LIKE '" + Search + "%' ";
-                } else {
-                    Where = "AND ClientName LIKE '" + Search + "%' ";
+                if (!Search.equals("")) {
+                    if (Where.equals("")) {
+                        Where = "WHERE ClientName LIKE '" + Search + "%' ";
+                    } else {
+                        Where = "AND ClientName LIKE '" + Search + "%' ";
+                    }
                 }
                 break;
-            case "ClientNo":
+            case "ORDER BY ClientNo":
                 order = "ORDER BY ClientNo";
-                if (Where.equals("")) {
-                    Where = "WHERE ClientNo LIKE '" + Search + "%' ";
-                } else {
-                    Where = "AND ClientNo LIKE '" + Search + "%' ";
+                if (!Search.equals("")) {
+                    if (Where.equals("")) {
+                        Where = "WHERE ClientNo LIKE '" + Search + "%' ";
+                    } else {
+                        Where = "AND ClientNo LIKE '" + Search + "%' ";
+                    }
                 }
                 break;
             default:
-                order = "ORDER BY ClientName";
+                order = Sequence;
         }
 
-        sql = "select * from sbClients " + Where + order + " COLLATE SQL_Latin1_General_CP1_CI_AS";  //Ignore case
+        sql = "select * from sbClients " + Where + order; //+ " COLLATE SQL_Latin1_General_CP1_CI_AS";  //Ignore case
         ResultSet rs;
         Integer count = 0;
 
@@ -308,7 +312,7 @@ public class SqlGet {
             eMes = sql + "\n" + e.getMessage();
         }
         if (count.equals(0)) {
-            eMes = "No records found containing " + Where;
+            eMes = "No records found " + Where;
         }
         return Clients;
     }

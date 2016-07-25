@@ -45,6 +45,7 @@ public class ReportViewActivity extends AppCompatActivity {
     private void Build_Rep_001() {
         String eMes;
         sq = new SqlGet(); //Open sql
+        eMes = sq.OpenConnection();
         cn = sq.getConnection();
         String sql = "select * from sbClients ";
         ResultSet rs;

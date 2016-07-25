@@ -25,6 +25,7 @@
     <string name="title_ReportMenuActivity">Available Reports</string>
     <string name="title_ClientDetailActivity">Client Detail</string>
     <string name="title_ClientListActivity">Current Clients</string>
+    <string name="title_AddConsultantActivity">Add New Consultant</string>
 
     <string name="btnBack">Back</string>
     <string name="btnCancel">Cancel</string>

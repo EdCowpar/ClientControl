@@ -6,6 +6,8 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -28,9 +30,8 @@ public class SelectClientActivity extends AppCompatActivity {
     SqlGet sq;
     ComboItems ci;
     RadioButton rbClientNo, rbClientName, rbExpiryDate;
-    String strSearchText, strFromDate, strToDate;
-    String strSequence = "";
-    String strWhere = "";
+    String strTitle, strSequence, strSearchText, strWhere, strFromDate, strToDate;
+
     private int year, month, day;
     private DatePickerDialog.OnDateSetListener FromDateListener = new DatePickerDialog.OnDateSetListener() {
         @Override
@@ -51,6 +52,14 @@ public class SelectClientActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_client);
+        //clear fields
+        strTitle = "Current";
+        strSequence = "ORDER BY ClientNo";
+        strSearchText = "";
+        strWhere = "";
+        strFromDate = "";
+        strToDate = "";
+
         btnGo = (Button) findViewById(R.id.btnGo);
         etSearchText = (EditText) findViewById(R.id.etSearchText);
         etFromDate = (EditText) findViewById(R.id.etFromDate);
@@ -65,6 +74,17 @@ public class SelectClientActivity extends AppCompatActivity {
         // Load Consultants
         populateConsultants();
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabNew);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), AddClientActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         btnGo.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View view) {
@@ -77,49 +97,44 @@ public class SelectClientActivity extends AppCompatActivity {
                             strFromDate = etFromDate.getText().toString();
                             strToDate = etToDate.getText().toString();
 
-                            if (rbClientNo.isChecked()) {
-                                strSequence = "ORDER BY ClientNo";
-                            } else if (rbClientNo.isChecked()) {
-                                strSequence = "ORDER BY ClientName";
-                            } else if (rbExpiryDate.isChecked()) {
-                                strSequence = "ORDER BY ExpiryDate";
+                            //Test System Types
+                            Integer sTyp = spSystemType.getSelectedItemPosition();
+                            if (sTyp < 10) {
+                                strTitle = spSystemType.getSelectedItem().toString().trim() + " ";
+                                if (strWhere.equals("")) {
+                                    strWhere = "WHERE System = '" + Integer.toString(sTyp) + "' ";
+                                } else {
+                                    strWhere = strWhere + "AND System = '" + Integer.toString(sTyp) + "' ";
+                                }
                             }
                             // Test Consultants
                             String strConsultant = ci.Code.get(spConsultant.getSelectedItemPosition());
                             if (!strConsultant.equals("All")) {
                                 strWhere = "WHERE Consultant = '" + strConsultant + "' ";
-                            }
-                            //Test System Types
-                            Integer sTyp = spSystemType.getSelectedItemPosition();
-                            if (sTyp < 10) {
-                                if (strWhere.equals("")) {
-                                    strWhere = "WHERE SystemType = '" + Integer.toString(sTyp) + "' ";
-                                } else {
-                                    strWhere = strWhere + "AND SystemType = '" + Integer.toString(sTyp) + "' ";
-                                }
+                                strTitle = strTitle + " " + spConsultant.getSelectedItem().toString().trim();
                             }
                             //test From and To Dates - FromDate Only
                             if (!strFromDate.equals("") & strToDate.equals("")) {
                                 if (strWhere.equals("")) {
-                                    strWhere = "WHERE ExpiryDate => '" + strFromDate + "' ";
+                                    strWhere = "WHERE ExpiryDate >= '" + strFromDate + "' ";
                                 } else {
-                                    strWhere = strWhere + "AND ExpiryDate => '" + strFromDate + "' ";
+                                    strWhere = strWhere + "AND ExpiryDate >= '" + strFromDate + "' ";
                                 }
                             }
                             //test From and To Dates - ToDate Only
                             if (!strToDate.equals("") & strFromDate.equals("")) {
                                 if (strWhere.equals("")) {
-                                    strWhere = "WHERE ExpiryDate =< '" + strToDate + "' ";
+                                    strWhere = "WHERE ExpiryDate <= '" + strToDate + "' ";
                                 } else {
-                                    strWhere = strWhere + "AND ExpiryDate =< '" + strToDate + "' ";
+                                    strWhere = strWhere + "AND ExpiryDate <= '" + strToDate + "' ";
                                 }
                             }
                             //test From and To Dates - Both
                             if (!strToDate.equals("") & !strFromDate.equals("")) {
                                 if (strWhere.equals("")) {
-                                    strWhere = "WHERE ExpiryDate => '" + strFromDate + "' AND ExpiryDate =< '" + strToDate + "' ";
+                                    strWhere = "WHERE ExpiryDate >= '" + strFromDate + "' AND ExpiryDate <= '" + strToDate + "' ";
                                 } else {
-                                    strWhere = strWhere + "AND ExpiryDate => '" + strFromDate + "' AND ExpiryDate =< '" + strToDate + "' ";
+                                    strWhere = strWhere + "AND ExpiryDate >= '" + strFromDate + "' AND ExpiryDate <= '" + strToDate + "' ";
                                 }
                             }
                         }
@@ -128,11 +143,33 @@ public class SelectClientActivity extends AppCompatActivity {
                         i.putExtra("SearchText", strSearchText);
                         i.putExtra("Sequence", strSequence);
                         i.putExtra("Table", "Clients");
+                        i.putExtra("Title", strTitle + " Clients");
                         startActivity(i);
                     }
                 });
 
 
+    }
+
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch (view.getId()) {
+            case R.id.rbClientNo:
+                if (checked)
+                    strSequence = "ORDER BY ClientNo";
+                break;
+            case R.id.rbClientName:
+                if (checked)
+                    strSequence = "ORDER BY ClientName";
+                break;
+            case R.id.rbExpiryDate:
+                if (checked)
+                    strSequence = "ORDER BY ExpiryDate";
+                break;
+        }
     }
 
     public void setFromDate(View view) {
@@ -166,12 +203,13 @@ public class SelectClientActivity extends AppCompatActivity {
         if (txt.matches(regex)) {
             return txt.length() == 7;
         } else {
-            return true;
+            return false;
         }
     }
 
     private void populateConsultants() {
         sq = new SqlGet();
+        String eMes = sq.OpenConnection();
         ci = sq.getAllConsultants("All Consultants");
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, ci.Description);

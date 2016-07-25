@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include layout="@layout/item_list" />
+        <include layout="@layout/client_list" />
     </FrameLayout>
 
     <android.support.design.widget.FloatingActionButton
@@ -23,7 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_input_add" />
+        android:src="@android:drawable/ic_input_add"
+        android:tint="@color/colorWhite" />
 
 
 </android.support.design.widget.CoordinatorLayout>

@@ -14,7 +14,7 @@ import android.widget.EditText;
 public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
     EditText etUserCode, etPassword;
-    String strUserCode, strPassword;
+    String strUserCode, strPassword, eMes;
     AppSettings a;
 
     @Override
@@ -63,7 +63,18 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         }
         SqlGet sq = new SqlGet();
+        eMes = sq.OpenConnection();
+        if (!eMes.equals("ok")) {
+            etUserCode.requestFocus();
+            etUserCode.setError(eMes);
+            return false;
+        }
         ConsultantRecord c = sq.getConsultant(strUserCode);
+        if (!eMes.equals("ok")) {
+            etUserCode.requestFocus();
+            etUserCode.setError(eMes);
+            return false;
+        }
         if (c != null && !c.UserCode.equals(strUserCode.trim())) {
             etUserCode.requestFocus();
             etUserCode.setError("Invalid User Code");

@@ -40,7 +40,7 @@ public class ConsultantListActivity extends AppCompatActivity {
         fabAddNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), AddClientActivity.class);
+                Intent intent = new Intent(view.getContext(), AddConsultantActivity.class);
                 startActivity(intent);
             }
         });
@@ -61,14 +61,14 @@ public class ConsultantListActivity extends AppCompatActivity {
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         //Open sql
         sq = new SqlGet();
-        eMes = sq.get_eMes();
-        if (eMes.equals("")) {
+        eMes = sq.OpenConnection();
+        if (eMes.equals("ok")) {
             List<ConsultantRecord> CONSULTANTS = sq.getListConsultants();
             eMes = sq.get_eMes();
-            if (eMes.equals(""))
+            if (eMes.equals("ok"))
                 recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(CONSULTANTS));
         }
-        if (!eMes.equals("")) {
+        if (!eMes.equals("ok")) {
             Intent i = new Intent(this, ErrorActivity.class);
             i.putExtra("errMessage", eMes);
             startActivity(i);

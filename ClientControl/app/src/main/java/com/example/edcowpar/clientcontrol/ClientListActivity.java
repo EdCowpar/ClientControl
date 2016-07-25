@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ public class ClientListActivity extends AppCompatActivity {
      */
     private boolean mTwoPane;
     private SqlGet sq;
-    private String eMes, strSearchText, strSequence, strTable, strWhere;
+    private String eMes, strSearchText, strSequence, strTable, strWhere, strTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +39,10 @@ public class ClientListActivity extends AppCompatActivity {
         strSearchText = b.getString("SearchText");  //get any Search text
         strSequence = b.getString("Sequence");      //get Sequence
         strTable = b.getString("Table");            //get Database Table
+        strTitle = b.getString("Title");            //get Title
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(strTitle);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -84,17 +87,18 @@ public class ClientListActivity extends AppCompatActivity {
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         //Open sql
         sq = new SqlGet();
-        eMes = sq.get_eMes();
-        if (eMes.equals("")) {
+        eMes = sq.OpenConnection();
+        if (eMes.equals("ok")) {
             List<ClientRecord> CLIENTS = sq.getAllClients(strWhere, strSearchText, strSequence);
             eMes = sq.get_eMes();
-            if (eMes.equals(""))
+            if (eMes.equals("ok"))
                 recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(CLIENTS));
         }
-        if (!eMes.equals("")) {
+        if (!eMes.equals("ok")) {
             Intent i = new Intent(this, ErrorActivity.class);
-            i.putExtra("errMessage", eMes);
+            i.putExtra("eMes", eMes);
             startActivity(i);
+            finish();
         }
     }
 
@@ -110,7 +114,7 @@ public class ClientListActivity extends AppCompatActivity {
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_list_content, parent, false);
+                    .inflate(R.layout.client_list_content, parent, false);
 
             return new ViewHolder(view);
         }
@@ -118,8 +122,11 @@ public class ClientListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mItem = mValues.get(position);
-            holder.mIdView.setText(mValues.get(position).ClientNo);
-            holder.mContentView.setText(mValues.get(position).ClientName);
+            holder.mClientNoView.setText(mValues.get(position).ClientNo);
+            holder.mClientNameView.setText(mValues.get(position).ClientName);
+            String txt = mValues.get(position).ExpiryDate;
+            txt = SubRoutines.FmtString(txt, "a");
+            holder.mExpiryDateView.setText("Expires:\n" + txt);
 
             // Set the color to red if row is even, or to green if row is odd.
             if (position % 2 == 0) {
@@ -157,20 +164,17 @@ public class ClientListActivity extends AppCompatActivity {
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             public final View mView;
-            public final TextView mIdView;
-            public final TextView mContentView;
+            public final TextView mClientNoView;
+            public final TextView mClientNameView;
+            public final TextView mExpiryDateView;
             public ClientRecord mItem;
 
             public ViewHolder(View view) {
                 super(view);
                 mView = view;
-                mIdView = (TextView) view.findViewById(R.id.id);
-                mContentView = (TextView) view.findViewById(R.id.content);
-            }
-
-            @Override
-            public String toString() {
-                return super.toString() + " '" + mContentView.getText() + "'";
+                mClientNoView = (TextView) view.findViewById(R.id.ClientNo);
+                mClientNameView = (TextView) view.findViewById(R.id.ClientName);
+                mExpiryDateView = (TextView) view.findViewById(R.id.ExpiryDate);
             }
         }
     }

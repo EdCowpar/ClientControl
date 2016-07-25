@@ -26,7 +26,7 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/tvSystemType"
         android:ems="8"
-        android:inputType="number" />
+        android:inputType="text" />
 
     <Button
         android:id="@+id/btnGo"
@@ -51,6 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:checked="true"
+            android:onClick="onRadioButtonClicked"
             android:text="by ClientNo" />
 
         <RadioButton
@@ -59,6 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:checked="false"
+            android:onClick="onRadioButtonClicked"
             android:text="by Client Name" />
 
         <RadioButton
@@ -67,6 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:checked="false"
+            android:onClick="onRadioButtonClicked"
             android:text="by Expiry date" />
 
 
@@ -203,7 +206,8 @@
         android:layout_alignParentRight="true"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_input_add" />
+        android:src="@android:drawable/ic_input_add"
+        android:tint="@color/colorWhite" />
 
 
 
