@@ -125,6 +125,14 @@
             android:text="Controller" />
     </android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_delete" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabAddNew"
@@ -132,7 +140,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_save" />
 

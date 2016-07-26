@@ -62,14 +62,96 @@ public class SqlGet {
         return cn;
     }
 
+    public String AddConsultant(ConsultantRecord c) {
+
+        String sql = "INSERT INTO sbUsers (UserCode,UserName,Email,Supervisor," +
+                "Controller,Telephone)" +
+                "VALUES (" +
+                "'" + c.UserCode + "'," +
+                "'" + c.UserName + "'," +
+                "'" + c.Email + "'," +
+                "'" + c.Supervisor + "'," +
+                "'" + c.Controller + "'," +
+                "'" + c.Telephone + "')";
+        try {
+            Statement statement = cn.createStatement();
+            statement.execute(sql);
+            sql = "Record Added";
+
+        } catch (SQLException e) {
+            eMes = e.getMessage();
+            sql = "ERROR " + e.getMessage();
+        }
+        return sql;
+    }
+
+    public ConsultantRecord getConsultant(String strConsultant) {
+        String sql = "select * from sbUsers WHERE UserCode = '" + strConsultant + "'";
+        ResultSet rs;
+        ConsultantRecord c = new ConsultantRecord();
+        try {
+
+            Statement statement = cn.createStatement();
+            rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                c.RecNo = Integer.parseInt(rs.getString("RecNo"));
+                c.Password = rs.getString("Password");
+                c.UserCode = rs.getString("UserCode");
+                c.UserName = rs.getString("UserName").trim();
+                c.Email = rs.getString("Email").trim();
+                c.Supervisor = rs.getString("Supervisor");
+                c.Controller = rs.getString("Controller");
+                c.Telephone = rs.getString("Telephone");
+            }
+        } catch (SQLException e) {
+            eMes = e.getMessage();
+        }
+        return c;
+    }
+
+    public String UpdConsultant(ConsultantRecord c) {
+
+        String sql = "UPDATE sbUsers SET UserCode = '" + c.UserCode + "'," +
+                "UserName  = '" + c.UserName.trim() + "'," +
+                "Email  = '" + c.Email.trim() + "'," +
+                "Supervisor  = '" + c.Supervisor.trim() + "'," +
+                "Controller  = '" + c.Controller.trim() + "'," +
+                "Telephone  = '" + c.Telephone.trim() + "' " +
+                "WHERE RecNo = '" + c.RecNo + "'";
+
+        try {
+            Statement statement = cn.createStatement();
+            statement.execute(sql);
+            sql = "Record Updated";
+
+        } catch (SQLException e) {
+            eMes = e.getMessage();
+            sql = "ERROR " + e.getMessage();
+        }
+        return sql;
+    }
+
+    public String DeleteConsultant(Integer RecNo) {
+
+        String sql = "DELETE sbUsers WHERE RecNo = '" + RecNo.toString() + "'";
+
+        try {
+            Statement statement = cn.createStatement();
+            statement.execute(sql);
+            sql = "Record Deleted";
+
+        } catch (SQLException e) {
+            eMes = e.getMessage();
+            sql = "ERROR " + e.getMessage();
+        }
+        return sql;
+    }
+
     public String get_eMes() {
         return eMes;
     }
 
-    /**
-     * Getting all labels
-     * returns list of labels
-     */
     public ComboItems getAllConsultants(String BlankDescription) {
         ComboItems ci = new ComboItems();
         ci.Code = new ArrayList<String>();
@@ -97,30 +179,6 @@ public class SqlGet {
         return ci;
     }
 
-    public ConsultantRecord getConsultant(String strConsultant) {
-        String sql = "select * from sbUsers WHERE UserCode = '" + strConsultant + "'";
-        ResultSet rs;
-        ConsultantRecord c = new ConsultantRecord();
-        try {
-
-            Statement statement = cn.createStatement();
-            rs = statement.executeQuery(sql);
-
-            while (rs.next()) {
-                c.RecNo = Integer.parseInt(rs.getString("RecNo"));
-                c.Password = rs.getString("Password");
-                c.UserCode = rs.getString("UserCode");
-                c.UserName = rs.getString("UserName");
-                c.Email = rs.getString("Email");
-                c.Supervisor = rs.getString("Supervisor");
-                c.Controller = rs.getString("Controller");
-                c.Telephone = rs.getString("Telephone");
-            }
-        } catch (SQLException e) {
-            eMes = e.getMessage();
-        }
-        return c;
-    }
 
     public String getSerialNo(String strSerialNo) {
         String sql = "select ClientNo from sbClients WHERE ClientNo = '" + strSerialNo + "'";
@@ -158,31 +216,20 @@ public class SqlGet {
         return name;
     }
 
-    public String AddClient(String strSerialNo, String strClientName, String strAddress,
-                            String strContactNo, String strContactName, String strEmail) {
-        //Split multiline Address
-        String post1 = SubRoutines.splitAddress(strAddress, 1);
-        String post2 = SubRoutines.splitAddress(strAddress, 2);
-        String post3 = SubRoutines.splitAddress(strAddress, 3);
-        String PostCode = SubRoutines.splitAddress(strAddress, 4);
+    public String AddClient(ClientRecord c) {
 
-        //Check Last Line for postcode
-        if (PostCode.equals("")) {
-            PostCode = post3;
-            post3 = "";
-        }
         String sql = "INSERT INTO sbClients (ClientNo,ClientName,Telephone,ContactName," +
                 "Postal_01,Postal_02,Postal_03,PostCode,EmailAddress)" +
                 "VALUES (" +
-                "'" + strSerialNo.trim() + "'," +
-                "'" + strClientName.trim().toUpperCase() + "'," +
-                "'" + strContactNo.trim() + "'," +
-                "'" + strContactName.trim().toUpperCase() + "'," +
-                "'" + post1.toUpperCase() + "'," +
-                "'" + post2.toUpperCase() + "'," +
-                "'" + post3.toUpperCase() + "'," +
-                "'" + PostCode.toUpperCase() + "'," +
-                "'" + strEmail.trim() + "')";
+                "'" + c.ClientNo.trim() + "'," +
+                "'" + c.ClientName.trim().toUpperCase() + "'," +
+                "'" + c.Telephone.trim() + "'," +
+                "'" + c.ContactName.trim().toUpperCase() + "'," +
+                "'" + c.Postal_01.toUpperCase() + "'," +
+                "'" + c.Postal_02.toUpperCase() + "'," +
+                "'" + c.Postal_03.toUpperCase() + "'," +
+                "'" + c.PostCode.toUpperCase() + "'," +
+                "'" + c.EmailAddress.trim() + "')";
         try {
             Statement statement = cn.createStatement();
             statement.execute(sql);
