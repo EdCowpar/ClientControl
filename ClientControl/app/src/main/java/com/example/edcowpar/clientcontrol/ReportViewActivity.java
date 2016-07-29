@@ -36,7 +36,7 @@ public class ReportViewActivity extends AppCompatActivity {
 
         Bundle b = getIntent().getExtras();
         strRepName = b.getString("RepName");
-        strRepTitle = b.getString("RepTitle");
+        strRepTitle = getResources().getString(R.string.Rep_001);
         getSupportActionBar().setTitle(strRepName + " " + strRepTitle);
         Build_Rep_001();
 

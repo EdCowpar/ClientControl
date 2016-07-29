@@ -70,4 +70,18 @@
 
     <string name="search_title">Search</string>
     <string name="search_hint">Search for</string>
+    <string name="speech_prompt">Say something&#8230;</string>
+    <string name="speech_not_supported">Sorry! Your device doesn\'t support speech input</string>
+
+    <string name="Rep_001">Clients by Consultant</string>
+    <string name="Rep_002">Clients by Expiry Date</string>
+    <string name="Rep_003">Clients by System Type</string>
+    <string name="Rep_004">Clients by Value</string>
+    <string name="Rep_005">Clients by Volume</string>
+
+    <string name="about_text">
+  <![CDATA[
+    Author: Your name<br/><br/>Your description text, changelog, licences etc. ]]>
+</string>
+
 </resources>

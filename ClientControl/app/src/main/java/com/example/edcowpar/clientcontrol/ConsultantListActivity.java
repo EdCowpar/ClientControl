@@ -23,18 +23,13 @@ public class ConsultantListActivity extends AppCompatActivity {
      */
     private boolean mTwoPane;
     private SqlGet sq;
-    private String eMes, strSearchText, strSequence, strTable;
+    private String eMes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultant_list);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //get parameter in extra
-        Bundle b = getIntent().getExtras();
-        strSearchText = b.getString("SearchText");  //get any Search text
-        strSequence = b.getString("Sequence");      //get Sequence
-        strTable = b.getString("Table");            //get Database Table
 
         FloatingActionButton fabAddNew = (FloatingActionButton) findViewById(R.id.fabAddNew);
         fabAddNew.setOnClickListener(new View.OnClickListener() {

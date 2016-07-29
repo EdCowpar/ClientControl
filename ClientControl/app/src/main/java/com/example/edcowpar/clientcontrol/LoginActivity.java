@@ -46,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
         if (!isValidData()) return;
 
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("Speech", "Hi Ed. How can I help");
+
         startActivity(intent);
     }
 

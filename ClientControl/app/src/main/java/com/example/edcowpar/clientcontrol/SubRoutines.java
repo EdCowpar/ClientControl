@@ -137,27 +137,27 @@ public class SubRoutines {
         List<ReportNames> ReportNames = new ArrayList<ReportNames>();
 
         ReportNames c = new ReportNames();
-        c.Name = "Rep-001";
+        c.Name = "Rep_001";
         c.Description = "Clients by Consultant";
         ReportNames.add(c);
 
         c = new ReportNames();
-        c.Name = "Rep-002";
+        c.Name = "Rep_002";
         c.Description = "Clients by Expiry Date";
         ReportNames.add(c);
 
         c = new ReportNames();
-        c.Name = "Rep-003";
+        c.Name = "Rep_003";
         c.Description = "Clients by System Type";
         ReportNames.add(c);
 
         c = new ReportNames();
-        c.Name = "Rep-004";
+        c.Name = "Rep_004";
         c.Description = "Clients by Value";
         ReportNames.add(c);
 
         c = new ReportNames();
-        c.Name = "Rep-005";
+        c.Name = "Rep_005";
         c.Description = "Clients by Volume";
         ReportNames.add(c);
 
