@@ -31,6 +31,26 @@
             android:switchMinWidth="100dp"
             android:text="Auto Login" />
 
+        <Switch
+            android:id="@+id/swSpeech"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:showText="true"
+            android:switchMinWidth="100dp"
+            android:text="Enable Speech" />
+
+        <EditText
+            android:id="@+id/etWelcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Welcome text" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="ShowHelp"
+            android:text="Show Voice Commands" />
     </LinearLayout>
 
 

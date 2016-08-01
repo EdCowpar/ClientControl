@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class AppSettings implements Serializable {
     String AutoLoad;
     String SaveUser;
+    String Speech;
     Integer UserLevel;
     Integer RecNo;
     String Password;
@@ -17,6 +18,15 @@ public class AppSettings implements Serializable {
     String Supervisor;
     String Controller;
     String Telephone;
+    String Welcome;
+
+    public String getWelcome() {
+        return Welcome;
+    }
+
+    public void setWelcome(String welcome) {
+        Welcome = welcome;
+    }
 
     public String getSaveUser() {
         return SaveUser;
@@ -104,5 +114,13 @@ public class AppSettings implements Serializable {
 
     public void setUserCode(String userCode) {
         UserCode = userCode;
+    }
+
+    public String getSpeech() {
+        return Speech;
+    }
+
+    public void setSpeech(String speech) {
+        Speech = speech;
     }
 }

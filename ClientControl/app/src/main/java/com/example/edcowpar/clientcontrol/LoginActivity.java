@@ -46,7 +46,9 @@ public class LoginActivity extends AppCompatActivity {
         if (!isValidData()) return;
 
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("Speech", "Hi Ed. How can I help");
+        if (a.getSpeech().equals("Yes")) {
+            intent.putExtra("Speech", a.getWelcome());
+        }
 
         startActivity(intent);
     }
@@ -90,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
         //Save Settings
         a.setUserCode(c.UserCode.trim());
         a.setPassword(c.Password.trim());
+        a.setUserName(c.UserName.trim());
         a.setRecNo(c.RecNo);
         GetData.Write(this.getApplicationContext(), a); //Create File
 

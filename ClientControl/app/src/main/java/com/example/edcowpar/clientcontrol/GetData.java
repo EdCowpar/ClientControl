@@ -43,6 +43,7 @@ public class GetData {
         a.SaveUser = "No";
         a.AutoLoad = "No";
         a.UserLevel = 0;
+        a.Speech = "No";
 
         if (f.isFile()) {
             try {
@@ -59,7 +60,7 @@ public class GetData {
         }
         if (a.AutoLoad == null) a.AutoLoad = "No";
         if (a.SaveUser == null) a.SaveUser = "No";
-
+        if (a.Speech == null) a.Speech = "No";
         return a;
     }
 
