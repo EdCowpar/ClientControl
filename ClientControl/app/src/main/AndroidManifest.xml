@@ -141,7 +141,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.edcowpar.clientcontrol.ConsultantListActivity" />
         </activity>
-        <activity android:name=".HelpActivity"></activity>
+        <activity android:name=".HelpActivity" />
+        <activity
+            android:name=".SortDialog"
+            android:theme="@style/AppDialogTheme"></activity>
     </application>
 
 </manifest>

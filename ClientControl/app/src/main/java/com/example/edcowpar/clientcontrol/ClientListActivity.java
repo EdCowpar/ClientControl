@@ -11,6 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -26,6 +29,7 @@ public class ClientListActivity extends AppCompatActivity {
     private boolean mTwoPane;
     private SqlGet sq;
     private String eMes, strSearchText, strSequence, strTable, strWhere, strTitle;
+    private Intent i;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +69,40 @@ public class ClientListActivity extends AppCompatActivity {
             mTwoPane = true;
         }
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.select_client_menu, menu);
+        return true;
+    }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.Sort:
+                i = new Intent(this, SortDialog.class);
+                startActivity(i);
+                return true;
 
+            case R.id.Search:
+                i = new Intent(this, SelectClientActivity.class);
+                startActivity(i);
+                return true;
+
+            case R.id.Headings:
+                // User chose the "Favorite" action, mark the current item
+                // as a favorite...
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+    @Override
     protected void onNewIntent(Intent intent) {
         handleIntent(intent);
     }
@@ -123,10 +158,10 @@ public class ClientListActivity extends AppCompatActivity {
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mItem = mValues.get(position);
             holder.mClientNoView.setText(mValues.get(position).ClientNo);
-            holder.mClientNameView.setText(mValues.get(position).ClientName);
             String txt = mValues.get(position).ExpiryDate;
             txt = SubRoutines.FmtString(txt, "a");
-            holder.mExpiryDateView.setText("Expires:\n" + txt);
+            txt = mValues.get(position).ClientName + "\n" + "Expires: " + txt;
+            holder.mClientNameView.setText(txt);
 
             // Set the color to red if row is even, or to green if row is odd.
             if (position % 2 == 0) {
@@ -166,7 +201,6 @@ public class ClientListActivity extends AppCompatActivity {
             public final View mView;
             public final TextView mClientNoView;
             public final TextView mClientNameView;
-            public final TextView mExpiryDateView;
             public ClientRecord mItem;
 
             public ViewHolder(View view) {
@@ -174,7 +208,6 @@ public class ClientListActivity extends AppCompatActivity {
                 mView = view;
                 mClientNoView = (TextView) view.findViewById(R.id.ClientNo);
                 mClientNameView = (TextView) view.findViewById(R.id.ClientName);
-                mExpiryDateView = (TextView) view.findViewById(R.id.ExpiryDate);
             }
         }
     }

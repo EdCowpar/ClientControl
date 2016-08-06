@@ -25,7 +25,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/tvSystemType"
-        android:ems="8"
         android:inputType="text" />
 
     <Button
@@ -33,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/etSearchText"
-        android:layout_toRightOf="@+id/etSearchText"
+        android:layout_alignParentRight="true"
         android:drawableRight="@android:drawable/ic_menu_search"
         android:text="Go" />
 
@@ -156,7 +155,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/input_layout_h3"
         android:layout_toRightOf="@+id/tvSystemType"
-        android:ems="8"
         android:focusable="false"
         android:inputType="none" />
 
@@ -175,7 +173,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/etFromDate"
         android:layout_toRightOf="@+id/tvSystemType"
-        android:ems="8"
         android:focusable="false"
         android:inputType="none" />
 
@@ -184,7 +181,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/etFromDate"
-        android:layout_toRightOf="@+id/etSearchText"
+        android:layout_alignParentRight="true"
         android:onClick="setFromDate"
         android:text="..." />
 
@@ -193,7 +190,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/etToDate"
-        android:layout_toRightOf="@+id/etSearchText"
+        android:layout_alignParentRight="true"
         android:onClick="setToDate"
         android:text="..." />
 
