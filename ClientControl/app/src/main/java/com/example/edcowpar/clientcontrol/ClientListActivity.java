@@ -30,25 +30,28 @@ public class ClientListActivity extends AppCompatActivity {
     private SqlGet sq;
     private String eMes, strSearchText, strSequence, strTable, strWhere, strTitle;
     private Intent i;
+    private AppSettings a;
+    private FloatingActionButton fab;
+    private View recyclerView;
+    private Context ctx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_list);
         handleIntent(getIntent());
+        ctx = this;
+
 
         //get parameter in extra
-        Bundle b = getIntent().getExtras();
-        strWhere = b.getString("Where");  //get any Search text
-        strSearchText = b.getString("SearchText");  //get any Search text
-        strSequence = b.getString("Sequence");      //get Sequence
-        strTable = b.getString("Table");            //get Database Table
-        strTitle = b.getString("Title");            //get Title
+        //Bundle b = getIntent().getExtras();
+        strWhere = ""; //b.getString("Where");  //get any Search text
+        strSearchText = ""; //b.getString("SearchText");  //get any Search text
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(strTitle);
+        getSupportActionBar().setTitle("Clients");
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,9 +60,7 @@ public class ClientListActivity extends AppCompatActivity {
             }
         });
 
-        View recyclerView = findViewById(R.id.client_list);
-        assert recyclerView != null;
-        setupRecyclerView((RecyclerView) recyclerView);
+        recyclerView = findViewById(R.id.client_list);
 
         if (findViewById(R.id.client_detail_container) != null) {
             // The detail container view will be present only in the
@@ -69,11 +70,48 @@ public class ClientListActivity extends AppCompatActivity {
             mTwoPane = true;
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        setSequence();      //get Sequence
+        setupRecyclerView((RecyclerView) recyclerView);
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.select_client_menu, menu);
         return true;
+    }
+
+    private void setSequence() {
+        a = GetData.Read(this.getApplicationContext());
+        switch (a.ClientSeq) {
+            case 0: //rbClientNo
+                strSequence = "ORDER BY ClientNo";
+                break;
+            case 1: //rbClientNameAsc:
+                strSequence = "ORDER BY ClientName";
+                break;
+            case 2: //R.id.rbClientNameDsc:
+                strSequence = "ORDER BY ClientName DESC";
+                break;
+            case 3: //R.id.rbExpiryDateAsc:
+                strSequence = "ORDER BY ExpiryDate, ClientName";
+                break;
+            case 4: //R.id.rbExpiryDateDsc:
+                strSequence = "ORDER BY ExpiryDate DESC, ClientName";
+                break;
+            case 5: //R.id.rbConsultant:
+                strSequence = "ORDER BY Consultant, ClientName";
+                break;
+            case 6: //R.id.rbSystemType:
+                strSequence = "ORDER BY System, ClientName";
+                break;
+
+        }
     }
 
     @Override
@@ -161,6 +199,15 @@ public class ClientListActivity extends AppCompatActivity {
             String txt = mValues.get(position).ExpiryDate;
             txt = SubRoutines.FmtString(txt, "a");
             txt = mValues.get(position).ClientName + "\n" + "Expires: " + txt;
+            if (a.ClientSeq.equals(5)) {
+                String c = sq.getConsultantName(mValues.get(position).Consultant);
+                txt = txt + "\nConsultant: " + c;
+            }
+            if (a.ClientSeq.equals(6)) {
+                String sType = mValues.get(position).System;
+                String v = sq.getSystemType(ctx, sType);
+                txt = txt + "\nSystemType: " + v;
+            }
             holder.mClientNameView.setText(txt);
 
             // Set the color to red if row is even, or to green if row is odd.

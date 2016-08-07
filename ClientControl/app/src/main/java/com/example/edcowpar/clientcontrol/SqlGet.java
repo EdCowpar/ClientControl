@@ -1,5 +1,6 @@
 package com.example.edcowpar.clientcontrol;
 
+import android.content.Context;
 import android.os.StrictMode;
 
 import java.sql.Connection;
@@ -110,6 +111,23 @@ public class SqlGet {
         return c;
     }
 
+    public String getConsultantName(String strConsultant) {
+        String sql = "select * from sbUsers WHERE UserCode = '" + strConsultant + "'";
+        ResultSet rs;
+        String c = "Not Set";
+        try {
+
+            Statement statement = cn.createStatement();
+            rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                c = rs.getString("UserName").trim();
+            }
+        } catch (SQLException e) {
+            eMes = e.getMessage();
+        }
+        return c;
+    }
     public String UpdConsultant(ConsultantRecord c) {
 
         String sql = "UPDATE sbUsers SET UserCode = '" + c.UserCode + "'," +
@@ -467,4 +485,20 @@ public class SqlGet {
         }
         return c;
     }
+
+    public String getSystemType(Context context, String sType) {
+        int i;
+        if (sType != null) {
+            if (sType.equals(" ")) {
+                i = 9;
+            } else {
+                i = Integer.parseInt(sType);
+            }
+        } else {
+            i = 9;   //Not Set'
+        }
+        String v = context.getResources().getStringArray(R.array.system_types)[i];
+        return v;
+    }
+
 }

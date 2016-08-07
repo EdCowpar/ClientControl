@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     }
 
     public void SelectClient(View view) {
-        Intent intent = new Intent(this, SelectClientActivity.class);
+        Intent intent = new Intent(this, ClientListActivity.class);
         startActivity(intent);
     }
 

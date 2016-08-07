@@ -1,5 +1,7 @@
 package com.example.edcowpar.clientcontrol;
 
+import android.app.Application;
+import android.content.Context;
 import android.widget.Spinner;
 
 import java.io.BufferedReader;
@@ -164,5 +166,6 @@ public class SubRoutines {
 
         return ReportNames;
     }
+
 
 }

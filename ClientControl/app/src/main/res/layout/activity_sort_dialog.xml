@@ -18,6 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:onClick="onRadioButtonClicked"
             android:text="ClientNo" />
 
         <RadioButton
@@ -26,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:checked="true"
+            android:onClick="onRadioButtonClicked"
             android:text="Client Name (A-Z)" />
 
         <RadioButton
@@ -33,6 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:onClick="onRadioButtonClicked"
             android:text="Client Name (Z-A)" />
 
         <RadioButton
@@ -40,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:onClick="onRadioButtonClicked"
             android:text="Expiry Date (most recent)" />
 
         <RadioButton
@@ -47,6 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:onClick="onRadioButtonClicked"
             android:text="Expiry Date (oldest)" />
 
         <RadioButton
@@ -54,14 +59,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:onClick="onRadioButtonClicked"
             android:text="Consultant" />
 
         <RadioButton
-            android:id="@+id/SystemType"
+            android:id="@+id/rbSystemType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
+            android:onClick="onRadioButtonClicked"
             android:text="System Type" />
 
     </RadioGroup>

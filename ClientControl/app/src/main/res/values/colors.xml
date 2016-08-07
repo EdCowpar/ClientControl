@@ -3,8 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#68efad</color>
-    <color name="colorOdd">#e2f9ff40</color>
-    <color name="colorEven">#ffbc40</color>
+    <color name="colorOdd">#e2bcf5fd</color>
+    <color name="colorEven">#c0d2d6</color>
     <color name="colorBackground">#00faf9f9</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>

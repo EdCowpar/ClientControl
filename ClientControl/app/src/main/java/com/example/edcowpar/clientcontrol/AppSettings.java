@@ -19,6 +19,15 @@ public class AppSettings implements Serializable {
     String Controller;
     String Telephone;
     String Welcome;
+    Integer ClientSeq;
+
+    public Integer getClientSeq() {
+        return ClientSeq;
+    }
+
+    public void setClientSeq(Integer clientSeq) {
+        ClientSeq = clientSeq;
+    }
 
     public String getWelcome() {
         return Welcome;
