@@ -24,13 +24,12 @@ import java.util.Calendar;
 
 
 public class SelectClientActivity extends AppCompatActivity {
-    Button btnGo;
     EditText etSearchText, etFromDate, etToDate;
     Spinner spSystemType, spConsultant;
     SqlGet sq;
     ComboItems ci;
-    RadioButton rbClientNo, rbClientName, rbExpiryDate;
     String strTitle, strSequence, strSearchText, strWhere, strFromDate, strToDate;
+    FloatingActionButton fab;
 
     private int year, month, day;
     private DatePickerDialog.OnDateSetListener FromDateListener = new DatePickerDialog.OnDateSetListener() {
@@ -52,6 +51,7 @@ public class SelectClientActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_client);
+
         //clear fields
         strTitle = "Current";
         strSequence = "ORDER BY ClientNo";
@@ -60,116 +60,86 @@ public class SelectClientActivity extends AppCompatActivity {
         strFromDate = "";
         strToDate = "";
 
-        btnGo = (Button) findViewById(R.id.btnGo);
         etSearchText = (EditText) findViewById(R.id.etSearchText);
         etFromDate = (EditText) findViewById(R.id.etFromDate);
         etToDate = (EditText) findViewById(R.id.etToDate);
         spSystemType = (Spinner) findViewById(R.id.spSystemType);
         spConsultant = (Spinner) findViewById(R.id.spConsultant);
-        rbClientNo = (RadioButton) findViewById(R.id.rbClientNo);
-        rbClientName = (RadioButton) findViewById(R.id.rbClientName);
-        rbExpiryDate = (RadioButton) findViewById(R.id.rbExpiryDate);
         //Set System Type to All
         spSystemType.setSelection(10);
         // Load Consultants
         populateConsultants();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabNew);
+        fab = (FloatingActionButton) findViewById(R.id.fabNew);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), AddClientActivity.class);
-                startActivity(intent);
-                finish();
+                doSearch();
             }
         });
 
-        btnGo.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        strSearchText = etSearchText.getText().toString();
-                        if (isClientNo(strSearchText)) {
-                            //Use ClientNo and byPass any other selection
-                            strWhere = "WHERE ClientNo = '" + strSearchText + "'";
-                            strSearchText = "";
-                        } else {
-                            strFromDate = etFromDate.getText().toString();
-                            strToDate = etToDate.getText().toString();
-
-                            //Test System Types
-                            Integer sTyp = spSystemType.getSelectedItemPosition();
-                            if (sTyp < 10) {
-                                strTitle = spSystemType.getSelectedItem().toString().trim() + " ";
-                                if (strWhere.equals("")) {
-                                    strWhere = "WHERE System = '" + Integer.toString(sTyp) + "' ";
-                                } else {
-                                    strWhere = strWhere + "AND System = '" + Integer.toString(sTyp) + "' ";
-                                }
-                            }
-                            // Test Consultants
-                            String strConsultant = ci.Code.get(spConsultant.getSelectedItemPosition());
-                            if (!strConsultant.equals("All")) {
-                                strWhere = "WHERE Consultant = '" + strConsultant + "' ";
-                                strTitle = strTitle + " " + spConsultant.getSelectedItem().toString().trim();
-                            }
-                            //test From and To Dates - FromDate Only
-                            if (!strFromDate.equals("") & strToDate.equals("")) {
-                                if (strWhere.equals("")) {
-                                    strWhere = "WHERE ExpiryDate >= '" + strFromDate + "' ";
-                                } else {
-                                    strWhere = strWhere + "AND ExpiryDate >= '" + strFromDate + "' ";
-                                }
-                            }
-                            //test From and To Dates - ToDate Only
-                            if (!strToDate.equals("") & strFromDate.equals("")) {
-                                if (strWhere.equals("")) {
-                                    strWhere = "WHERE ExpiryDate <= '" + strToDate + "' ";
-                                } else {
-                                    strWhere = strWhere + "AND ExpiryDate <= '" + strToDate + "' ";
-                                }
-                            }
-                            //test From and To Dates - Both
-                            if (!strToDate.equals("") & !strFromDate.equals("")) {
-                                if (strWhere.equals("")) {
-                                    strWhere = "WHERE ExpiryDate >= '" + strFromDate + "' AND ExpiryDate <= '" + strToDate + "' ";
-                                } else {
-                                    strWhere = strWhere + "AND ExpiryDate >= '" + strFromDate + "' AND ExpiryDate <= '" + strToDate + "' ";
-                                }
-                            }
-                        }
-                        Intent i = new Intent(SelectClientActivity.this, ClientListActivity.class);
-                        i.putExtra("Where", strWhere);
-                        i.putExtra("SearchText", strSearchText);
-                        i.putExtra("Sequence", strSequence);
-                        i.putExtra("Table", "Clients");
-                        i.putExtra("Title", strTitle + " Clients");
-                        startActivity(i);
-                    }
-                });
-
-
     }
 
-    public void onRadioButtonClicked(View view) {
-        // Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
+    private void doSearch() {
+        strSearchText = etSearchText.getText().toString();
+        if (isClientNo(strSearchText)) {
+            //Use ClientNo and byPass any other selection
+            strWhere = "WHERE ClientNo = '" + strSearchText + "'";
+            strSearchText = "";
+        } else {
+            strFromDate = etFromDate.getText().toString();
+            strToDate = etToDate.getText().toString();
 
-        // Check which radio button was clicked
-        switch (view.getId()) {
-            case R.id.rbClientNo:
-                if (checked)
-                    strSequence = "ORDER BY ClientNo";
-                break;
-            case R.id.rbClientName:
-                if (checked)
-                    strSequence = "ORDER BY ClientName";
-                break;
-            case R.id.rbExpiryDate:
-                if (checked)
-                    strSequence = "ORDER BY ExpiryDate";
-                break;
+            //Test System Types
+            Integer sTyp = spSystemType.getSelectedItemPosition();
+            if (sTyp < 10) {
+                strTitle = spSystemType.getSelectedItem().toString().trim() + " ";
+                if (strWhere.equals("")) {
+                    strWhere = "WHERE System = '" + Integer.toString(sTyp) + "' ";
+                } else {
+                    strWhere = strWhere + "AND System = '" + Integer.toString(sTyp) + "' ";
+                }
+            }
+            // Test Consultants
+            String strConsultant = ci.Code.get(spConsultant.getSelectedItemPosition());
+            if (!strConsultant.equals("All")) {
+                strWhere = "WHERE Consultant = '" + strConsultant + "' ";
+                strTitle = strTitle + " " + spConsultant.getSelectedItem().toString().trim();
+            }
+            //test From and To Dates - FromDate Only
+            if (!strFromDate.equals("") & strToDate.equals("")) {
+                if (strWhere.equals("")) {
+                    strWhere = "WHERE ExpiryDate >= '" + strFromDate + "' ";
+                } else {
+                    strWhere = strWhere + "AND ExpiryDate >= '" + strFromDate + "' ";
+                }
+            }
+            //test From and To Dates - ToDate Only
+            if (!strToDate.equals("") & strFromDate.equals("")) {
+                if (strWhere.equals("")) {
+                    strWhere = "WHERE ExpiryDate <= '" + strToDate + "' ";
+                } else {
+                    strWhere = strWhere + "AND ExpiryDate <= '" + strToDate + "' ";
+                }
+            }
+            //test From and To Dates - Both
+            if (!strToDate.equals("") & !strFromDate.equals("")) {
+                if (strWhere.equals("")) {
+                    strWhere = "WHERE ExpiryDate >= '" + strFromDate + "' AND ExpiryDate <= '" + strToDate + "' ";
+                } else {
+                    strWhere = strWhere + "AND ExpiryDate >= '" + strFromDate + "' AND ExpiryDate <= '" + strToDate + "' ";
+                }
+            }
         }
+        Intent i = new Intent(SelectClientActivity.this, ClientListActivity.class);
+        i.putExtra("Where", strWhere);
+        i.putExtra("SearchText", strSearchText);
+        i.putExtra("Sequence", strSequence);
+        i.putExtra("Table", "Clients");
+        i.putExtra("Title", strTitle + " Clients");
+        startActivity(i);
+        finish();
     }
 
     public void setFromDate(View view) {

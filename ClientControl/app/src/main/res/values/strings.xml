@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Client Control App</string>
+    <string name="app_name">Client Control - Home</string>
     <string name="addClient">Add a New Client</string>
     <string name="ModifyClient">Modify Client</string>
     <string name="SelectClient">Select Client</string>
@@ -18,6 +18,30 @@
         <item>Not Set</item>
         <item>All Systems</item>
     </string-array>
+    <string-array name="client_headings">
+        <item>RecNo</item>
+        <item>ClientNo</item>
+        <item>ClientName</item>
+        <item>ContactName</item>
+        <item>EmailAddress</item>
+        <item>PayeNo</item>
+        <item>Telephone</item>
+        <item>ExpiryDate</item>
+        <item>Volumn></item>
+        <item>UIFNo</item>
+        <item>SDLNo</item>
+        <item>System</item>
+        <item>Annual_Licence</item>
+        <item>Paid</item>
+        <item>Postal_01</item>
+        <item>Postal_02</item>
+        <item>Postal_03</item>
+        <item>PostCode</item>
+        <item>InstallPin</item>
+        <item>PDFModule</item>
+        <item>Consultant</item>
+        <item>InCloud</item>
+    </string-array>
 
     <string name="title_ConsultantListActivity">Active Consultants</string>
     <string name="title_activity_settings">Settings</string>
@@ -27,6 +51,7 @@
     <string name="title_ClientListActivity">Current Clients</string>
     <string name="title_AddConsultantActivity">Add New Consultant</string>
     <string name="title_ModifyConsultantActivity">Modify Consultant</string>
+    <string name="title_ActivitySelectClient">Search</string>
 
     <string name="btnBack">Back</string>
     <string name="btnCancel">Cancel</string>

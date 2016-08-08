@@ -1,162 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
     tools:context="com.example.edcowpar.clientcontrol.SelectClientActivity">
 
-    <TextView
-        android:id="@+id/tvSearch"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/etSearchText"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="10dp"
-        android:text="@string/tvSearch" />
-
-    <EditText
-        android:id="@+id/etSearchText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/tvSystemType"
-        android:inputType="text" />
-
-    <Button
-        android:id="@+id/btnGo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/etSearchText"
-        android:layout_alignParentRight="true"
-        android:drawableRight="@android:drawable/ic_menu_search"
-        android:text="Go" />
-
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etSearchText"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/tvSystemType">
-
-        <RadioButton
-            android:id="@+id/rbClientNo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:checked="true"
-            android:onClick="onRadioButtonClicked"
-            android:text="by ClientNo" />
-
-        <RadioButton
-            android:id="@+id/rbClientName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:checked="false"
-            android:onClick="onRadioButtonClicked"
-            android:text="by Client Name" />
-
-        <RadioButton
-            android:id="@+id/rbExpiryDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:checked="false"
-            android:onClick="onRadioButtonClicked"
-            android:text="by Expiry date" />
-
-
-    </RadioGroup>
-
-
-    <View
-        android:id="@+id/input_layout_h1"
-        android:layout_width="150dp"
-        android:layout_height="2dp"
-        android:layout_below="@+id/radioGroup"
-        android:layout_margin="7dp"
-        android:layout_toRightOf="@+id/tvSystemType"
-        android:background="@android:color/darker_gray" />
+        android:hint="@string/tvSearch"
+        android:inputType="text"
+        android:paddingBottom="@dimen/activity_vertical_margin" />
 
     <TextView
         android:id="@+id/tvSystemType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/input_layout_h1"
+        android:layout_below="@+id/etSearchText"
         android:layout_marginTop="10dp"
         android:text="System Type" />
 
     <Spinner
         android:id="@+id/spSystemType"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/input_layout_h1"
+        android:layout_below="@+id/etSearchText"
         android:layout_marginBottom="7dp"
         android:layout_marginTop="7dp"
         android:layout_toRightOf="@+id/tvSystemType"
         android:entries="@array/system_types"
+        android:paddingBottom="@dimen/activity_vertical_margin"
         android:prompt="@string/system_prompt" />
-
-    <View
-        android:id="@+id/input_layout_h2"
-        android:layout_width="150dp"
-        android:layout_height="2dp"
-        android:layout_below="@+id/tvSystemType"
-        android:layout_toRightOf="@+id/tvSystemType"
-        android:background="@android:color/darker_gray" />
 
     <TextView
         android:id="@+id/tvConsultant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/input_layout_h2"
+        android:layout_below="@+id/spSystemType"
         android:layout_marginTop="10dp"
         android:text="@string/tvConsultant" />
 
     <Spinner
         android:id="@+id/spConsultant"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/input_layout_h2"
+        android:layout_below="@+id/spSystemType"
         android:layout_marginBottom="7dp"
         android:layout_marginTop="7dp"
         android:layout_toRightOf="@+id/tvSystemType"
         android:entries="@array/system_types"
+        android:paddingBottom="@dimen/activity_vertical_margin"
         android:prompt="@string/tvConsultant" />
-
-    <View
-        android:id="@+id/input_layout_h3"
-        android:layout_width="150dp"
-        android:layout_height="2dp"
-        android:layout_below="@+id/spConsultant"
-        android:layout_toRightOf="@+id/tvSystemType"
-        android:background="@android:color/darker_gray" />
 
     <TextView
         android:id="@+id/tvFromDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/input_layout_h3"
+        android:layout_below="@+id/spConsultant"
         android:layout_marginTop="12dp"
+        android:paddingBottom="@dimen/activity_vertical_margin"
         android:text="@string/tvFromDate" />
 
     <EditText
         android:id="@+id/etFromDate"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/input_layout_h3"
+        android:layout_below="@+id/spConsultant"
         android:layout_toRightOf="@+id/tvSystemType"
         android:focusable="false"
-        android:inputType="none" />
+        android:inputType="none"
+        android:paddingBottom="@dimen/activity_vertical_margin" />
 
     <TextView
         android:id="@+id/tvToDate"
@@ -165,33 +89,39 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/tvFromDate"
         android:layout_marginTop="12dp"
+        android:paddingBottom="@dimen/activity_vertical_margin"
         android:text="@string/tvToDate" />
 
     <EditText
         android:id="@+id/etToDate"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etFromDate"
         android:layout_toRightOf="@+id/tvSystemType"
         android:focusable="false"
-        android:inputType="none" />
+        android:inputType="none"
+        android:paddingBottom="@dimen/activity_vertical_margin" />
 
     <Button
         android:id="@+id/btnFromDate"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/etFromDate"
         android:layout_alignParentRight="true"
         android:onClick="setFromDate"
+        android:paddingBottom="@dimen/activity_vertical_margin"
         android:text="..." />
 
     <Button
         android:id="@+id/btnToDate"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/etToDate"
         android:layout_alignParentRight="true"
         android:onClick="setToDate"
+        android:paddingBottom="@dimen/activity_vertical_margin"
         android:text="..." />
 
 
@@ -201,9 +131,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_input_add"
+        android:layout_below="@+id/btnToDate"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:src="@drawable/ic_search"
         android:tint="@color/colorWhite" />
 
 

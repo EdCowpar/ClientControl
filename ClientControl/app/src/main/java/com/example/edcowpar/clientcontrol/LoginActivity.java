@@ -21,6 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getSupportActionBar().setTitle("Client Control - Login");
 
         etUserCode = (EditText) findViewById(R.id.etUserCode);
         etPassword = (EditText) findViewById(R.id.etPassword);

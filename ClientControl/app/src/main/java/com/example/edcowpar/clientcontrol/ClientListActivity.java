@@ -128,8 +128,8 @@ public class ClientListActivity extends AppCompatActivity {
                 return true;
 
             case R.id.Headings:
-                // User chose the "Favorite" action, mark the current item
-                // as a favorite...
+                i = new Intent(this, SelectHeadingsActivity.class);
+                startActivity(i);
                 return true;
 
             default:

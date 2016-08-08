@@ -53,13 +53,8 @@
         </activity>
         <activity
             android:name=".SelectClientActivity"
-            android:label="@string/SelectClient"
-            android:launchMode="singleTop"
-            android:windowSoftInputMode="stateHidden">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.edcowpar.clientcontrol.MainActivity" />
-        </activity>
+            android:theme="@style/AppDialogTheme"
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity android:name=".ErrorActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -85,7 +80,7 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="Client Control - Login"
+            android:label="Client Control"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -145,6 +140,7 @@
         <activity
             android:name=".SortDialog"
             android:theme="@style/AppDialogTheme"></activity>
+        <activity android:name=".SelectHeadingsActivity"></activity>
     </application>
 
 </manifest>

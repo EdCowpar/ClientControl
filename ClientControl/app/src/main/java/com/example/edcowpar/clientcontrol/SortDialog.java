@@ -13,7 +13,7 @@ public class SortDialog extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sort_dialog);
-        setTitle("Sort by:");
+
         a = GetData.Read(this.getApplicationContext());
         // set radio button
         switch (a.ClientSeq) {
