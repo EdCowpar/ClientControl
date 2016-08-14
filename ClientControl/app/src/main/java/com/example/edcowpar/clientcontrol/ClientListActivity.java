@@ -128,7 +128,7 @@ public class ClientListActivity extends AppCompatActivity {
                 return true;
 
             case R.id.Headings:
-                i = new Intent(this, SelectHeadingsActivity.class);
+                i = new Intent(this, Dialog_SelectHeadings_Activity.class);
                 startActivity(i);
                 return true;
 
