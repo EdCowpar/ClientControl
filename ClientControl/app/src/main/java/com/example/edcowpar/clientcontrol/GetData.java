@@ -66,4 +66,56 @@ public class GetData {
         return a;
     }
 
+    public static void Write_ReportHeadings(Context ctx, String filename, ReportHeadings r) {
+        try {
+            FileOutputStream fileOut = ctx.openFileOutput(filename, Activity.MODE_PRIVATE);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            r.RecNo = 1;
+            out.writeObject(r);
+            out.close();
+            fileOut.close();
+        } catch (Exception ex) {
+            eMes = ex.getMessage();
+        }
+    }
+
+    public static ReportHeadings Read_ReportHeadings(Context ctx, String filename) {
+        ReportHeadings r = new ReportHeadings();
+        File f = new File(ctx.getFilesDir(), filename);
+        r.RecNo = 0;
+        r.ClientNo = false;
+        r.ClientName = false;
+        r.ContactName = false;
+        r.EmailAddress = false;
+        r.PayeNo = false;
+        r.Telephone = false;
+        r.ExpiryDate = false;
+        r.Volumn = false;
+        r.UIFNo = false;
+        r.SDLNo = false;
+        r.System = false;
+        r.AnnualLicence = false;
+        r.Paid = false;
+        r.Postal_01 = false;
+        r.Postal_02 = false;
+        r.Postal_03 = false;
+        r.PostCode = false;
+        r.InstallPin = false;
+        r.PDFModule = false;
+        r.Consultant = false;
+        r.InCloud = false;
+        if (f.isFile()) {
+            try {
+                FileInputStream fileIn = ctx.openFileInput(filename);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                r = (ReportHeadings) in.readObject();
+                in.close();
+                fileIn.close();
+            } catch (Exception ex) {
+                eMes = ex.getMessage();
+            }
+        }
+        return r;
+    }
+
 }

@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Dialog_SelectHeadings_Activity extends AppCompatActivity {
+    private ReportHeadings r;
+    private List<HeadingRecord> lst;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,35 +34,39 @@ public class Dialog_SelectHeadings_Activity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        List<HeadingRecord> lst = LoadList();
+        lst = LoadList();
         recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(lst));
     }
 
     private List<HeadingRecord> LoadList() {
-        List<HeadingRecord> lst = new ArrayList<HeadingRecord>();
-
-        lst = AddList(lst, "RecNo", false);
-        lst = AddList(lst, "ClientNo", true);
-        lst = AddList(lst, "ClientName", true);
-        lst = AddList(lst, "ContactName", false);
-        lst = AddList(lst, "EmailAddress", false);
-        lst = AddList(lst, "PayeNo", false);
-        lst = AddList(lst, "Telephone", false);
-        lst = AddList(lst, "ExpiryDate", false);
-        lst = AddList(lst, "Volumn", false);
-        lst = AddList(lst, "UIFNo", false);
-        lst = AddList(lst, "SDLNo", false);
-        lst = AddList(lst, "System", false);
-        lst = AddList(lst, "Annual Licence", false);
-        lst = AddList(lst, "Paid", false);
-        lst = AddList(lst, "Postal_01", false);
-        lst = AddList(lst, "Postal_02", false);
-        lst = AddList(lst, "Postal_03", false);
-        lst = AddList(lst, "PostCode", false);
-        lst = AddList(lst, "InstallPin", false);
-        lst = AddList(lst, "PDFModule", false);
-        lst = AddList(lst, "Consultant", false);
-        lst = AddList(lst, "InCloud", false);
+        lst = new ArrayList<HeadingRecord>();
+        r = GetData.Read_ReportHeadings(this.getApplicationContext(), "ClientDetails.txt");
+        if (r.RecNo == 0) {
+            r.ClientNo = true;
+            r.ClientName = true;
+            r.ExpiryDate = true;
+        }
+        lst = AddList(lst, "ClientNo", r.ClientNo);
+        lst = AddList(lst, "ClientName", r.ClientName);
+        lst = AddList(lst, "ContactName", r.ContactName);
+        lst = AddList(lst, "EmailAddress", r.EmailAddress);
+        lst = AddList(lst, "PayeNo", r.PayeNo);
+        lst = AddList(lst, "Telephone", r.Telephone);
+        lst = AddList(lst, "ExpiryDate", r.ExpiryDate);
+        lst = AddList(lst, "Volumn", r.Volumn);
+        lst = AddList(lst, "UIFNo", r.UIFNo);
+        lst = AddList(lst, "SDLNo", r.SDLNo);
+        lst = AddList(lst, "System", r.System);
+        lst = AddList(lst, "Annual Licence", r.AnnualLicence);
+        lst = AddList(lst, "Paid", r.Paid);
+        lst = AddList(lst, "Postal_01", r.Postal_01);
+        lst = AddList(lst, "Postal_02", r.Postal_02);
+        lst = AddList(lst, "Postal_03", r.Postal_03);
+        lst = AddList(lst, "PostCode", r.PostCode);
+        lst = AddList(lst, "InstallPin", r.InstallPin);
+        lst = AddList(lst, "PDFModule", r.PDFModule);
+        lst = AddList(lst, "Consultant", r.Consultant);
+        lst = AddList(lst, "InCloud", r.InCloud);
         return lst;
     }
 
@@ -68,6 +74,36 @@ public class Dialog_SelectHeadings_Activity extends AppCompatActivity {
         HeadingRecord c = new HeadingRecord(Description, Description, Checked);
         lst.add(c);
         return lst;
+    }
+
+    public void ResetAll(View v) {
+        r.ClientNo = true;
+        r.ClientName = true;
+        r.ContactName = false;
+        r.EmailAddress = false;
+        r.PayeNo = false;
+        r.Telephone = false;
+        r.ExpiryDate = false;
+        r.Volumn = false;
+        r.UIFNo = false;
+        r.SDLNo = false;
+        r.System = false;
+        r.AnnualLicence = false;
+        r.Paid = false;
+        r.Postal_01 = false;
+        r.Postal_02 = false;
+        r.Postal_03 = false;
+        r.PostCode = false;
+        r.InstallPin = false;
+        r.PDFModule = false;
+        r.Consultant = false;
+        r.InCloud = false;
+        Confirm(v);
+    }
+
+    public void Confirm(View v) {
+        GetData.Write_ReportHeadings(this.getApplicationContext(), "ClientDetails.txt", r);
+        finish();
     }
 
     public class SimpleItemRecyclerViewAdapter
@@ -103,6 +139,70 @@ public class Dialog_SelectHeadings_Activity extends AppCompatActivity {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     mValues.get(holder.getAdapterPosition()).setSelected(isChecked);
+                    switch (holder.mIdView.getText().toString()) {
+                        case "ClientNo":
+                            r.ClientNo = isChecked;
+                            break;
+                        case "ClientName":
+                            r.ClientName = isChecked;
+                            break;
+                        case "ContactName":
+                            r.ContactName = isChecked;
+                            break;
+                        case "EmailAddress":
+                            r.EmailAddress = isChecked;
+                            break;
+                        case "PayeNo":
+                            r.PayeNo = isChecked;
+                            break;
+                        case "Telephone":
+                            r.Telephone = isChecked;
+                            break;
+                        case "ExpiryDate":
+                            r.ExpiryDate = isChecked;
+                            break;
+                        case "Volumn":
+                            r.Volumn = isChecked;
+                            break;
+                        case "UIFNo":
+                            r.UIFNo = isChecked;
+                            break;
+                        case "SDLNo":
+                            r.SDLNo = isChecked;
+                            break;
+                        case "System":
+                            r.System = isChecked;
+                            break;
+                        case "Annual Licence":
+                            r.AnnualLicence = isChecked;
+                            break;
+                        case "Paid":
+                            r.Paid = isChecked;
+                            break;
+                        case "Postal_01":
+                            r.Postal_01 = isChecked;
+                            break;
+                        case "Postal_02":
+                            r.Postal_02 = isChecked;
+                            break;
+                        case "Postal_03":
+                            r.Postal_03 = isChecked;
+                        case "PostCode":
+                            r.PostCode = isChecked;
+                            break;
+                        case "InstallPin":
+                            r.InstallPin = isChecked;
+                            break;
+                        case "PDFModule":
+                            r.PDFModule = isChecked;
+                            break;
+                        case "Consultant":
+                            r.Consultant = isChecked;
+                            break;
+                        case "InCloud":
+                            r.InCloud = isChecked;
+                            break;
+                    }
                 }
             });
         }
@@ -133,10 +233,6 @@ public class Dialog_SelectHeadings_Activity extends AppCompatActivity {
         public String Id;
         public String Description;
         private boolean isSelected;
-
-        public HeadingRecord() {
-
-        }
 
         public HeadingRecord(String id, String description) {
 
