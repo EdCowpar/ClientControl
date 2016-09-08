@@ -65,11 +65,12 @@ public class SqlGet {
 
     public String AddConsultant(ConsultantRecord c) {
 
-        String sql = "INSERT INTO sbUsers (UserCode,UserName,Email,Supervisor," +
+        String sql = "INSERT INTO sbUsers (UserCode,UserName,Password,Email,Supervisor," +
                 "Controller,Telephone)" +
                 "VALUES (" +
                 "'" + c.UserCode + "'," +
                 "'" + c.UserName + "'," +
+                "'" + c.Password + "'," +
                 "'" + c.Email + "'," +
                 "'" + c.Supervisor + "'," +
                 "'" + c.Controller + "'," +
@@ -90,6 +91,8 @@ public class SqlGet {
         String sql = "select * from sbUsers WHERE UserCode = '" + strConsultant + "'";
         ResultSet rs;
         ConsultantRecord c = new ConsultantRecord();
+        c.RecNo = 0;
+
         try {
 
             Statement statement = cn.createStatement();
@@ -106,6 +109,7 @@ public class SqlGet {
                 c.Telephone = rs.getString("Telephone");
             }
         } catch (SQLException e) {
+            c.RecNo = 0;
             eMes = e.getMessage();
         }
         return c;

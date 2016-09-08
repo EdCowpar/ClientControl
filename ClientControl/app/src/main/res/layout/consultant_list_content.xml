@@ -2,20 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
-
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp" />
+    android:orientation="horizontal"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp">
 
     <TextView
         android:id="@+id/id"
-        android:layout_width="0dp"
+        android:layout_width="72dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_weight="1"
         android:textAppearance="?attr/textAppearanceListItem" />
 
 
@@ -23,7 +17,5 @@
         android:id="@+id/content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_weight="2"
         android:textAppearance="?attr/textAppearanceListItem" />
 </LinearLayout>

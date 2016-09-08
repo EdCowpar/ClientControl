@@ -24,6 +24,8 @@ public class ConsultantListActivity extends AppCompatActivity {
     private boolean mTwoPane;
     private SqlGet sq;
     private String eMes;
+    private View recyclerView;
+    private FloatingActionButton fabAddNew;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,7 @@ public class ConsultantListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_consultant_list);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        FloatingActionButton fabAddNew = (FloatingActionButton) findViewById(R.id.fabAddNew);
+        fabAddNew = (FloatingActionButton) findViewById(R.id.fabAddNew);
         fabAddNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,9 +42,7 @@ public class ConsultantListActivity extends AppCompatActivity {
             }
         });
 
-        View recyclerView = findViewById(R.id.consultant_list);
-        assert recyclerView != null;
-        setupRecyclerView((RecyclerView) recyclerView);
+        recyclerView = findViewById(R.id.consultant_list);
 
         if (findViewById(R.id.item_detail_container) != null) {
             // The detail container view will be present only in the
@@ -51,6 +51,12 @@ public class ConsultantListActivity extends AppCompatActivity {
             // activity should be in two-pane mode.
             mTwoPane = true;
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        setupRecyclerView((RecyclerView) recyclerView);
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {

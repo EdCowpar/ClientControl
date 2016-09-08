@@ -41,11 +41,6 @@ public class Dialog_SelectHeadings_Activity extends AppCompatActivity {
     private List<HeadingRecord> LoadList() {
         lst = new ArrayList<HeadingRecord>();
         r = GetData.Read_ReportHeadings(this.getApplicationContext(), "ClientDetails.txt");
-        if (r.RecNo == 0) {
-            r.ClientNo = true;
-            r.ClientName = true;
-            r.ExpiryDate = true;
-        }
         lst = AddList(lst, "ClientNo", r.ClientNo);
         lst = AddList(lst, "ClientName", r.ClientName);
         lst = AddList(lst, "ContactName", r.ContactName);

@@ -115,6 +115,11 @@ public class GetData {
                 eMes = ex.getMessage();
             }
         }
+        if (r.RecNo == 0) {
+            r.ClientNo = true;
+            r.ClientName = true;
+            r.ExpiryDate = true;
+        }
         return r;
     }
 
