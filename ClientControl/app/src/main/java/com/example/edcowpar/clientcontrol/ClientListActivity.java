@@ -136,6 +136,7 @@ public class ClientListActivity extends AppCompatActivity {
 
             case R.id.Headings:
                 i = new Intent(this, Dialog_SelectHeadings_Activity.class);
+                i.putExtra("FileName", "ClientDetails.txt");
                 startActivity(i);
                 return true;
 

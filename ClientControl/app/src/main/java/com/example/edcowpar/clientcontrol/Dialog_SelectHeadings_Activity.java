@@ -22,14 +22,19 @@ import java.util.List;
 public class Dialog_SelectHeadings_Activity extends AppCompatActivity {
     private ReportHeadings r;
     private List<HeadingRecord> lst;
+    private String filename;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_select_headings_layout);
+        //get parameter in extra
+        Bundle b = getIntent().getExtras();
+        filename = b.getString("FileName");
 
         View recyclerView = findViewById(R.id.heading_list);
         setupRecyclerView((RecyclerView) recyclerView);
+
 
     }
 
@@ -40,7 +45,7 @@ public class Dialog_SelectHeadings_Activity extends AppCompatActivity {
 
     private List<HeadingRecord> LoadList() {
         lst = new ArrayList<HeadingRecord>();
-        r = GetData.Read_ReportHeadings(this.getApplicationContext(), "ClientDetails.txt");
+        r = GetData.Read_ReportHeadings(this.getApplicationContext(), filename);
         lst = AddList(lst, "ClientNo", r.ClientNo);
         lst = AddList(lst, "ClientName", r.ClientName);
         lst = AddList(lst, "ContactName", r.ContactName);
@@ -97,7 +102,7 @@ public class Dialog_SelectHeadings_Activity extends AppCompatActivity {
     }
 
     public void Confirm(View v) {
-        GetData.Write_ReportHeadings(this.getApplicationContext(), "ClientDetails.txt", r);
+        GetData.Write_ReportHeadings(this.getApplicationContext(), filename, r);
         finish();
     }
 

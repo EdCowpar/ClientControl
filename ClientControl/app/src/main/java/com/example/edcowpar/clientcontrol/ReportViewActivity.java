@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,6 +30,7 @@ public class ReportViewActivity extends AppCompatActivity {
     SqlGet sq;
     Connection cn;
     Intent i;
+    private ReportHeadings r;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,15 @@ public class ReportViewActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(strRepName);
         actionBar.setSubtitle(strRepTitle);
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        table_layout.removeAllViews();   //delete old data
+        setHeadings();     //Get Headings
         Build_Rep_001();
 
     }
@@ -69,6 +80,7 @@ public class ReportViewActivity extends AppCompatActivity {
 
             case R.id.Headings:
                 i = new Intent(this, Dialog_SelectHeadings_Activity.class);
+                i.putExtra("FileName", strRepName + ".txt");
                 startActivity(i);
                 return true;
 
@@ -78,6 +90,11 @@ public class ReportViewActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+    private void setHeadings() {
+        r = GetData.Read_ReportHeadings(this.getApplicationContext(), strRepName + ".txt");
+
     }
 
     private void Build_Rep_001() {
@@ -97,11 +114,21 @@ public class ReportViewActivity extends AppCompatActivity {
             //Headings
             row = newTableRow();
             row = addTableCell(row, "ClientNo");
-            row = addTableCell(row, "ClientName");
-            row = addTableCell(row, "ContactName");
-            row = addTableCell(row, "EmailAddress");
-            row = addTableCell(row, "ExpiryDate");
-            row = addTableCell(row, "Volume");
+            if (r.ClientName.equals(true)) {
+                row = addTableCell(row, "ClientName");
+            }
+            if (r.ContactName.equals(true)) {
+                row = addTableCell(row, "ContactName");
+            }
+            if (r.EmailAddress.equals(true)) {
+                row = addTableCell(row, "EmailAddress");
+            }
+            if (r.ExpiryDate.equals(true)) {
+                row = addTableCell(row, "ExpiryDate");
+            }
+            if (r.Volumn.equals(true)) {
+                row = addTableCell(row, "Volume");
+            }
             table_layout.addView(row);
 
             while (rs.next()) {
@@ -109,10 +136,18 @@ public class ReportViewActivity extends AppCompatActivity {
                 row = newTableRow();
                 row = addTableCell(row, c.ClientNo);
                 row = addTableCell(row, c.ClientName);
-                row = addTableCell(row, c.ContactName);
-                row = addTableCell(row, c.EmailAddress);
-                row = addTableCell(row, c.ExpiryDate);
-                row = addTableCell(row, c.Volumn);
+                if (r.ContactName.equals(true)) {
+                    row = addTableCell(row, c.ContactName);
+                }
+                if (r.EmailAddress.equals(true)) {
+                    row = addTableCell(row, c.EmailAddress);
+                }
+                if (r.ExpiryDate.equals(true)) {
+                    row = addTableCell(row, c.ExpiryDate);
+                }
+                if (r.Volumn.equals(true)) {
+                    row = addTableCell(row, c.Volumn);
+                }
                 table_layout.addView(row);
 
             }
