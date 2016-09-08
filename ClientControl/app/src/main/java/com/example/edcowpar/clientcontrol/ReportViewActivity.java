@@ -1,16 +1,17 @@
 package com.example.edcowpar.clientcontrol;
 
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.widget.Button;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.TableRow.LayoutParams;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -27,6 +28,7 @@ public class ReportViewActivity extends AppCompatActivity {
     ImageButton addBtn, minusBtn;
     SqlGet sq;
     Connection cn;
+    Intent i;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +39,45 @@ public class ReportViewActivity extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         strRepName = b.getString("RepName");
         strRepTitle = getResources().getString(R.string.Rep_001);
-        getSupportActionBar().setTitle(strRepName + " " + strRepTitle);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle(strRepName);
+        actionBar.setSubtitle(strRepTitle);
         Build_Rep_001();
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // show menu when menu button is pressed
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.report_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.Sort:
+                i = new Intent(this, SortDialog.class);
+                startActivity(i);
+                return true;
+
+            case R.id.Search:
+                i = new Intent(this, SelectClientActivity.class);
+                startActivity(i);
+                return true;
+
+            case R.id.Headings:
+                i = new Intent(this, Dialog_SelectHeadings_Activity.class);
+                startActivity(i);
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
     private void Build_Rep_001() {

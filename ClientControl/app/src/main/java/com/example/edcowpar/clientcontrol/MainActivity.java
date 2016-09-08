@@ -51,7 +51,10 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setTitle("Client Control");
+        actionBar.setSubtitle("Home");
         t1 = new TextToSpeech(getApplicationContext(), this);
         t1.setOnUtteranceProgressListener(mProgressListener);
         sr = SpeechRecognizer.createSpeechRecognizer(this); // added
