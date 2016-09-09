@@ -83,8 +83,8 @@ public class GetData {
         ReportHeadings r = new ReportHeadings();
         File f = new File(ctx.getFilesDir(), filename);
         r.RecNo = 0;
-        r.ClientNo = false;
-        r.ClientName = false;
+        r.ClientNo = true;
+        r.ClientName = true;
         r.ContactName = false;
         r.EmailAddress = false;
         r.PayeNo = false;
@@ -114,11 +114,6 @@ public class GetData {
             } catch (Exception ex) {
                 eMes = ex.getMessage();
             }
-        }
-        if (r.RecNo == 0) {
-            r.ClientNo = true;
-            r.ClientName = true;
-            r.ExpiryDate = true;
         }
         return r;
     }

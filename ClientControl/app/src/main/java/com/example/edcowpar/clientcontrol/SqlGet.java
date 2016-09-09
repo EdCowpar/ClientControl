@@ -38,6 +38,19 @@ public class SqlGet {
     String eMes;
     Connection cn;
 
+    public static String getField(ResultSet rs, String Name) {
+        try {
+            String myString = rs.getString(Name);
+            if (myString != null) {
+                return myString;
+            } else {
+                return "Null";
+            }
+        } catch (SQLException e) {
+            return "";
+        }
+    }
+
     public String OpenConnection() {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                 .permitAll().build();
@@ -132,6 +145,7 @@ public class SqlGet {
         }
         return c;
     }
+
     public String UpdConsultant(ConsultantRecord c) {
 
         String sql = "UPDATE sbUsers SET UserCode = '" + c.UserCode + "'," +
@@ -200,7 +214,6 @@ public class SqlGet {
 
         return ci;
     }
-
 
     public String getSerialNo(String strSerialNo) {
         String sql = "select ClientNo from sbClients WHERE ClientNo = '" + strSerialNo + "'";
@@ -463,27 +476,27 @@ public class SqlGet {
 
         try {
             c.RecNo = Integer.parseInt(rs.getString("RecNo"));
-            c.ClientNo = rs.getString("ClientNo");
-            c.ClientName = rs.getString("ClientName");
-            c.ContactName = rs.getString("ContactName");
-            c.Telephone = rs.getString("Telephone");
-            c.EmailAddress = rs.getString("EmailAddress");
-            c.PayeNo = rs.getString("PayeNo");
-            c.ExpiryDate = rs.getString("ExpiryDate");
-            c.Volumn = rs.getString("Volumn");
-            c.UIFNo = rs.getString("UIFNo");
-            c.SDLNo = rs.getString("SDLNo");
-            c.System = rs.getString("System");
-            c.Annual_Licence = rs.getString("Annual_Licence");
-            c.Paid = rs.getString("Paid");
-            c.Postal_01 = rs.getString("Postal_01");
-            c.Postal_02 = rs.getString("Postal_02");
-            c.Postal_03 = rs.getString("Postal_03");
-            c.PostCode = rs.getString("PostCode");
-            c.InstallPin = rs.getString("InstallPin");
-            c.PDFModule = rs.getString("PDFModule");
-            c.Consultant = rs.getString("Consultant");
-            c.InCloud = rs.getString("InCloud");
+            c.ClientNo = getField(rs, "ClientNo");
+            c.ClientName = getField(rs, "ClientName");
+            c.ContactName = getField(rs, "ContactName");
+            c.Telephone = getField(rs, "Telephone");
+            c.EmailAddress = getField(rs, "EmailAddress");
+            c.PayeNo = getField(rs, "PayeNo");
+            c.ExpiryDate = getField(rs, "ExpiryDate");
+            c.Volumn = getField(rs, "Volumn");
+            c.UIFNo = getField(rs, "UIFNo");
+            c.SDLNo = getField(rs, "SDLNo");
+            c.System = getField(rs, "System");
+            c.Annual_Licence = getField(rs, "Annual_Licence");
+            c.Paid = getField(rs, "Paid");
+            c.Postal_01 = getField(rs, "Postal_01");
+            c.Postal_02 = getField(rs, "Postal_02");
+            c.Postal_03 = getField(rs, "Postal_03");
+            c.PostCode = getField(rs, "PostCode");
+            c.InstallPin = getField(rs, "InstallPin");
+            c.PDFModule = getField(rs, "PDFModule");
+            c.Consultant = getField(rs, "Consultant");
+            c.InCloud = getField(rs, "InCloud");
         } catch (SQLException e) {
             eMes = e.getMessage();
         }
