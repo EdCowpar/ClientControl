@@ -133,6 +133,7 @@ public class ReportViewActivity extends AppCompatActivity {
             rs = statement.executeQuery(sql);
             Add_Heading();
             saveKey = "";
+            rows = 0;
 
             while (rs.next()) {
                 c = sq.populateClientRecord(rs);
@@ -147,7 +148,10 @@ public class ReportViewActivity extends AppCompatActivity {
                     saveKey = curKey;
                 }
                 Add_Data();
+                rows = rows + 1;
             }
+            doTotals();
+
         } catch (SQLException e) {
             eMes = e.getMessage();
         }
@@ -181,7 +185,9 @@ public class ReportViewActivity extends AppCompatActivity {
     private void doTotals() {
         row = newTableRow();
         row = addTotalCell(row, "Total");
-        row = addTotalCell(row, saveKey);
+        String s = saveKey + " " + rows.toString();
+        rows = 0;
+        row = addTotalCell(row, s);
         table_layout.addView(row);
         //add space
         tv = new TextView(this);
