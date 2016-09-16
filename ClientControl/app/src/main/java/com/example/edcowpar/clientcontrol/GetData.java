@@ -118,4 +118,36 @@ public class GetData {
         return r;
     }
 
+    public static void Write_ReportTotals(Context ctx, String filename, ReportTotals r) {
+        try {
+            FileOutputStream fileOut = ctx.openFileOutput(filename, Activity.MODE_PRIVATE);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            r.RecNo = 1;
+            out.writeObject(r);
+            out.close();
+            fileOut.close();
+        } catch (Exception ex) {
+            eMes = ex.getMessage();
+        }
+    }
+
+    public static ReportTotals Read_ReportTotals(Context ctx, String filename) {
+        ReportTotals r = new ReportTotals();
+        File f = new File(ctx.getFilesDir(), filename);
+        r.RecNo = 0;
+        r.TotalsOnly = false;
+        if (f.isFile()) {
+            try {
+                FileInputStream fileIn = ctx.openFileInput(filename);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                r = (ReportTotals) in.readObject();
+                in.close();
+                fileIn.close();
+            } catch (Exception ex) {
+                eMes = ex.getMessage();
+            }
+        }
+        return r;
+    }
+
 }

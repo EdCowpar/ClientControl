@@ -5,25 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ClientListActivity">
+    tools:context="com.example.edcowpar.clientcontrol.Dialog_SelectTotals_Activity">
 
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:orientation="vertical">
 
-        <include layout="@layout/client_list" />
-    </FrameLayout>
+        <Switch
+            android:id="@+id/swTotals"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:showText="true"
+            android:switchMinWidth="100dp"
+            android:text="Show totals only" />
+
+
+    </LinearLayout>
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
+        android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_input_add"
-        android:tint="@color/colorWhite" />
-
+        android:src="@drawable/ic_save" />
 
 </android.support.design.widget.CoordinatorLayout>

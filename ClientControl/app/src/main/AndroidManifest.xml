@@ -141,7 +141,8 @@
             android:name=".SortDialog"
             android:theme="@style/AppDialogTheme" />
         <activity android:name=".SelectHeadingsActivity" />
-        <activity android:name=".Dialog_SelectHeadings_Activity"></activity>
+        <activity android:name=".Dialog_SelectHeadings_Activity" />
+        <activity android:name=".Dialog_SelectTotals_Activity"></activity>
     </application>
 
 </manifest>

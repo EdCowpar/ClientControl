@@ -12,7 +12,6 @@
     tools:context="com.example.edcowpar.clientcontrol.ModifyClientActivity">
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/ScrollView01"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/btGroup"
@@ -20,7 +19,6 @@
         android:layout_marginBottom="8dp">
 
         <RelativeLayout
-            android:id="@+id/DataLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -230,7 +228,6 @@
                 android:layout_below="@+id/input_layout_h1">
 
                 <TextView
-                    android:id="@+id/tvConsultant"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/spConsultant"
@@ -360,7 +357,6 @@
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/input_layout_InstallPin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -385,7 +381,6 @@
         android:layout_alignParentBottom="true">
 
         <Button
-            android:id="@+id/btnModify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

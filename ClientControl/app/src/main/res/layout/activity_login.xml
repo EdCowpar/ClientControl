@@ -11,12 +11,10 @@
     tools:context="com.example.edcowpar.clientcontrol.LoginActivity">
 
     <ScrollView
-        android:id="@+id/login_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -90,7 +88,6 @@
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/ivbackoffice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"

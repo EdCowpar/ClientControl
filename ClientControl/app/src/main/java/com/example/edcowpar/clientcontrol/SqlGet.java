@@ -51,6 +51,32 @@ public class SqlGet {
         }
     }
 
+    public static String getDateField(ResultSet rs, String Name) {
+        try {
+            String myString = rs.getString(Name);
+            if (myString != null) {
+                return myString;
+            } else {
+                return "        ";
+            }
+        } catch (SQLException e) {
+            return "";
+        }
+    }
+
+    public static String getNumberField(ResultSet rs, String Name) {
+        try {
+            String myString = rs.getString(Name);
+            if (rs.wasNull()) {
+                return "0";
+            } else {
+                return myString;
+            }
+        } catch (SQLException e) {
+            return "";
+        }
+    }
+
     public String OpenConnection() {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                 .permitAll().build();
@@ -288,28 +314,7 @@ public class SqlGet {
             rs = statement.executeQuery(sql);
 
             while (rs.next()) {
-                c.RecNo = Integer.parseInt(rs.getString("RecNo"));
-                c.ClientNo = rs.getString("ClientNo");
-                c.ClientName = rs.getString("ClientName");
-                c.ContactName = rs.getString("ContactName");
-                c.Telephone = rs.getString("Telephone");
-                c.EmailAddress = rs.getString("EmailAddress");
-                c.PayeNo = rs.getString("PayeNo");
-                c.ExpiryDate = rs.getString("ExpiryDate");
-                c.Volumn = rs.getString("Volumn");
-                c.UIFNo = rs.getString("UIFNo");
-                c.SDLNo = rs.getString("SDLNo");
-                c.System = rs.getString("System");
-                c.Annual_Licence = rs.getString("Annual_Licence");
-                c.Paid = rs.getString("Paid");
-                c.Postal_01 = rs.getString("Postal_01");
-                c.Postal_02 = rs.getString("Postal_02");
-                c.Postal_03 = rs.getString("Postal_03");
-                c.PostCode = rs.getString("PostCode");
-                c.InstallPin = rs.getString("InstallPin");
-                c.PDFModule = rs.getString("PDFModule");
-                c.Consultant = rs.getString("Consultant");
-                c.InCloud = rs.getString("InCloud");
+                c = populateClientRecord(rs);
             }
         } catch (SQLException e) {
             eMes = e.getMessage();
@@ -363,30 +368,7 @@ public class SqlGet {
 
             while (rs.next()) {
                 count++;
-                ClientRecord c = new ClientRecord();
-                c.RecNo = Integer.parseInt(rs.getString("RecNo"));
-                c.ClientNo = rs.getString("ClientNo");
-                c.ClientName = rs.getString("ClientName");
-                c.ContactName = rs.getString("ContactName");
-                c.Telephone = rs.getString("Telephone");
-                c.EmailAddress = rs.getString("EmailAddress");
-                c.PayeNo = rs.getString("PayeNo");
-                c.ExpiryDate = rs.getString("ExpiryDate");
-                c.Volumn = rs.getString("Volumn");
-                c.UIFNo = rs.getString("UIFNo");
-                c.SDLNo = rs.getString("SDLNo");
-                c.System = rs.getString("System");
-                c.Annual_Licence = rs.getString("Annual_Licence");
-                c.Paid = rs.getString("Paid");
-                c.Postal_01 = rs.getString("Postal_01");
-                c.Postal_02 = rs.getString("Postal_02");
-                c.Postal_03 = rs.getString("Postal_03");
-                c.PostCode = rs.getString("PostCode");
-                c.InstallPin = rs.getString("InstallPin");
-                c.PDFModule = rs.getString("PDFModule");
-                c.Consultant = rs.getString("Consultant");
-                c.InCloud = rs.getString("InCloud");
-
+                ClientRecord c = populateClientRecord(rs);
                 Clients.add(c);
 
             }
@@ -482,12 +464,12 @@ public class SqlGet {
             c.Telephone = getField(rs, "Telephone");
             c.EmailAddress = getField(rs, "EmailAddress");
             c.PayeNo = getField(rs, "PayeNo");
-            c.ExpiryDate = getField(rs, "ExpiryDate");
-            c.Volumn = getField(rs, "Volumn");
+            c.ExpiryDate = getDateField(rs, "ExpiryDate");
+            c.Volumn = getNumberField(rs, "Volumn");
             c.UIFNo = getField(rs, "UIFNo");
             c.SDLNo = getField(rs, "SDLNo");
             c.System = getField(rs, "System");
-            c.Annual_Licence = getField(rs, "Annual_Licence");
+            c.Annual_Licence = getNumberField(rs, "Annual_Licence");
             c.Paid = getField(rs, "Paid");
             c.Postal_01 = getField(rs, "Postal_01");
             c.Postal_02 = getField(rs, "Postal_02");
@@ -506,7 +488,7 @@ public class SqlGet {
     public String getSystemType(Context context, String sType) {
         int i;
         if (sType != null) {
-            if (sType.equals(" ")) {
+            if (sType.equals(" ") || sType.equals("Null")) {
                 i = 9;
             } else {
                 i = Integer.parseInt(sType);

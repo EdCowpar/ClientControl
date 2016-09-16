@@ -2,7 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/options"
         android:title="Options"
         app:showAsAction="collapseActionView|ifRoom">
 
@@ -19,6 +18,10 @@
             <item
                 android:id="@+id/Headings"
                 android:title="Headings"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/Totals"
+                android:title="Totals"
                 app:showAsAction="never" />
 
         </menu>

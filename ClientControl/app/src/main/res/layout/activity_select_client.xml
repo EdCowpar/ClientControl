@@ -42,7 +42,6 @@
         android:prompt="@string/system_prompt" />
 
     <TextView
-        android:id="@+id/tvConsultant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -83,7 +82,6 @@
         android:paddingBottom="@dimen/activity_vertical_margin" />
 
     <TextView
-        android:id="@+id/tvToDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -103,7 +101,6 @@
         android:paddingBottom="@dimen/activity_vertical_margin" />
 
     <Button
-        android:id="@+id/btnFromDate"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
