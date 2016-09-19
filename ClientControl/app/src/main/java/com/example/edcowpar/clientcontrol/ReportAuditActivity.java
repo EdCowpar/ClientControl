@@ -1,15 +1,13 @@
 package com.example.edcowpar.clientcontrol;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -21,7 +19,8 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ReportViewActivity extends AppCompatActivity {
+public class ReportAuditActivity extends AppCompatActivity {
+
     private String eMes, RepName, sql, curKey, saveKey, today;
     private TableLayout table_layout;
     private Integer cols, col_qty, col_Lic, col_Vol;
@@ -53,7 +52,7 @@ public class ReportViewActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();  // Always call the superclass method first
         table_layout.removeAllViews();   //delete old data
-        getHeadings(RepName + ".txt");     //Get Headings
+        getHeadings(RepName + ".txt");   //Get Headings
         eMes = Build_Rep(RepName);
         if (!eMes.equals("ok")) {
             Intent i = new Intent(this, ErrorActivity.class);

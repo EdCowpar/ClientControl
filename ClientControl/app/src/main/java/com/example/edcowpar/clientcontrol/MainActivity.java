@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     }
 
     public void SelectReports(View view) {
-        Intent intent = new Intent(this, ReportMenuActivity.class);
+        Intent intent = new Intent(this, ReportMainActivity.class);
         startActivity(intent);
     }
 

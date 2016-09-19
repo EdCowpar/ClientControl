@@ -167,5 +167,36 @@ public class SubRoutines {
         return ReportNames;
     }
 
+    public static List<ReportNames> getAuditReportNames() {
+        List<ReportNames> ReportNames = new ArrayList<ReportNames>();
+
+        ReportNames c = new ReportNames();
+        c.Name = "Aud_001";
+        c.Description = "Client Renewals by Consultant";
+        ReportNames.add(c);
+
+        c = new ReportNames();
+        c.Name = "Aud_002";
+        c.Description = "Client Renewals by Expiry Date";
+        ReportNames.add(c);
+
+        c = new ReportNames();
+        c.Name = "Aud_003";
+        c.Description = "Client Renewals by System Type";
+        ReportNames.add(c);
+
+        c = new ReportNames();
+        c.Name = "Aud_004";
+        c.Description = "Client Renewals by Value";
+        ReportNames.add(c);
+
+        c = new ReportNames();
+        c.Name = "Aud_005";
+        c.Description = "Client Renewals by Volume";
+        ReportNames.add(c);
+
+
+        return ReportNames;
+    }
 
 }
