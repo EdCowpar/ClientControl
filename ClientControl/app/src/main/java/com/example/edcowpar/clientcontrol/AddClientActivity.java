@@ -26,7 +26,7 @@ public class AddClientActivity extends AppCompatActivity {
         etContactNo = (EditText) findViewById(R.id.ContactNo);
         etContactName = (EditText) findViewById(R.id.ContactName);
         etEmail = (EditText) findViewById(R.id.Email);
-        fabSave = (FloatingActionButton) findViewById(R.id.fabAddNew);
+        fabSave = (FloatingActionButton) findViewById(R.id.fabSave);
 
         fabSave.setOnClickListener(new View.OnClickListener() {
             @Override

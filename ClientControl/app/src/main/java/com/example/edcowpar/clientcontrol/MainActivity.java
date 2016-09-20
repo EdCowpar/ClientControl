@@ -17,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -25,13 +27,16 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
     private final int REQ_CODE_SPEECH_INPUT = 100;
+    AppSettings a;
     TextToSpeech t1;
     CharSequence toSpeak;
-    String txtSpeechInput;
+    private String txtSpeechInput, mController, mSupervisor;
     private boolean initialized;
     private String queuedText;
     private SpeechRecognizer sr;
     private Bundle params;
+    private TextView tvConsultant;
+    private ImageView ivConsultant;
     private UtteranceProgressListener mProgressListener = new UtteranceProgressListener() {
         @Override
         public void onStart(String utteranceId) {
@@ -51,6 +56,13 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        a = GetData.Read(this.getApplicationContext());
+        if (!a.Supervisor.equals("Y")) {
+            tvConsultant = (TextView) findViewById(R.id.tvConsultants);
+            ivConsultant = (ImageView) findViewById(R.id.ivConsultants);
+            tvConsultant.setVisibility(View.INVISIBLE);
+            ivConsultant.setVisibility(View.INVISIBLE);
+        }
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(false);
         actionBar.setTitle("Client Control");
@@ -223,7 +235,10 @@ public class MainActivity extends AppCompatActivity implements TextToSpeech.OnIn
     }
 
     public void SelectReports(View view) {
-        Intent intent = new Intent(this, ReportMainActivity.class);
+        Intent intent = new Intent(this, ReportMenuActivity.class);
+        if (a.Controller.equals("Y")) {
+            intent = new Intent(this, ReportMainActivity.class);
+        }
         startActivity(intent);
     }
 

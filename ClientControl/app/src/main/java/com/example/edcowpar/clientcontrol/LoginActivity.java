@@ -17,6 +17,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText etUserCode, etPassword;
     String strUserCode, strPassword, eMes;
     AppSettings a;
+    ConsultantRecord c;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
             etUserCode.setError(eMes);
             return false;
         }
-        ConsultantRecord c = sq.getConsultant(strUserCode);
+        c = sq.getConsultant(strUserCode);
         if (!eMes.equals("ok")) {
             etUserCode.requestFocus();
             etUserCode.setError(eMes);
@@ -97,6 +98,8 @@ public class LoginActivity extends AppCompatActivity {
         a.setUserCode(c.UserCode.trim());
         a.setPassword(c.Password.trim());
         a.setUserName(c.UserName.trim());
+        a.setController(c.Controller.trim());
+        a.setSupervisor(c.Supervisor.trim());
         a.setRecNo(c.RecNo);
         GetData.Write(this.getApplicationContext(), a); //Create File
 

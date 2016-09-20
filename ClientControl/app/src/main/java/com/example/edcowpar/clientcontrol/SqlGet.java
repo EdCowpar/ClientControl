@@ -485,6 +485,24 @@ public class SqlGet {
         return c;
     }
 
+    public AuditRecord populateAuditRecord(ResultSet rs) {
+        AuditRecord c = new AuditRecord();
+
+        try {
+            c.RecNo = Integer.parseInt(rs.getString("RecNo"));
+            c.UserName = getField(rs, "UserName");
+            c.Action = getField(rs, "Action");
+            c.ClientNo = getField(rs, "ClientNo");
+            c.ClientName = getField(rs, "ClientName");
+            c.runDate = getField(rs, "runDate");
+            c.runTime = getField(rs, "runTime");
+            c.Remarks = getField(rs, "Remarks");
+        } catch (SQLException e) {
+            eMes = e.getMessage();
+        }
+        return c;
+    }
+
     public String getSystemType(Context context, String sType) {
         int i;
         if (sType != null) {

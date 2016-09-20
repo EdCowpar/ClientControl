@@ -21,19 +21,19 @@ import java.util.Date;
 
 public class ReportAuditActivity extends AppCompatActivity {
 
-    private String eMes, RepName, sql, curKey, saveKey, today;
+    private String eMes, RepName, sql, curKey, saveKey;
     private TableLayout table_layout;
-    private Integer cols, col_qty, col_Lic, col_Vol;
-    private double tot9_rows, tot9_Lic, tot9_Vol;
-    private double tot1_rows, tot1_Lic, tot1_Vol;
+    private Integer cols, col_qty;
+    private double tot9_rows;
+    private double tot1_rows;
     private TableRow row;
     private TextView tv;
     private SqlGet sq;
     private Connection cn;
     private Intent i;
-    private ReportHeadings r;
+    private AuditHeadings r;
     private ReportTotals t;
-    private ClientRecord c;
+    private AuditRecord c;
     private ActionBar actionBar;
 
     @Override
@@ -43,9 +43,6 @@ public class ReportAuditActivity extends AppCompatActivity {
         table_layout = (TableLayout) findViewById(R.id.tableLayout1);
         Bundle b = getIntent().getExtras();
         RepName = b.getString("RepName");
-        today = new SimpleDateFormat("yyyyMMdd").format(new Date());
-
-
     }
 
     @Override
@@ -66,17 +63,13 @@ public class ReportAuditActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // show menu when menu button is pressed
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.report_menu, menu);
+        inflater.inflate(R.menu.audit_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.Sort:
-                i = new Intent(this, SortDialog.class);
-                startActivity(i);
-                return true;
 
             case R.id.Search:
                 i = new Intent(this, SelectClientActivity.class);
@@ -84,7 +77,7 @@ public class ReportAuditActivity extends AppCompatActivity {
                 return true;
 
             case R.id.Headings:
-                i = new Intent(this, Dialog_SelectHeadings_Activity.class);
+                i = new Intent(this, Dialog_SelectAuditHeadings.class);
                 i.putExtra("FileName", RepName + ".txt");
                 startActivity(i);
                 return true;
@@ -104,42 +97,41 @@ public class ReportAuditActivity extends AppCompatActivity {
     }
 
     private void getHeadings(String filename) {
-        r = GetData.Read_ReportHeadings(this.getApplicationContext(), filename);
+        r = GetData.Read_AuditHeadings(this.getApplicationContext(), filename);
         t = GetData.Read_ReportTotals(this.getApplicationContext(), filename);
         actionBar = getSupportActionBar();
         actionBar.setTitle(RepName);
         switch (RepName) {
-            case "Rep_001":  //Clients by Consultant
-                actionBar.setSubtitle(getResources().getString(R.string.Rep_001));
-                sql = "select * from sbClients order by Consultant,ClientName";
-                break;
-            case "Rep_002": //Clients by Expiry Date
+            case "Aud_001":  //Client Renewals by Month
                 if (r.RecNo.equals(0)) {
-                    r.ExpiryDate = true;
+                    r.runDate = true;
                 }
-                actionBar.setSubtitle(getResources().getString(R.string.Rep_002));
-                sql = "select * from sbClients order by ExpiryDate,ClientName";
+                actionBar.setSubtitle("Client Renewals by Month");
+                sql = "select * from sbAudit order by substring(runDate,1,6) DESC, ClientNo, runDate DESC";
                 break;
-            case "Rep_003":   //Clients by System Type
-                actionBar.setSubtitle(getResources().getString(R.string.Rep_003));
-                sql = "select * from sbClients order by System,ClientName";
-                break;
-            case "Rep_004":   //Clients by Value
+            case "Aud_002":  //Client Renewals by Client
                 if (r.RecNo.equals(0)) {
-                    r.AnnualLicence = true;
+                    r.runDate = true;
                 }
-                actionBar.setSubtitle(getResources().getString(R.string.Rep_004));
-                sql = "select * from sbClients order by Annual_Licence,ClientName";
+                actionBar.setSubtitle("Client Renewals by Client");
+                sql = "select * from sbAudit order by ClientNo, runDate DESC";
                 break;
-            case "Rep_005":   //Clients by Volume
+            case "Aud_003":  //Client Renewals by Consultant
                 if (r.RecNo.equals(0)) {
-                    r.Volumn = true;
+                    r.runDate = true;
                 }
-                actionBar.setSubtitle(getResources().getString(R.string.Rep_005));
-                sql = "select * from sbClients order by Volumn,ClientName";
+                actionBar.setSubtitle("Client Renewals by Consultant");
+                sql = "select * from sbAudit order by UserName, ClientNo, runDate DESC";
+                break;
+            case "Aud_004":  //Client Renewals by Action
+                if (r.RecNo.equals(0)) {
+                    r.runDate = true;
+                }
+                actionBar.setSubtitle("Client Renewals by Action");
+                sql = "select * from sbAudit order by Action, ClientNo, runDate DESC";
                 break;
             default:
-                sql = "select * from sbClients";
+                sql = "select * from sbAudit";
 
         }
     }
@@ -161,7 +153,7 @@ public class ReportAuditActivity extends AppCompatActivity {
             tot1_rows = 0;
 
             while (rs.next()) {
-                c = sq.populateClientRecord(rs);
+                c = sq.populateAuditRecord(rs);
                 curKey = Build_Key();
                 if (saveKey.equals("")) {
                     saveKey = curKey;
@@ -188,44 +180,17 @@ public class ReportAuditActivity extends AppCompatActivity {
     private String Build_Key() {
         String key;
         switch (RepName) {
-            case "Rep_001":  //Clients by Consultant
-                key = "Consultant " + c.Consultant;
+            case "Aud_001":  //Client Renewals by Month
+                key = SubRoutines.FmtString(c.runDate, "m");  //ccyymmdd to Month ccyy
                 break;
-            case "Rep_002": //Clients by Expiry Date
-                int result = c.ExpiryDate.compareTo(today);
-                if (result == 0)
-                    key = "Expires Today";
-                else if (result < 0)
-                    key = "Already Expired";
-                else
-                    key = "Expires " + SubRoutines.FmtString(c.ExpiryDate, "a");
+            case "Aud_002":  //Client Renewals by ClientNo
+                key = "Client " + c.ClientNo;
                 break;
-            case "Rep_003":   //Clients by System Type
-                key = "System Type " + sq.getSystemType(this, c.System);
+            case "Aud_003":  //Client Renewals by Consultant
+                key = "Consultant " + c.UserName;
                 break;
-            case "Rep_004":   //Clients by Value
-                Double l = Double.parseDouble(c.Annual_Licence);
-                if (l < 500) {
-                    key = "less than R500";
-                } else if (l < 1000) {
-                    key = "between R500 and R1000";
-                } else if (l < 5000) {
-                    key = "between R1000 and R5000";
-                } else {
-                    key = "R5000 and over";
-                }
-                break;
-            case "Rep_005":   //Clients by Volume
-                Double v = Double.parseDouble(c.Volumn);
-                if (v < 10) {
-                    key = "less than 10";
-                } else if (v < 50) {
-                    key = "between 10 and 50";
-                } else if (v < 500) {
-                    key = "between 50 and 500";
-                } else {
-                    key = "500 and over";
-                }
+            case "Aud_004":  //Client Renewals by Action
+                key = c.Action;
                 break;
             default:
                 key = "";
@@ -246,22 +211,6 @@ public class ReportAuditActivity extends AppCompatActivity {
             row = addTotalCell(row, String.format("%.0f", tot9_rows), "RIGHT");
             cols = 4;
         }
-        if (col_Vol > 0) {
-            while (cols < col_Vol) {
-                cols++;
-                row = addTableCell(row, " ");
-            }
-            row = addTotalCell(row, String.format("%.0f", tot9_Vol), "RIGHT");
-            cols++;
-        }
-        if (col_Lic > 0) {
-            while (cols < col_Lic) {
-                cols++;
-                row = addTableCell(row, " ");
-            }
-            row = addTotalCell(row, String.format("%.2f", tot9_Lic), "RIGHT");
-            cols++;
-        }
         table_layout.addView(row);
         //add space
         tv = new TextView(this);
@@ -271,13 +220,8 @@ public class ReportAuditActivity extends AppCompatActivity {
         table_layout.addView(tv);
         //accumulate final totals
         tot1_rows = tot1_rows + tot9_rows;
-        tot1_Lic = tot1_Lic + tot9_Lic;
-        tot1_Vol = tot1_Vol + tot9_Vol;
         //clear totals
         tot9_rows = 0;
-        tot9_Lic = 0;
-        tot9_Vol = 0;
-
     }
 
     private void doFinalTotals() {
@@ -292,22 +236,6 @@ public class ReportAuditActivity extends AppCompatActivity {
             row = addTotalCell(row, s, "");
             row = addTotalCell(row, String.format("%.0f", tot1_rows), "RIGHT");
             cols = 4;
-        }
-        if (col_Vol > 0) {
-            while (cols < col_Vol) {
-                cols++;
-                row = addTableCell(row, " ");
-            }
-            row = addTotalCell(row, String.format("%.0f", tot1_Vol), "RIGHT");
-            cols++;
-        }
-        if (col_Lic > 0) {
-            while (cols < col_Lic) {
-                cols++;
-                row = addTableCell(row, " ");
-            }
-            row = addTotalCell(row, String.format("%.2f", tot1_Lic), "RIGHT");
-            cols++;
         }
         table_layout.addView(row);
         //add space
@@ -331,13 +259,7 @@ public class ReportAuditActivity extends AppCompatActivity {
     private void Add_Heading() {
         row = newTableRow();
         cols = 0;
-        col_Vol = 0;
-        col_Lic = 0;
         col_qty = 0;
-        tot9_Vol = 0;
-        tot9_Lic = 0;
-        tot1_Vol = 0;
-        tot1_Lic = 0;
         if (r.ClientNo.equals(true)) {
             cols++;
             row = addTableCell(row, "ClientNo");
@@ -346,131 +268,37 @@ public class ReportAuditActivity extends AppCompatActivity {
             cols++;
             row = addTableCell(row, "ClientName");
         }
-        if (r.ContactName.equals(true)) {
+        if (r.runDate.equals(true)) {
             cols++;
-            row = addTableCell(row, "ContactName");
+            row = addTableCell(row, "runDate");
             if (col_qty.equals(0)) {
                 col_qty = cols;
             }
         }
-        if (r.EmailAddress.equals(true)) {
+        if (r.UserName.equals(true)) {
             cols++;
-            row = addTableCell(row, "EmailAddress");
+            row = addTableCell(row, "UserName");
             if (col_qty.equals(0)) {
                 col_qty = cols;
             }
         }
-        if (r.PayeNo.equals(true)) {
+        if (r.Action.equals(true)) {
             cols++;
-            row = addTableCell(row, "PayeNo");
+            row = addTableCell(row, "Action");
             if (col_qty.equals(0)) {
                 col_qty = cols;
             }
         }
-        if (r.Telephone.equals(true)) {
+        if (r.runTime.equals(true)) {
             cols++;
-            row = addTableCell(row, "Telephone");
+            row = addTableCell(row, "runTime");
             if (col_qty.equals(0)) {
                 col_qty = cols;
             }
         }
-        if (r.ExpiryDate.equals(true)) {
+        if (r.Remarks.equals(true)) {
             cols++;
-            row = addTableCell(row, "ExpiryDate");
-            if (col_qty.equals(0)) {
-                col_qty = cols;
-            }
-        }
-        if (r.Volumn.equals(true)) {
-            cols++;
-            col_Vol = cols;
-            row = addTableCell(row, "Volume");
-        }
-        if (r.UIFNo.equals(true)) {
-            cols++;
-            row = addTableCell(row, "UIFNo");
-            if (col_qty.equals(0)) {
-                col_qty = cols;
-            }
-        }
-        if (r.SDLNo.equals(true)) {
-            cols++;
-            row = addTableCell(row, "SDLNo");
-            if (col_qty.equals(0)) {
-                col_qty = cols;
-            }
-        }
-        if (r.System.equals(true)) {
-            cols++;
-            row = addTableCell(row, "System");
-            if (col_qty.equals(0)) {
-                col_qty = cols;
-            }
-        }
-        if (r.AnnualLicence.equals(true)) {
-            cols++;
-            col_Lic = cols;
-            row = addTableCell(row, "AnnualLicence");
-        }
-        if (r.Paid.equals(true)) {
-            cols++;
-            row = addTableCell(row, "Paid");
-            if (col_qty.equals(0)) {
-                col_qty = cols;
-            }
-        }
-        if (r.Postal_01.equals(true)) {
-            cols++;
-            row = addTableCell(row, "Postal_01");
-            if (col_qty.equals(0)) {
-                col_qty = cols;
-            }
-        }
-        if (r.Postal_02.equals(true)) {
-            cols++;
-            row = addTableCell(row, "Postal_02");
-            if (col_qty.equals(0)) {
-                col_qty = cols;
-            }
-        }
-        if (r.Postal_03.equals(true)) {
-            cols++;
-            row = addTableCell(row, "Postal_03");
-            if (col_qty.equals(0)) {
-                col_qty = cols;
-            }
-        }
-        if (r.PostCode.equals(true)) {
-            cols++;
-            row = addTableCell(row, "PostCode");
-            if (col_qty.equals(0)) {
-                col_qty = cols;
-            }
-        }
-        if (r.InstallPin.equals(true)) {
-            cols++;
-            row = addTableCell(row, "InstallPin");
-            if (col_qty.equals(0)) {
-                col_qty = cols;
-            }
-        }
-        if (r.PDFModule.equals(true)) {
-            cols++;
-            row = addTableCell(row, "PDFModule");
-            if (col_qty.equals(0)) {
-                col_qty = cols;
-            }
-        }
-        if (r.Consultant.equals(true)) {
-            cols++;
-            row = addTableCell(row, "Consultant");
-            if (col_qty.equals(0)) {
-                col_qty = cols;
-            }
-        }
-        if (r.InCloud.equals(true)) {
-            cols++;
-            row = addTableCell(row, "InCloud");
+            row = addTableCell(row, "Remarks");
             if (col_qty.equals(0)) {
                 col_qty = cols;
             }
@@ -488,69 +316,22 @@ public class ReportAuditActivity extends AppCompatActivity {
             if (r.ClientName.equals(true)) {
                 row = addTableCell(row, c.ClientName);
             }
-            if (r.ContactName.equals(true)) {
-                row = addTableCell(row, c.ContactName);
-            }
-            if (r.EmailAddress.equals(true)) {
-                row = addTableCell(row, c.EmailAddress);
-            }
-            if (r.PayeNo.equals(true)) {
-                row = addTableCell(row, c.PayeNo);
-            }
-            if (r.Telephone.equals(true)) {
-                row = addTableCell(row, c.Telephone);
-            }
-            if (r.ExpiryDate.equals(true)) {
-                String strTxt = c.ExpiryDate;
+            if (r.runDate.equals(true)) {
+                String strTxt = c.runDate;
                 strTxt = SubRoutines.FmtString(strTxt, "a");
                 row = addTableCell(row, strTxt);
             }
-            if (r.Volumn.equals(true)) {
-                tot9_Vol = tot9_Vol + Double.parseDouble(c.Volumn);
-                row = addNumberTableCell(row, c.Volumn);
+            if (r.UserName.equals(true)) {
+                row = addTableCell(row, c.UserName);
             }
-            if (r.UIFNo.equals(true)) {
-                row = addTableCell(row, c.UIFNo);
+            if (r.Action.equals(true)) {
+                row = addTableCell(row, c.Action);
             }
-            if (r.SDLNo.equals(true)) {
-                row = addTableCell(row, c.SDLNo);
+            if (r.runTime.equals(true)) {
+                row = addTableCell(row, c.runTime);
             }
-            if (r.System.equals(true)) {
-                String sType = c.System;
-                String v = sq.getSystemType(this, sType);
-                row = addTableCell(row, v);
-            }
-            if (r.AnnualLicence.equals(true)) {
-                tot9_Lic = tot9_Lic + Double.parseDouble(c.Annual_Licence);
-                row = addNumberTableCell(row, c.Annual_Licence);
-            }
-            if (r.Paid.equals(true)) {
-                row = addTableCell(row, c.Paid);
-            }
-            if (r.Postal_01.equals(true)) {
-                row = addTableCell(row, c.Postal_01);
-            }
-            if (r.Postal_02.equals(true)) {
-                row = addTableCell(row, c.Postal_02);
-            }
-            if (r.Postal_03.equals(true)) {
-                row = addTableCell(row, c.Postal_03);
-            }
-            if (r.PostCode.equals(true)) {
-                row = addTableCell(row, c.PostCode);
-            }
-            if (r.InstallPin.equals(true)) {
-                row = addTableCell(row, c.InstallPin);
-            }
-            if (r.PDFModule.equals(true)) {
-                row = addTableCell(row, c.PDFModule);
-            }
-            if (r.Consultant.equals(true)) {
-                String cc = sq.getConsultantName(c.Consultant);
-                row = addTableCell(row, cc);
-            }
-            if (r.InCloud.equals(true)) {
-                row = addTableCell(row, c.InCloud);
+            if (r.Remarks.equals(true)) {
+                row = addTableCell(row, c.Remarks);
             }
             table_layout.addView(row);
         }

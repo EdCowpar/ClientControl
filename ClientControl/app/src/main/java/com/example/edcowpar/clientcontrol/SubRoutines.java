@@ -41,20 +41,56 @@ public class SubRoutines {
     public static String FmtString(String strText, String Fmt) {
         String txt;
 
-        switch (Fmt) {
-            case "[a]":
-            case "a":
-                // ccyymmdd to dd-mm-ccyy  (start,End) from 0
-                if (strText != null && !strText.equals("        ")) {
+        if (strText != null && !strText.equals("        ")) {
+            switch (Fmt) {
+                case "[a]":
+                case "a":
+                    // ccyymmdd to dd-mm-ccyy  (start,End) from 0
                     txt = strText.substring(6, 8) + "-" + strText.substring(4, 6) + "-" + strText.substring(0, 4);
-                } else {
-                    txt = "        ";
-                }
-                return txt;
-            default:
-                return strText;
+                    return txt;
+                case "m":
+                case "[m]":
+                    // ccyymmdd to Month ccyy
+                    txt = getMonth(strText.substring(4, 6)) + " " + strText.substring(0, 4);
+                    return txt;
+                default:
+                    return strText;
+            }
+        } else {
+            txt = "        ";
+            return txt;
         }
+    }
 
+    public static String getMonth(String mth) {
+        switch (mth) {
+            case "01":
+                return "January";
+            case "02":
+                return "February";
+            case "03":
+                return "March";
+            case "04":
+                return "April";
+            case "05":
+                return "May";
+            case "06":
+                return "June";
+            case "07":
+                return "July";
+            case "08":
+                return "August";
+            case "09":
+                return "September";
+            case "10":
+                return "October";
+            case "11":
+                return "November";
+            case "12":
+                return "December";
+            default:
+                return mth;
+        }
     }
     public static String formatDate(int year, int month, int day, String fmt) {
 
@@ -172,29 +208,23 @@ public class SubRoutines {
 
         ReportNames c = new ReportNames();
         c.Name = "Aud_001";
-        c.Description = "Client Renewals by Consultant";
+        c.Description = "Client Renewals by Month";
         ReportNames.add(c);
 
         c = new ReportNames();
         c.Name = "Aud_002";
-        c.Description = "Client Renewals by Expiry Date";
+        c.Description = "Client Renewals by Client";
         ReportNames.add(c);
 
         c = new ReportNames();
         c.Name = "Aud_003";
-        c.Description = "Client Renewals by System Type";
+        c.Description = "Client Renewals by Consultant";
         ReportNames.add(c);
 
         c = new ReportNames();
         c.Name = "Aud_004";
-        c.Description = "Client Renewals by Value";
+        c.Description = "Client Renewals by Action";
         ReportNames.add(c);
-
-        c = new ReportNames();
-        c.Name = "Aud_005";
-        c.Description = "Client Renewals by Volume";
-        ReportNames.add(c);
-
 
         return ReportNames;
     }

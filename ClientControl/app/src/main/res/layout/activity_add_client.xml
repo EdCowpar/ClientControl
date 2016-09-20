@@ -23,8 +23,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/etSerialNo"
-            android:inputType="number"
-            android:text="@string/etSerialNo" />
+            android:inputType="number" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -42,8 +41,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Client Name"
-        android:inputType="textPersonName"
-        android:text="@string/etClientName" />
+        android:inputType="textPersonName" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -60,8 +58,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Postal Address"
-        android:inputType="textMultiLine"
-        android:text="@string/etAddress" />
+        android:inputType="textMultiLine" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -78,8 +75,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Contact Number"
-        android:inputType="phone"
-        android:text="@string/etContactNumber" />
+        android:inputType="phone" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -96,8 +92,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Contact Name"
-        android:inputType="textPersonName"
-        android:text="@string/etContactName" />
+        android:inputType="textPersonName" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -114,8 +109,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Email Address"
-            android:inputType="textEmailAddress"
-            android:text="@string/etEmailAddress" />
+            android:inputType="textEmailAddress" />
     </android.support.design.widget.TextInputLayout>
 
     <RelativeLayout

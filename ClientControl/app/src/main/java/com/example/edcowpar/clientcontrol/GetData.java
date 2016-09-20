@@ -79,6 +79,19 @@ public class GetData {
         }
     }
 
+    public static void Write_AuditHeadings(Context ctx, String filename, AuditHeadings r) {
+        try {
+            FileOutputStream fileOut = ctx.openFileOutput(filename, Activity.MODE_PRIVATE);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            r.RecNo = 1;
+            out.writeObject(r);
+            out.close();
+            fileOut.close();
+        } catch (Exception ex) {
+            eMes = ex.getMessage();
+        }
+    }
+
     public static ReportHeadings Read_ReportHeadings(Context ctx, String filename) {
         ReportHeadings r = new ReportHeadings();
         File f = new File(ctx.getFilesDir(), filename);
@@ -109,6 +122,31 @@ public class GetData {
                 FileInputStream fileIn = ctx.openFileInput(filename);
                 ObjectInputStream in = new ObjectInputStream(fileIn);
                 r = (ReportHeadings) in.readObject();
+                in.close();
+                fileIn.close();
+            } catch (Exception ex) {
+                eMes = ex.getMessage();
+            }
+        }
+        return r;
+    }
+
+    public static AuditHeadings Read_AuditHeadings(Context ctx, String filename) {
+        AuditHeadings r = new AuditHeadings();
+        File f = new File(ctx.getFilesDir(), filename);
+        r.RecNo = 0;
+        r.ClientNo = true;
+        r.ClientName = true;
+        r.UserName = false;
+        r.Remarks = false;
+        r.Action = false;
+        r.runDate = false;
+        r.runTime = false;
+        if (f.isFile()) {
+            try {
+                FileInputStream fileIn = ctx.openFileInput(filename);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                r = (AuditHeadings) in.readObject();
                 in.close();
                 fileIn.close();
             } catch (Exception ex) {

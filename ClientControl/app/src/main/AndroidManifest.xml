@@ -145,7 +145,8 @@
         <activity android:name=".Dialog_SelectTotals_Activity" />
         <activity android:name=".ReportMainActivity" />
         <activity android:name=".ReportAuditMenuActivity" />
-        <activity android:name=".ReportAuditActivity"></activity>
+        <activity android:name=".ReportAuditActivity" />
+        <activity android:name=".Dialog_SelectAuditHeadings"></activity>
     </application>
 
 </manifest>

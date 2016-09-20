@@ -66,7 +66,7 @@ public class ReportAuditMenuActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Context context = v.getContext();
-                    Intent intent = new Intent(context, ReportViewActivity.class);
+                    Intent intent = new Intent(context, ReportAuditActivity.class);
                     intent.putExtra("RepName", holder.mItem.Name);
                     intent.putExtra("RepTitle", holder.mItem.Description);
                     context.startActivity(intent);
