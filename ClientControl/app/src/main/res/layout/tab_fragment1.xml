@@ -4,14 +4,12 @@
     android:layout_height="match_parent"
     tools:context="com.example.edcowpar.clientcontrol.TabFragment1">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:id="@+id/item_detail_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/btGroup"
@@ -36,8 +34,7 @@
                         android:layout_height="wrap_content"
                         android:hint="SerialNo"
                         android:inputType="number"
-                        android:selectAllOnFocus="true"
-                        android:text="@string/etSerialNo" />
+                        android:selectAllOnFocus="true" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -56,135 +53,7 @@
                         android:hint="Client Name"
                         android:inputType="textPersonName"
                         android:selectAllOnFocus="true"
-                        android:text="@string/etClientName"
                         android:textAllCaps="true" />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/input_layout_Address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/input_layout_ClientName">
-
-                    <EditText
-                        android:id="@+id/etAddress"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/etAddress"
-                        android:inputType="textMultiLine|textCapCharacters"
-                        android:selectAllOnFocus="true"
-                        android:text="@string/etAddress" />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/input_layout_Phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/input_layout_Address">
-
-                    <EditText
-                        android:id="@+id/etContactNo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Contact Number"
-                        android:inputType="phone"
-                        android:selectAllOnFocus="true"
-                        android:text="@string/etContactNumber" />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/input_layout_ContactName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/input_layout_Phone">
-
-                    <EditText
-                        android:id="@+id/etContactName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Contact Name"
-                        android:inputType="textPersonName"
-                        android:selectAllOnFocus="true"
-                        android:text="@string/etContactName"
-                        android:textAllCaps="true" />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/input_layout_Email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/input_layout_ContactName">
-
-                    <EditText
-                        android:id="@+id/etEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Email Address"
-                        android:inputType="textEmailAddress"
-                        android:selectAllOnFocus="true"
-                        android:text="@string/etEmailAddress" />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/input_layout_Paye"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/input_layout_Email">
-
-                    <EditText
-                        android:id="@+id/etPayeNo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/etPayeNo"
-                        android:inputType="number"
-                        android:selectAllOnFocus="true"
-                        android:text="@string/etPayeNo" />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/input_layout_SdlNo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/input_layout_Paye">
-
-                    <EditText
-                        android:id="@+id/etSdlNo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/etSdlNo"
-                        android:inputType="number"
-                        android:selectAllOnFocus="true"
-                        android:text="@string/etSdlNo" />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/input_layout_UifNo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/input_layout_SdlNo">
-
-                    <EditText
-                        android:id="@+id/etUifNo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/etUifNo"
-                        android:inputType="number"
-                        android:selectAllOnFocus="true"
-                        android:text="@string/etUifNo" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -193,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_below="@+id/input_layout_UifNo">
+                    android:layout_below="@+id/input_layout_ClientName">
 
                     <TextView
                         android:id="@+id/tvSystemType"
@@ -265,9 +134,7 @@
                         android:focusable="false"
                         android:hint="@string/etExpiryDate"
                         android:inputType="none"
-                        android:onClick="showDatePickerDialog"
-                        android:text="@string/etExpiryDate" />
-
+                        android:onClick="showDatePickerDialog" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -285,8 +152,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/etAnnualLicence"
                         android:inputType="numberDecimal"
-                        android:selectAllOnFocus="true"
-                        android:text="@string/etAnnualLicence" />
+                        android:selectAllOnFocus="true" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -303,8 +169,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/etVolume"
                         android:inputType="number"
-                        android:selectAllOnFocus="true"
-                        android:text="@string/etVolume" />
+                        android:selectAllOnFocus="true" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -367,30 +232,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/etInstallPin"
-                        android:inputType="textPersonName"
-                        android:text="@string/etInstallPin" />
+                        android:inputType="textPersonName" />
                 </android.support.design.widget.TextInputLayout>
             </RelativeLayout>
         </ScrollView>
 
-        <RelativeLayout
-            android:id="@+id/btGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/fabSave"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="@dimen/fab_margin"
-                android:src="@drawable/ic_save" />
-
-
-        </RelativeLayout>
 
 
     </RelativeLayout>

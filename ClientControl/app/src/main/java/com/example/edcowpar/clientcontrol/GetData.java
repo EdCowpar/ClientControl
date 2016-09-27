@@ -188,4 +188,36 @@ public class GetData {
         return r;
     }
 
+    public static ClientRecord Read_ClientRecord(Context ctx) {
+        ClientRecord c = new ClientRecord();
+        String filename = "clientno.txt";
+        File f = new File(ctx.getFilesDir(), filename);
+        c.RecNo = 0;
+        if (f.isFile()) {
+            try {
+                FileInputStream fileIn = ctx.openFileInput(filename);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                c = (ClientRecord) in.readObject();
+                in.close();
+                fileIn.close();
+            } catch (Exception ex) {
+                c.ClientName = ex.getMessage();
+            }
+        }
+        return c;
+    }
+
+    public static void Write_ClientRecord(Context ctx, ClientRecord c) {
+        String filename = "clientno.txt";
+        try {
+            FileOutputStream fileOut = ctx.openFileOutput(filename, Activity.MODE_PRIVATE);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(c);
+            out.close();
+            fileOut.close();
+        } catch (Exception ex) {
+            eMes = ex.getMessage();
+        }
+    }
+
 }

@@ -1,9 +1,11 @@
 package com.example.edcowpar.clientcontrol;
 
+import java.io.Serializable;
+
 /**
  * Created by EdCowpar on 2016/06/23.
  */
-public class ClientRecord {
+public class ClientRecord implements Serializable {
     Integer RecNo;
     String ClientNo;
     String ClientName;

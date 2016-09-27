@@ -149,7 +149,8 @@
         <activity android:name=".Dialog_SelectAuditHeadings" />
         <activity
             android:name=".MainActivityTabs"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
     </application>
 
 </manifest>
