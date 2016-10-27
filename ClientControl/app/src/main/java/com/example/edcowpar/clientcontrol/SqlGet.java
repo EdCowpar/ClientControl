@@ -407,15 +407,14 @@ public class SqlGet {
                 "WHERE RecNo = '" + c.RecNo + "'";
 
         try {
+            eMes = "ok";
             Statement statement = cn.createStatement();
             statement.execute(sql);
-            sql = "Record Updated";
 
         } catch (SQLException e) {
             eMes = e.getMessage();
-            sql = "ERROR " + e.getMessage();
         }
-        return sql;
+        return eMes;
     }
 
     public List<ConsultantRecord> getListConsultants() {
@@ -507,12 +506,12 @@ public class SqlGet {
         int i;
         if (sType != null) {
             if (sType.equals(" ") || sType.equals("Null")) {
-                i = 9;
+                i = 10;
             } else {
                 i = Integer.parseInt(sType);
             }
         } else {
-            i = 9;   //Not Set'
+            i = 10;   //Not Set'
         }
         String v = context.getResources().getStringArray(R.array.system_types)[i];
         return v;

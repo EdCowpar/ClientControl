@@ -2,6 +2,7 @@ package com.example.edcowpar.clientcontrol;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ public class TabFragment2 extends Fragment {
     private EditText etAddress1, etAddress2, etAddress3, etAddress4, etContactName, etContactNo, etEmail;
     private ClientRecord c;
     private Context ctx;
+    private FloatingActionButton fabSave;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public class TabFragment2 extends Fragment {
     public void onResume() {
         super.onResume();
         // Setup Fields
+        fabSave = (FloatingActionButton) getView().findViewById(R.id.fabSave);
         etAddress1 = (EditText) getView().findViewById(R.id.etAddress1);
         etAddress2 = (EditText) getView().findViewById(R.id.etAddress2);
         etAddress3 = (EditText) getView().findViewById(R.id.etAddress3);

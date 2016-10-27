@@ -131,10 +131,8 @@
                         android:id="@+id/etExpiryDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:focusable="false"
                         android:hint="@string/etExpiryDate"
-                        android:inputType="none"
-                        android:onClick="showDatePickerDialog" />
+                        android:inputType="none" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -237,6 +235,24 @@
             </RelativeLayout>
         </ScrollView>
 
+        <RelativeLayout
+            android:id="@+id/btGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/fab_margin"
+                android:src="@drawable/ic_save" />
+
+
+        </RelativeLayout>
 
 
     </RelativeLayout>

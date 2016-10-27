@@ -13,6 +13,7 @@
         <item>SBASE</item>
         <item>SBPOS</item>
         <item>SBOFFICE</item>
+        <item>SBCLUB</item>
         <item>Not Set</item>
         <item>All Systems</item>
     </string-array>
