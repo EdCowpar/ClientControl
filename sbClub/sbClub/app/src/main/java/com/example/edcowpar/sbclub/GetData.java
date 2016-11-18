@@ -46,6 +46,7 @@ public class GetData {
         a.UserLevel = 0;
         a.Speech = "No";
         a.ClientSeq = 0;
+        a.Supervisor="No";
 
         if (f.isFile()) {
             try {
@@ -64,6 +65,7 @@ public class GetData {
         if (a.SaveUser == null) a.SaveUser = "No";
         if (a.Speech == null) a.Speech = "No";
         if (a.ClientSeq == null) a.ClientSeq = 0;
+        if (a.Supervisor == null) a.Supervisor = "No";
         return a;
     }
 

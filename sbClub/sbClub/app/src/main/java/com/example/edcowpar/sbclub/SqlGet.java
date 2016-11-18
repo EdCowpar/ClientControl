@@ -86,7 +86,7 @@ public class SqlGet {
         String ConnURL;
         try {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
-            ConnURL = "jdbc:jtds:sqlserver://winsqls01.cpt.wa.co.za;databaseName=sbLic;user=sbUser;password=User2013;";
+            ConnURL = "jdbc:jtds:sqlserver://winsqls02.cpt.wa.co.za;databaseName=sb1610271;user=RoseCowpar;Password=Rose01;";
             cn = DriverManager.getConnection(ConnURL);
         } catch (SQLException se) {
             eMes = se.getMessage();
@@ -104,17 +104,12 @@ public class SqlGet {
 
     public String AddConsultant(UserRecord c) {
 
-        String sql = "INSERT INTO sbUsers (UserCode,UserName,Password,Email,Supervisor," +
-                "Controller,Telephone)" +
+        String sql = "INSERT INTO sbUsers (Usr,Usn,Pas)" +
                 "VALUES (" +
-                "'" + c.UserCode + "'," +
-                "'" + c.UserName + "'," +
-                "'" + c.Password + "'," +
-                "'" + c.Email + "'," +
-                "'" + c.Supervisor + "'," +
-                "'" + c.Controller + "'," +
-                "'" + c.Telephone + "')";
-        try {
+                "'" + c.Usr + "'," +
+                "'" + c.Usn + "'," +
+                "'" + c.Pas + "')";
+            try {
             Statement statement = cn.createStatement();
             statement.execute(sql);
             sql = "Record Added";
@@ -127,7 +122,7 @@ public class SqlGet {
     }
 
     public UserRecord getConsultant(String strConsultant) {
-        String sql = "select * from sbUsers WHERE UserCode = '" + strConsultant + "'";
+        String sql = "select * from sbUsers WHERE Usr = '" + strConsultant + "'";
         ResultSet rs;
         UserRecord c = new UserRecord();
         c.RecNo = 0;
@@ -139,13 +134,9 @@ public class SqlGet {
 
             while (rs.next()) {
                 c.RecNo = Integer.parseInt(rs.getString("RecNo"));
-                c.Password = rs.getString("Password");
-                c.UserCode = rs.getString("UserCode");
-                c.UserName = rs.getString("UserName").trim();
-                c.Email = rs.getString("Email").trim();
-                c.Supervisor = rs.getString("Supervisor");
-                c.Controller = rs.getString("Controller");
-                c.Telephone = rs.getString("Telephone");
+                c.Pas = rs.getString("Pas").trim();
+                c.Usr = rs.getString("Usr").trim();
+                c.Usn = rs.getString("Usn").trim();
             }
         } catch (SQLException e) {
             c.RecNo = 0;
@@ -155,7 +146,7 @@ public class SqlGet {
     }
 
     public String getConsultantName(String strConsultant) {
-        String sql = "select * from sbUsers WHERE UserCode = '" + strConsultant + "'";
+        String sql = "select * from sbUsers WHERE Usr = '" + strConsultant + "'";
         ResultSet rs;
         String c = "Not Set";
         try {
@@ -164,7 +155,7 @@ public class SqlGet {
             rs = statement.executeQuery(sql);
 
             while (rs.next()) {
-                c = rs.getString("UserName").trim();
+                c = rs.getString("Usn").trim();
             }
         } catch (SQLException e) {
             eMes = e.getMessage();
@@ -174,13 +165,9 @@ public class SqlGet {
 
     public String UpdConsultant(UserRecord c) {
 
-        String sql = "UPDATE sbUsers SET UserCode = '" + c.UserCode + "'," +
-                "UserName  = '" + c.UserName.trim() + "'," +
-                "Email  = '" + c.Email.trim() + "'," +
-                "Supervisor  = '" + c.Supervisor.trim() + "'," +
-                "Controller  = '" + c.Controller.trim() + "'," +
-                "Telephone  = '" + c.Telephone.trim() + "' " +
-                "WHERE RecNo = '" + c.RecNo + "'";
+        String sql = "UPDATE sbUsers SET Con = '" + c.Usr + "'," +
+                "Usn  = '" + c.Usn.trim() + "'," +
+                 "WHERE RecNo = '" + c.RecNo + "'";
 
         try {
             Statement statement = cn.createStatement();
@@ -230,8 +217,8 @@ public class SqlGet {
             rs = statement.executeQuery(sql);
 
             while (rs.next()) {
-                ci.Code.add(rs.getString("UserCode"));
-                ci.Description.add(rs.getString("UserName"));
+                ci.Code.add(rs.getString("Con"));
+                ci.Description.add(rs.getString("Usn"));
                 ci.Count++;
             }
         } catch (SQLException e) {
@@ -433,14 +420,9 @@ public class SqlGet {
             while (rs.next()) {
                 UserRecord c = new UserRecord();
                 c.RecNo = Integer.parseInt(rs.getString("RecNo"));
-                c.Password = rs.getString("Password");
-                c.UserCode = rs.getString("UserCode");
-                c.UserCode = SubRoutines.rightpad(c.UserCode, 4);
-                c.UserName = rs.getString("UserName");
-                c.Email = rs.getString("Email");
-                c.Supervisor = rs.getString("Supervisor");
-                c.Controller = rs.getString("Controller");
-                c.Telephone = rs.getString("Telephone");
+                c.Pas = rs.getString("Pas");
+                c.Usr = rs.getString("Usr");
+                c.Usn = rs.getString("Usn");
 
                 Consultants.add(c);
 
@@ -478,24 +460,6 @@ public class SqlGet {
             c.PDFModule = getField(rs, "PDFModule");
             c.Consultant = getField(rs, "Consultant");
             c.InCloud = getField(rs, "InCloud");
-        } catch (SQLException e) {
-            eMes = e.getMessage();
-        }
-        return c;
-    }
-
-    public AuditRecord populateAuditRecord(ResultSet rs) {
-        AuditRecord c = new AuditRecord();
-
-        try {
-            c.RecNo = Integer.parseInt(rs.getString("RecNo"));
-            c.UserName = getField(rs, "UserName");
-            c.Action = getField(rs, "Action");
-            c.ClientNo = getField(rs, "ClientNo");
-            c.ClientName = getField(rs, "ClientName");
-            c.runDate = getField(rs, "runDate");
-            c.runTime = getField(rs, "runTime");
-            c.Remarks = getField(rs, "Remarks");
         } catch (SQLException e) {
             eMes = e.getMessage();
         }

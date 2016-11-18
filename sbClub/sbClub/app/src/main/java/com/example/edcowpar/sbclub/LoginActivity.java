@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 /**
- * A login screen that offers login via email/password.
+ * A login screen that offers login via email/Pas.
  */
 public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ActionBar actionBar = getSupportActionBar();
-        //actionBar.setTitle("Client Control");
+       // actionBar.setTitle("Client Control");
         actionBar.setSubtitle("Login");
 
         etUserCode = (EditText) findViewById(R.id.etUserCode);
@@ -84,23 +84,21 @@ public class LoginActivity extends AppCompatActivity {
             etUserCode.setError(eMes);
             return false;
         }
-        if (c != null && !c.UserCode.trim().equals(strUserCode.trim())) {
+        if (c != null && !c.Usr.trim().equals(strUserCode.trim())) {
             etUserCode.requestFocus();
             etUserCode.setError("Invalid User Code");
             return false;
         }
-        if (c != null && !c.Password.trim().equals(strPassword.trim())) {
+        if (c != null && !c.Pas.trim().equals(strPassword.trim())) {
             etPassword.requestFocus();
             etPassword.setError("Invalid Password");
             return false;
         }
         //Save Settings
-        a.setUserCode(c.UserCode.trim());
-        a.setPassword(c.Password.trim());
-        a.setUserName(c.UserName.trim());
-        a.setController(c.Controller.trim());
-        a.setSupervisor(c.Supervisor.trim());
-        a.setRecNo(c.RecNo);
+        a.setUserCode(c.Usr.trim());
+        a.setPassword(c.Pas.trim());
+        a.setUserName(c.Usn.trim());
+         a.setRecNo(c.RecNo);
         GetData.Write(this.getApplicationContext(), a); //Create File
 
         return true;
