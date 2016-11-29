@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * A login screen that offers login via email/Pas.
@@ -48,8 +49,6 @@ public class LoginActivity extends AppCompatActivity {
         strUserCode = etUserCode.getText().toString();
         strPassword = etPassword.getText().toString();
 
-        if (!isValidData()) return;
-
         Intent intent = new Intent(this, MainActivity.class);
         if (a.getSpeech().equals("Yes")) {
             intent.putExtra("Speech", a.getWelcome());
@@ -78,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
             etUserCode.setError(eMes);
             return false;
         }
-        c = sq.getConsultant(strUserCode);
+        c = sq.getUser(strUserCode);
         if (!eMes.equals("ok")) {
             etUserCode.requestFocus();
             etUserCode.setError(eMes);
