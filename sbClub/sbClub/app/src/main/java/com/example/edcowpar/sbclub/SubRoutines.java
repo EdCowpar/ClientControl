@@ -41,18 +41,37 @@ public class SubRoutines {
     public static String FmtString(String strText, String Fmt) {
         String txt;
 
-        if (strText != null && !strText.equals("        ")) {
+        if (strText != null && !strText.equals("        ") && !strText.equals("")) {
             switch (Fmt) {
                 case "[a]":
                 case "a":
-                    // ccyymmdd to dd-mm-ccyy  (start,End) from 0
-                    txt = strText.substring(6, 8) + "-" + strText.substring(4, 6) + "-" + strText.substring(0, 4);
-                    return txt;
+                    int l=strText.length();
+                    switch (l) {
+                        case 6:
+                            // ddmmyy to dd-mm-ccyy  (start,End) from 0
+                            Integer y=Integer.parseInt(strText.substring(4, 6));
+                            String c="20";
+                            if (y>20){
+                                c="19";
+                            }
+                            txt = strText.substring(0, 2) + "-" + strText.substring(2, 4) + "-" +c+ strText.substring(4, 6);
+                            break;
+                        case 8:
+                            // ccyymmdd to dd-mm-ccyy  (start,End) from 0
+                            txt = strText.substring(6, 8) + "-" + strText.substring(4, 6) + "-" + strText.substring(0, 4);
+                            break;
+                        default:
+                            txt=strText;
+                    }
+                      return txt;
                 case "m":
                 case "[m]":
                     // ccyymmdd to Month ccyy
                     txt = getMonth(strText.substring(4, 6)) + " " + strText.substring(0, 4);
                     return txt;
+                case "R":
+                    strText="R "+strText;
+                    return strText;
                 default:
                     return strText;
             }

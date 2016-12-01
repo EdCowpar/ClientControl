@@ -38,13 +38,16 @@ public class SqlGet {
     String eMes;
     Connection cn;
 
-    public static String getField(ResultSet rs, String Name) {
+    public static String getField(ResultSet rs, String Name, String Fmt) {
         try {
-            String myString = rs.getString(Name);
+            String myString = rs.getString(Name).trim();
             if (myString != null) {
+                if (Fmt != null && !Fmt.equals("")) {
+                    myString=SubRoutines.FmtString(myString,Fmt);
+                }
                 return myString;
             } else {
-                return "Null";
+                return "";
             }
         } catch (SQLException e) {
             return "";
@@ -238,6 +241,7 @@ public class SqlGet {
                 if (!dbName.equals(pky) && !dbName.equals(sky) && !dbName.equals(scl)) {
                     d = new DataFields();
                     d.dbField = dbName;
+                    d.Fmt=rs.getString("dFmt").trim();
                     d.Description = rs.getString("Desc").trim();
                     Fields.add(d);
                 }
@@ -266,49 +270,49 @@ public class SqlGet {
                 for (int i = 0; i < Fields.size(); i++) {
                     switch (i) {
                         case 0:  //pky
-                            d._0 = rs.getString(Fields.get(i).getDbField()).trim();
+                            d._0=getField(rs,Fields.get(i).getDbField(),Fields.get(i).getFmt());
                             break;
                         case 1:  //sky
-                            d._1 = rs.getString(Fields.get(i).getDbField()).trim();
+                            d._1 = getField(rs,Fields.get(i).getDbField(),Fields.get(i).getFmt());
                             break;
                         case 2:  //scl
-                            d._2 = rs.getString(Fields.get(i).getDbField()).trim();
+                            d._2 = getField(rs,Fields.get(i).getDbField(),Fields.get(i).getFmt());
                             break;
                         case 4:   //additional fields with heading
                             heading=Fields.get(i).getDescription().trim() + ": ";
-                            d._4 =heading + rs.getString(Fields.get(i).getDbField()).trim();
+                            d._4 =heading + getField(rs,Fields.get(i).getDbField(),Fields.get(i).getFmt());
                             break;
                         case 5:   //additional fields with heading
                             heading=Fields.get(i).getDescription().trim() + ": ";
-                            d._5 =heading + rs.getString(Fields.get(i).getDbField()).trim();
+                            d._5 =heading + getField(rs,Fields.get(i).getDbField(),Fields.get(i).getFmt());
                             break;
                         case 6:   //additional fields with heading
                             heading=Fields.get(i).getDescription().trim() + ": ";
-                            d._6 =heading + rs.getString(Fields.get(i).getDbField()).trim();
+                            d._6 =heading + getField(rs,Fields.get(i).getDbField(),Fields.get(i).getFmt());
                             break;
                         case 7:   //additional fields with heading
                             heading=Fields.get(i).getDescription().trim() + ": ";
-                            d._7 =heading + rs.getString(Fields.get(i).getDbField()).trim();
+                            d._7 =heading + getField(rs,Fields.get(i).getDbField(),Fields.get(i).getFmt());
                             break;
                         case 8:   //additional fields with heading
                             heading=Fields.get(i).getDescription().trim() + ": ";
-                            d._8 =heading + rs.getString(Fields.get(i).getDbField()).trim();
+                            d._8 =heading +getField(rs,Fields.get(i).getDbField(),Fields.get(i).getFmt());
                             break;
                         case 9:   //additional fields with heading
                             heading=Fields.get(i).getDescription().trim() + ": ";
-                            d._9 =heading + rs.getString(Fields.get(i).getDbField()).trim();
+                            d._9 =heading + getField(rs,Fields.get(i).getDbField(),Fields.get(i).getFmt());
                             break;
                         case 10:   //additional fields with heading
                             heading=Fields.get(i).getDescription().trim() + ": ";
-                            d._10 =heading + rs.getString(Fields.get(i).getDbField()).trim();
+                            d._10 =heading + getField(rs,Fields.get(i).getDbField(),Fields.get(i).getFmt());
                             break;
                         case 11:   //additional fields with heading
                             heading=Fields.get(i).getDescription().trim() + ": ";
-                            d._11 =heading + rs.getString(Fields.get(i).getDbField()).trim();
+                            d._11 =heading + getField(rs,Fields.get(i).getDbField(),Fields.get(i).getFmt());
                             break;
                         case 12:   //additional fields with heading
                             heading=Fields.get(i).getDescription().trim() + ": ";
-                            d._12 =heading + rs.getString(Fields.get(i).getDbField()).trim();
+                            d._12 =heading + getField(rs,Fields.get(i).getDbField(),Fields.get(i).getFmt());
                             break;
                         default:
                             //ignore

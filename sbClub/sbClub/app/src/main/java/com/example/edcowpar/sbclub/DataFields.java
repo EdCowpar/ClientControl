@@ -8,7 +8,12 @@ import java.io.Serializable;
 public class DataFields implements Serializable {
     String dbTable;
     String dbField;
+    String Fmt;
     String Description;
+
+    public String getFmt() {
+        return Fmt;
+    }
 
     public String getDbTable() {
         return dbTable;

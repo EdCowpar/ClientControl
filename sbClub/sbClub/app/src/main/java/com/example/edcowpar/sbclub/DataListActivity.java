@@ -3,6 +3,7 @@ package com.example.edcowpar.sbclub;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +25,9 @@ public class DataListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_list);
         recyclerView = findViewById(R.id.data_list);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Gilbert and Sullivan Society");
+        actionBar.setSubtitle("Members");
 
         //get parameter in extra
         Bundle b = getIntent().getExtras();
