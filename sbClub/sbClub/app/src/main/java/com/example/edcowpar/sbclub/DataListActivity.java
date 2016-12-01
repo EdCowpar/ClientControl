@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DataListActivity extends AppCompatActivity {
@@ -40,14 +41,24 @@ public class DataListActivity extends AppCompatActivity {
         sq = new SqlGet();
         eMes = sq.OpenConnection();
         if (eMes.equals("ok")) {
-            List<DataRecord> Fields = sq.getDataRecord(strSFP);
+            List<DataKeys> Keys = sq.getDataKeys(strSFP);
             eMes = sq.get_eMes();
-            if (eMes.equals("ok"))
-                recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(Fields));
+            if (eMes.equals("ok")) {
+                List<DataFields> Fields = sq.getDataFields(Keys);
+                eMes = sq.get_eMes();
+                if (eMes.equals("ok")) {
+                    List<DataRecord> Records = sq.getDataRecords(Fields);
+                    eMes = sq.get_eMes();
+                    if (eMes.equals("ok")) {
+                        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(Records));
+                    }
+                }
+            }
         }
+
         if (!eMes.equals("ok")) {
             Intent i = new Intent(this, ErrorActivity.class);
-            i.putExtra("errMessage", eMes);
+            i.putExtra("eMes", eMes);
             startActivity(i);
         }
     }
@@ -72,8 +83,27 @@ public class DataListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mItem = mValues.get(position);
-            holder.mIdView.setText(mValues.get(position).dbField);
-            holder.mContentView.setText(mValues.get(position).Description);
+            holder.mIdView.setText(mValues.get(position)._0);
+            String temp=mValues.get(position)._1+" ";
+            String txt=mValues.get(position)._2+" ";
+            temp=temp+txt;
+            txt=mValues.get(position)._3;
+            if (txt != null && !txt.equals("") & !txt.equals("null")) {
+                temp=temp+"\n"+txt;
+            }
+            txt=mValues.get(position)._4;
+            if (txt != null && !txt.equals("") & !txt.equals("null")) {
+                temp=temp+"\n"+txt;
+            }
+            txt=mValues.get(position)._5;
+            if (txt != null && !txt.equals("") & !txt.equals("null")) {
+                temp=temp+"\n"+txt;
+            }
+            txt=mValues.get(position)._6;
+            if (txt != null && !txt.equals("") & !txt.equals("null")) {
+                temp=temp+"\n"+txt;
+            }
+            holder.mContentView.setText(temp);
 
             // Set the color to red if row is even, or to green if row is odd.
             if (position % 2 == 0) {
