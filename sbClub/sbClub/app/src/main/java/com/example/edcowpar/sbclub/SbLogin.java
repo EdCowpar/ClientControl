@@ -13,7 +13,7 @@ import android.widget.Toast;
 /**
  * A login screen that offers login via email/Pas.
  */
-public class LoginActivity extends AppCompatActivity {
+public class SbLogin extends AppCompatActivity {
     Button btnLogin;
     EditText etUserCode, etPassword;
     String strUserCode, strPassword, eMes;
@@ -23,9 +23,9 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.sblogin);
         ActionBar actionBar = getSupportActionBar();
-       // actionBar.setTitle("Client Control");
+        // actionBar.setTitle("Client Control");
         actionBar.setSubtitle("Login");
 
         etUserCode = (EditText) findViewById(R.id.etUserCode);
@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         strUserCode = etUserCode.getText().toString();
         strPassword = etPassword.getText().toString();
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, SbMenu.class);
         if (a.getSpeech().equals("Yes")) {
             intent.putExtra("Speech", a.getWelcome());
         }
@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
         a.setUserCode(c.Usr.trim());
         a.setPassword(c.Pas.trim());
         a.setUserName(c.Usn.trim());
-         a.setRecNo(c.RecNo);
+        a.setRecNo(c.RecNo);
         GetData.Write(this.getApplicationContext(), a); //Create File
 
         return true;

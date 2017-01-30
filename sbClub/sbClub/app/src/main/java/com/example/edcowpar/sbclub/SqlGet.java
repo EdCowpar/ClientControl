@@ -43,7 +43,7 @@ public class SqlGet {
             String myString = rs.getString(Name).trim();
             if (myString != null) {
                 if (Fmt != null && !Fmt.equals("")) {
-                    myString=SubRoutines.FmtString(myString,Fmt);
+                    myString = SubRoutines.FmtString(myString, Fmt);
                 }
                 return myString;
             } else {
@@ -217,7 +217,7 @@ public class SqlGet {
         scl = Keys.get(0).getScl();
         //add key fields
         d = new DataFields();
-        d.dbTable=Keys.get(0).getDbTable();
+        d.dbTable = Keys.get(0).getDbTable();
         d.dbField = pky;
         Fields.add(d);
         d = new DataFields();
@@ -241,7 +241,7 @@ public class SqlGet {
                 if (!dbName.equals(pky) && !dbName.equals(sky) && !dbName.equals(scl)) {
                     d = new DataFields();
                     d.dbField = dbName;
-                    d.Fmt=rs.getString("dFmt").trim();
+                    d.Fmt = rs.getString("dFmt").trim();
                     d.Description = rs.getString("Desc").trim();
                     Fields.add(d);
                 }
@@ -270,49 +270,49 @@ public class SqlGet {
                 for (int i = 0; i < Fields.size(); i++) {
                     switch (i) {
                         case 0:  //pky
-                            d._0=getField(rs,Fields.get(i).getDbField(),Fields.get(i).getFmt());
+                            d._0 = getField(rs, Fields.get(i).getDbField(), Fields.get(i).getFmt());
                             break;
                         case 1:  //sky
-                            d._1 = getField(rs,Fields.get(i).getDbField(),Fields.get(i).getFmt());
+                            d._1 = getField(rs, Fields.get(i).getDbField(), Fields.get(i).getFmt());
                             break;
                         case 2:  //scl
-                            d._2 = getField(rs,Fields.get(i).getDbField(),Fields.get(i).getFmt());
+                            d._2 = getField(rs, Fields.get(i).getDbField(), Fields.get(i).getFmt());
                             break;
                         case 4:   //additional fields with heading
-                            heading=Fields.get(i).getDescription().trim() + ": ";
-                            d._4 =heading + getField(rs,Fields.get(i).getDbField(),Fields.get(i).getFmt());
+                            heading = Fields.get(i).getDescription().trim() + ": ";
+                            d._4 = heading + getField(rs, Fields.get(i).getDbField(), Fields.get(i).getFmt());
                             break;
                         case 5:   //additional fields with heading
-                            heading=Fields.get(i).getDescription().trim() + ": ";
-                            d._5 =heading + getField(rs,Fields.get(i).getDbField(),Fields.get(i).getFmt());
+                            heading = Fields.get(i).getDescription().trim() + ": ";
+                            d._5 = heading + getField(rs, Fields.get(i).getDbField(), Fields.get(i).getFmt());
                             break;
                         case 6:   //additional fields with heading
-                            heading=Fields.get(i).getDescription().trim() + ": ";
-                            d._6 =heading + getField(rs,Fields.get(i).getDbField(),Fields.get(i).getFmt());
+                            heading = Fields.get(i).getDescription().trim() + ": ";
+                            d._6 = heading + getField(rs, Fields.get(i).getDbField(), Fields.get(i).getFmt());
                             break;
                         case 7:   //additional fields with heading
-                            heading=Fields.get(i).getDescription().trim() + ": ";
-                            d._7 =heading + getField(rs,Fields.get(i).getDbField(),Fields.get(i).getFmt());
+                            heading = Fields.get(i).getDescription().trim() + ": ";
+                            d._7 = heading + getField(rs, Fields.get(i).getDbField(), Fields.get(i).getFmt());
                             break;
                         case 8:   //additional fields with heading
-                            heading=Fields.get(i).getDescription().trim() + ": ";
-                            d._8 =heading +getField(rs,Fields.get(i).getDbField(),Fields.get(i).getFmt());
+                            heading = Fields.get(i).getDescription().trim() + ": ";
+                            d._8 = heading + getField(rs, Fields.get(i).getDbField(), Fields.get(i).getFmt());
                             break;
                         case 9:   //additional fields with heading
-                            heading=Fields.get(i).getDescription().trim() + ": ";
-                            d._9 =heading + getField(rs,Fields.get(i).getDbField(),Fields.get(i).getFmt());
+                            heading = Fields.get(i).getDescription().trim() + ": ";
+                            d._9 = heading + getField(rs, Fields.get(i).getDbField(), Fields.get(i).getFmt());
                             break;
                         case 10:   //additional fields with heading
-                            heading=Fields.get(i).getDescription().trim() + ": ";
-                            d._10 =heading + getField(rs,Fields.get(i).getDbField(),Fields.get(i).getFmt());
+                            heading = Fields.get(i).getDescription().trim() + ": ";
+                            d._10 = heading + getField(rs, Fields.get(i).getDbField(), Fields.get(i).getFmt());
                             break;
                         case 11:   //additional fields with heading
-                            heading=Fields.get(i).getDescription().trim() + ": ";
-                            d._11 =heading + getField(rs,Fields.get(i).getDbField(),Fields.get(i).getFmt());
+                            heading = Fields.get(i).getDescription().trim() + ": ";
+                            d._11 = heading + getField(rs, Fields.get(i).getDbField(), Fields.get(i).getFmt());
                             break;
                         case 12:   //additional fields with heading
-                            heading=Fields.get(i).getDescription().trim() + ": ";
-                            d._12 =heading + getField(rs,Fields.get(i).getDbField(),Fields.get(i).getFmt());
+                            heading = Fields.get(i).getDescription().trim() + ": ";
+                            d._12 = heading + getField(rs, Fields.get(i).getDbField(), Fields.get(i).getFmt());
                             break;
                         default:
                             //ignore
@@ -324,6 +324,97 @@ public class SqlGet {
             eMes = e.getMessage();
         }
         return Record;
+    }
+
+    public List<ScrTabs> getScrTabs(String SFP) {
+        List<ScrTabs> Tabs = new ArrayList<>();
+        String sql;
+        ScrTabs s;
+        sql = "select * from sbScreens WHERE ScrSFP = '" + SFP + "' AND Fmt = 'R'";
+        ResultSet rs;
+
+        try {
+            Statement statement = cn.createStatement();
+            rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                s = new ScrTabs();
+                s.TabNo = rs.getString("TabBox").trim();
+                s.Description = rs.getString("Desc").trim();
+                Tabs.add(s);
+            }
+        } catch (SQLException e) {
+            eMes = e.getMessage();
+        }
+        return Tabs;
+    }
+
+    public List<ScrFields> getScrFields(String SFP) {
+        List<ScrFields> Flds = new ArrayList<>();
+        String sql;
+        ScrFields s;
+        sql = "select * from sbScreens WHERE ScrSFP = '" + SFP + "'";
+        ResultSet rs;
+
+        try {
+            Statement statement = cn.createStatement();
+            rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                s = new ScrFields();
+                s.FldNo = rs.getString("Fld").trim();
+                s.Fmt = rs.getString("Fmt").trim();
+                s.Description = rs.getString("Desc").trim();
+                s.dbName = rs.getString("dbName").trim();
+                s.TabBox = rs.getString("TabBox").toString();
+
+                Flds.add(s);
+            }
+        } catch (SQLException e) {
+            eMes = e.getMessage();
+        }
+        return Flds;
+    }
+
+    public List<ScrFields> getDataRecord(String Table, String PkyName, String PkyValue, List<ScrFields> df) {
+        String sql = "select * from " + Table + " WHERE " + PkyName + " = '" + PkyValue + "'";
+        ResultSet rs;
+        List<ScrFields> f = new ArrayList<>();
+        ScrFields s;
+
+        try {
+
+            Statement statement = cn.createStatement();
+            rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                for (int i = 0; i < df.size(); i++) {
+                    s = new ScrFields();
+                    s.RecNo = Integer.parseInt(rs.getString("RecNo"));
+                    s.FldNo = df.get(i).getFldNo();
+                    s.Fmt = df.get(i).getFmt();
+                    s.Description = df.get(i).getDescription();
+                    s.dbName = df.get(i).getDbName();
+                    s.TabBox = df.get(i).getTabBox();
+                    s.Value = getField(rs, s.dbName);
+                    f.add(s);
+                }
+            }
+        } catch (SQLException e) {
+             eMes = e.getMessage();
+        }
+        return f;
+    }
+
+    public static String getField(ResultSet rs, String Name) {
+        try {
+            String myString = rs.getString(Name);
+            if (myString != null) {
+                return myString;
+            } else {
+                return "Null";
+            }
+        } catch (SQLException e) {
+            return "";
+        }
     }
 
 }

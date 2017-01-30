@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
-public class ErrorActivity extends AppCompatActivity {
+public class SbError extends AppCompatActivity {
 
     TextToSpeech t1;
     CharSequence toSpeak;
@@ -16,7 +16,7 @@ public class ErrorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_error);
+        setContentView(R.layout.sberror);
         //get parameter in extra
         Bundle b = getIntent().getExtras();
         TextView eMes = (TextView) findViewById(R.id.textView);
