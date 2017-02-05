@@ -182,11 +182,14 @@ public class SqlGet {
         return Users;
     }
 
-    public List<DataKeys> getDataKeys(String SFP) {
+    public List<DataKeys> getDataKeys(String SFP, String dbName) {
         List<DataKeys> Keys = new ArrayList<>();
         String sql;
-
-        sql = "select * from sbDatabases WHERE Prg = '" + SFP + "'";
+        if (dbName.equals("")) {
+            sql = "select * from sbDatabases WHERE Prg = '" + SFP + "'";
+        } else {
+            sql = "select * from sbDatabases WHERE Description = '" + dbName + "'";
+        }
         ResultSet rs;
 
         try {
@@ -206,6 +209,7 @@ public class SqlGet {
         }
         return Keys;
     }
+
 
     public List<DataFields> getDataFields(List<DataKeys> Keys) {
         List<DataFields> Fields = new ArrayList<>();
@@ -374,17 +378,39 @@ public class SqlGet {
         return Flds;
     }
 
-    public List<ScrFields> getDataRecord(String Table, String PkyName, String PkyValue, List<ScrFields> df) {
+    public String getScrl(String Table, String PkyName, String PkyValue,List<DataKeys> Keys) {
         String sql = "select * from " + Table + " WHERE " + PkyName + " = '" + PkyValue + "'";
         ResultSet rs;
-        List<ScrFields> f = new ArrayList<>();
-        ScrFields s;
+        String Scrl,  pky, sky, scl;
+        Scrl="";
 
         try {
-
             Statement statement = cn.createStatement();
             rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                //extract keys
+                pky = Keys.get(0).getPky();
+                Scrl = pky + " " + getField(rs, pky);
+                sky = Keys.get(0).getSky();
+                Scrl = Scrl + " " + getField(rs, sky);
+                scl = Keys.get(0).getScl();
+                Scrl = Scrl + " " + getField(rs, scl);
+            }
+        } catch (SQLException e) {
+            Scrl = e.getMessage();
+        }
+        return Scrl;
+    }
 
+    public List<ScrFields> Load_Form(String Table, String PkyName, String PkyValue, List<ScrFields> df) {
+        List<ScrFields> f = new ArrayList<>();
+        ScrFields s;
+        String sql = "select * from " + Table + " WHERE " + PkyName + " = '" + PkyValue + "'";
+        ResultSet rs;
+
+        try {
+            Statement statement = cn.createStatement();
+            rs = statement.executeQuery(sql);
             while (rs.next()) {
                 for (int i = 0; i < df.size(); i++) {
                     s = new ScrFields();
@@ -399,7 +425,7 @@ public class SqlGet {
                 }
             }
         } catch (SQLException e) {
-             eMes = e.getMessage();
+            eMes = e.getMessage();
         }
         return f;
     }
@@ -408,12 +434,12 @@ public class SqlGet {
         try {
             String myString = rs.getString(Name);
             if (myString != null) {
-                return myString;
+                return myString.trim();
             } else {
                 return "Null";
             }
         } catch (SQLException e) {
-            return "";
+            return e.getMessage();
         }
     }
 

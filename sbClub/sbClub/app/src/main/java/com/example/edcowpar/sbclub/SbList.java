@@ -44,7 +44,7 @@ public class SbList extends AppCompatActivity {
         sq = new SqlGet();
         eMes = sq.OpenConnection();
         if (eMes.equals("ok")) {
-            List<DataKeys> Keys = sq.getDataKeys(strSFP);
+            List<DataKeys> Keys = sq.getDataKeys(strSFP,"");
             eMes = sq.get_eMes();
             if (eMes.equals("ok")) {
                 PkyName=Keys.get(0).getPky();
