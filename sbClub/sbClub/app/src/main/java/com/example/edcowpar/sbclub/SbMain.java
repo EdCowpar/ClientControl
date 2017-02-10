@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -21,6 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.ResultSet;
 import java.util.Arrays;
@@ -40,9 +42,11 @@ public class SbMain extends AppCompatActivity {
     private List<DataKeys> Keys;
     private List<ScrFields> Flds;
     private LinearLayout layoutTabs;
+    private ScrollView sv;
     private RelativeLayout rlmain;
     private RelativeLayout rlTabs;
     private ActionBar actionBar;
+    private FloatingActionButton fabSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +66,80 @@ public class SbMain extends AppCompatActivity {
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        fabSave = (FloatingActionButton) findViewById(R.id.fabSave);
+
+        fabSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Save_Tabs(TabNo);
+                String msg =  Save_Record();
+                if (!msg.equals("")) {
+                    Toast.makeText(ctx, msg, Toast.LENGTH_LONG).show();
+                }
+                 finish();
+            }
+        });
+
         //Load Client
         getClient g = new getClient();
         g.execute("");
+    }
+    void Save_Tabs(String TabNo) {
+        Save_Flds(layoutTabs, TabNo);
+    }
+    void Save_Flds(LinearLayout ll, String TabNo) {
+        String t, Fmt, Desc, value;
+        EditText et;
+        Button btn;
+        TextView tv;
 
+        for (int i = 0; i < Flds.size(); i++) {
+            t = Flds.get(i).getTabBox();
+            if (t.equals(TabNo)) {
+                Fmt = Flds.get(i).getFmt();
+                Desc = Flds.get(i).getDescription();
+                value = Flds.get(i).getValue();
+                switch (Fmt) {
+                    case "M":  //menu
+                        break;
+                    case "N":  //Normal
+                        et = (EditText) ll.findViewById(i);
+                        String txt = et.getText().toString();
+                        Flds.get(i).setValue(txt);
+                        break;
+                    case "B":   //Button
+                        break;
+                    case "R":   //Tabstrip
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
 
+    String Save_Record() {
+        String Fmt, value, oValue, dbName;
+        String sql="Update "+DbTable+" SET ";
+        String eMes="";
+        int x=0;
+
+        for (int i = 0; i < Flds.size(); i++) {
+            value = Flds.get(i).getValue();
+            oValue = Flds.get(i).getoValue();
+            if (!value.equals(oValue)) {
+                x=x+1;
+                if (x>1) {
+                    sql=sql+","+Flds.get(i).getDbName()+" = '"+value+"'";
+                } else {
+                    sql=sql+Flds.get(i).getDbName()+" = '"+value+"'";
+                }
+            }
+        }
+        if (x>0) {
+            eMes=sq.updSql(sql);
+        }
+        return eMes;
     }
 
     public class getClient extends AsyncTask<String, String, String> {
@@ -90,9 +163,9 @@ public class SbMain extends AppCompatActivity {
             // Get Tabs
             Tabs = sq.getScrTabs(SFP);                          //Read Record
             Flds = sq.getScrFields(SFP);                        //Load Screen Design
-            Keys=sq.getDataKeys(SFP,"");                        //Load Pky,Sky etc
-            Scrl=sq.getScrl(DbTable, PkyName, Pky,Keys);       //Load Scrl
-            Flds=sq.Load_Form(DbTable, PkyName, Pky,Flds);     //Load Form
+            Keys = sq.getDataKeys(SFP, "");                        //Load Pky,Sky etc
+            Scrl = sq.getScrl(DbTable, PkyName, Pky, Keys);       //Load Scrl
+            Flds = sq.Load_Form(DbTable, PkyName, Pky, Flds);     //Load Form
             return "ok";
         }
 
@@ -105,21 +178,21 @@ public class SbMain extends AppCompatActivity {
             }
             tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
             actionBar.setSubtitle(Scrl);
-            //Load Tab 0
-            //LinearLayout lm = new LinearLayout(ctx);
-            //rlmain.addView(lm);
-            //Load_Flds(lm, "0");
             progressBar.setVisibility(View.GONE);
-            Load_Tabs("1");     //Load Tab 1
+            TabNo="1";
+            Load_Tabs(TabNo);     //Load Tab 1
 
-            tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @Override
                 public void onTabSelected(TabLayout.Tab tab) {
-                    TabNo=String.valueOf(tab.getPosition()+1);
-                Load_Tabs(TabNo);                }
+                    TabNo = String.valueOf(tab.getPosition() + 1);
+                    Load_Tabs(TabNo);
+                }
 
                 @Override
                 public void onTabUnselected(TabLayout.Tab tab) {
+                    TabNo = String.valueOf(tab.getPosition() + 1);
+                    Save_Tabs(TabNo);
 
                 }
 
@@ -128,17 +201,20 @@ public class SbMain extends AppCompatActivity {
 
                 }
             });
-
         }
+
+
         void Load_Tabs(String TabNo) {
             rlTabs.removeAllViews();
-            ScrollView sv = new ScrollView(ctx);
+            sv = new ScrollView(ctx);
             sv.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
             layoutTabs = new LinearLayout(ctx);
             sv.addView(layoutTabs);
             Load_Flds(layoutTabs, TabNo);
             rlTabs.addView(sv);
         }
+
+
 
         void Load_Flds(LinearLayout ll, String TabNo) {
             String t, Fmt, Desc, value;
@@ -164,6 +240,7 @@ public class SbMain extends AppCompatActivity {
                             tv.setText(Desc);
                             ll.addView(tv);
                             et = new EditText(ctx);
+                            et.setId(i);
                             et.setText(value);
                             ll.addView(et);
                             break;
@@ -174,7 +251,7 @@ public class SbMain extends AppCompatActivity {
                             tv = new TextView(ctx);
                             tv.setText(value);
                             ll.addView(tv);
-                            btn=new Button(ctx);
+                            btn = new Button(ctx);
                             btn.setText("...");
                             ll.addView(btn);
                             break;

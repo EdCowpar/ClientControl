@@ -210,6 +210,19 @@ public class SqlGet {
         return Keys;
     }
 
+    public String updSql(String sql) {
+
+        try {
+            Statement statement = cn.createStatement();
+            statement.execute(sql);
+            sql = "Record Updated";
+
+        } catch (SQLException e) {
+            eMes = e.getMessage();
+            sql = "ERROR " + e.getMessage();
+        }
+        return sql;
+    }
 
     public List<DataFields> getDataFields(List<DataKeys> Keys) {
         List<DataFields> Fields = new ArrayList<>();
@@ -378,11 +391,11 @@ public class SqlGet {
         return Flds;
     }
 
-    public String getScrl(String Table, String PkyName, String PkyValue,List<DataKeys> Keys) {
+    public String getScrl(String Table, String PkyName, String PkyValue, List<DataKeys> Keys) {
         String sql = "select * from " + Table + " WHERE " + PkyName + " = '" + PkyValue + "'";
         ResultSet rs;
-        String Scrl,  pky, sky, scl;
-        Scrl="";
+        String Scrl, pky, sky, scl;
+        Scrl = "";
 
         try {
             Statement statement = cn.createStatement();
@@ -421,6 +434,7 @@ public class SqlGet {
                     s.dbName = df.get(i).getDbName();
                     s.TabBox = df.get(i).getTabBox();
                     s.Value = getField(rs, s.dbName);
+                    s.oValue = s.Value;
                     f.add(s);
                 }
             }

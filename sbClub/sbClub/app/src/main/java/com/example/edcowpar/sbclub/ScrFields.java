@@ -11,6 +11,7 @@ public class ScrFields implements Serializable {
     public String Description;
     public String Fmt;
     public String Value;
+    public String oValue;  //Original Value
     public String dbName;
     public String TabBox;
 
@@ -30,8 +31,16 @@ public class ScrFields implements Serializable {
         return Value;
     }
 
+    public String getoValue() {
+        return oValue;
+    }
+
     public void setValue(String value) {
         Value = value;
+    }
+
+    public void setoValue(String oValue) {
+        this.oValue = oValue;
     }
 
     public String getDbName() {
