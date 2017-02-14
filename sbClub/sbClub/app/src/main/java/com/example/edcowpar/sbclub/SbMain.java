@@ -1,5 +1,9 @@
 package com.example.edcowpar.sbclub;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -8,13 +12,17 @@ import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.text.InputType;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
@@ -26,6 +34,7 @@ import android.widget.Toast;
 
 import java.sql.ResultSet;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 public class SbMain extends AppCompatActivity {
@@ -47,6 +56,7 @@ public class SbMain extends AppCompatActivity {
     private RelativeLayout rlTabs;
     private ActionBar actionBar;
     private FloatingActionButton fabSave;
+    private int DateId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +82,11 @@ public class SbMain extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Save_Tabs(TabNo);
-                String msg =  Save_Record();
+                String msg = Save_Record();
                 if (!msg.equals("")) {
                     Toast.makeText(ctx, msg, Toast.LENGTH_LONG).show();
                 }
-                 finish();
+                finish();
             }
         });
 
@@ -84,11 +94,13 @@ public class SbMain extends AppCompatActivity {
         getClient g = new getClient();
         g.execute("");
     }
+
     void Save_Tabs(String TabNo) {
         Save_Flds(layoutTabs, TabNo);
     }
+
     void Save_Flds(LinearLayout ll, String TabNo) {
-        String t, Fmt, Desc, value;
+        String t, Fmt, Desc,txt, value;
         EditText et;
         Button btn;
         TextView tv;
@@ -104,10 +116,13 @@ public class SbMain extends AppCompatActivity {
                         break;
                     case "N":  //Normal
                         et = (EditText) ll.findViewById(i);
-                        String txt = et.getText().toString();
+                        txt = et.getText().toString();
                         Flds.get(i).setValue(txt);
                         break;
                     case "B":   //Button
+                        et = (EditText) ll.findViewById(i);
+                        txt = et.getText().toString();
+                        Flds.get(i).setValue(txt);
                         break;
                     case "R":   //Tabstrip
                         break;
@@ -120,24 +135,25 @@ public class SbMain extends AppCompatActivity {
 
     String Save_Record() {
         String Fmt, value, oValue, dbName;
-        String sql="Update "+DbTable+" SET ";
-        String eMes="";
-        int x=0;
+        String sql = "Update " + DbTable + " SET ";
+        String where = " WHERE RecNo = '"+Flds.get(0).RecNo.toString()+"'";
+        String eMes = "";
+        int x = 0;
 
         for (int i = 0; i < Flds.size(); i++) {
             value = Flds.get(i).getValue();
             oValue = Flds.get(i).getoValue();
             if (!value.equals(oValue)) {
-                x=x+1;
-                if (x>1) {
-                    sql=sql+","+Flds.get(i).getDbName()+" = '"+value+"'";
+                x = x + 1;
+                if (x > 1) {
+                    sql = sql + "," + Flds.get(i).getDbName() + " = '" + value + "'";
                 } else {
-                    sql=sql+Flds.get(i).getDbName()+" = '"+value+"'";
+                    sql = sql + Flds.get(i).getDbName() + " = '" + value + "'";
                 }
             }
         }
-        if (x>0) {
-            eMes=sq.updSql(sql);
+        if (x > 0) {
+            eMes = sq.updSql(sql+where);
         }
         return eMes;
     }
@@ -179,7 +195,7 @@ public class SbMain extends AppCompatActivity {
             tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
             actionBar.setSubtitle(Scrl);
             progressBar.setVisibility(View.GONE);
-            TabNo="1";
+            TabNo = "1";
             Load_Tabs(TabNo);     //Load Tab 1
 
             tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -214,13 +230,23 @@ public class SbMain extends AppCompatActivity {
             rlTabs.addView(sv);
         }
 
+        class mDateSetListener implements DatePickerDialog.OnDateSetListener {
 
-
+            @Override
+            public void onDateSet(DatePicker view, int year, int month,int day) {
+                EditText et=(EditText)findViewById(DateId);
+                String date = SubRoutines.formatDate(year, month, day, "ddMMyy");
+                et.setText(date);
+            }
+        }
         void Load_Flds(LinearLayout ll, String TabNo) {
             String t, Fmt, Desc, value;
             EditText et;
             Button btn;
             TextView tv;
+            DatePicker dp;
+            RelativeLayout rl;
+            RelativeLayout.LayoutParams lp;
 
             ll.setOrientation(LinearLayout.VERTICAL);
             for (int i = 0; i < Flds.size(); i++) {
@@ -241,19 +267,49 @@ public class SbMain extends AppCompatActivity {
                             ll.addView(tv);
                             et = new EditText(ctx);
                             et.setId(i);
+                            et.setSelectAllOnFocus(true);
                             et.setText(value);
                             ll.addView(et);
                             break;
                         case "B":   //Button
+                            //Description
                             tv = new TextView(ctx);
                             tv.setText(Desc);
                             ll.addView(tv);
-                            tv = new TextView(ctx);
-                            tv.setText(value);
-                            ll.addView(tv);
+                            // Layout for text and button
+                            rl = new RelativeLayout(ctx);
+                            et = new EditText(ctx);
+                            et.setText(value);
+                            et.setInputType(InputType.TYPE_CLASS_NUMBER);
+                            et.setId(i);
+                            et.setSelectAllOnFocus(true);
+                            lp = new RelativeLayout.LayoutParams
+                                    (LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT );
+                            lp.addRule(RelativeLayout.CENTER_VERTICAL);
+                            rl.addView(et, lp);
+
                             btn = new Button(ctx);
-                            btn.setText("...");
-                            ll.addView(btn);
+                            btn.setText("Change Date");
+                            btn.setTag(i);
+                            btn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Button tmpBtn=(Button)v;
+                                    DateId=(int)tmpBtn.getTag();
+                                    Calendar c = Calendar.getInstance();
+                                    int mYear = c.get(Calendar.YEAR);
+                                    int mMonth = c.get(Calendar.MONTH);
+                                    int mDay = c.get(Calendar.DAY_OF_MONTH);
+                                    DatePickerDialog dialog = new DatePickerDialog(ctx,
+                                            new mDateSetListener(), mYear, mMonth, mDay);
+                                    dialog.show();
+                                }
+                            });
+                            lp = new RelativeLayout.LayoutParams
+                                    (LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                            lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                            rl.addView(btn, lp);
+                            ll.addView(rl);
                             break;
                         case "R":   //Tabstrip
                             break;
@@ -264,5 +320,4 @@ public class SbMain extends AppCompatActivity {
             }
         }
     }
-
 }
